@@ -1,0 +1,19 @@
+[default_config]
+version = "0.10.0"
+assembler = "gas"
+instruction_set = "arm"
+
+[default_config.opts]
+compiler = "arm-none-eabi-gcc"
+compile_flags_txt = [
+    "-march=armv7-a",    # 或者根据你的 CPU 选择合适的架构
+    "-mcpu=cortex-m4",   # 适用于 Cortex-M4，如果是别的芯片，请更换
+    # "-mthumb",           # 如果你的代码使用 Thumb 指令集
+    "-x",
+    "assembler-with-cpp",
+]
+diagnostics = true
+default_diagnostics = false
+
+[lint]
+enable = false

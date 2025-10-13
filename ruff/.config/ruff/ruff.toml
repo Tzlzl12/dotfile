@@ -1,0 +1,7 @@
+# Same as Black.
+line-length = 100
+indent-width = 4
+
+[lint]
+# Disable fix for unused imports (`F401`).
+unfixable = ["F401"]

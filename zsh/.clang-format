@@ -1,0 +1,267 @@
+---
+BasedOnStyle: LLVM
+
+###################################
+#           语言设置
+###################################
+# Language: 指定用于解析的语言，有效值为 Cpp, C#, Java,
+# JavaScript, ObjC, Proto, TableGen, TextProto.
+
+###################################
+#          缩进配置
+###################################
+# IndentWidth: 缩进的空格数
+IndentWidth: 2
+
+# TabWidth: Tab 宽度
+TabWidth: 8
+
+# UseTab: 是否使用 Tab 缩进
+# 可选项：Never, Always, ForContinuationAndAlignment
+UseTab: Never
+
+# ContinuationIndentWidth: 连续行的缩进宽度
+ContinuationIndentWidth: 4
+
+# IndentCaseLabels: 是否缩进 case 标签
+IndentCaseLabels: true
+
+# IndentWrappedFunctionNames: 是否缩进换行的函数名
+IndentWrappedFunctionNames: false
+
+# NamespaceIndentation: 命名空间缩进方式
+# 可选项：None, Inner, All
+NamespaceIndentation: None
+
+###################################
+#          对齐配置
+###################################
+# AlignAfterOpenBracket: 在开始括号后对齐
+# 可选项：Always, Never, DontAlign
+AlignAfterOpenBracket: AlwaysBreak
+
+# AlignOperands: 是否对齐操作数
+AlignOperands: false
+
+# AlignTrailingComments: 是否对齐尾随注释
+AlignTrailingComments: false
+
+# AlignConsecutiveAssignments: 是否对齐连续赋值
+AlignConsecutiveAssignments: false
+
+# AlignConsecutiveDeclarations: 是否对齐连续声明
+AlignConsecutiveDeclarations: true
+
+# AlignEscapedNewlinesLeft: 是否将转义的换行符左对齐
+AlignEscapedNewlinesLeft: true
+
+# PointerAlignment: 指针对齐方式
+# 可选项：Left, Right, Middle
+PointerAlignment: Left
+
+# DerivePointerAlignment: 是否根据上下文推断指针对齐方式
+DerivePointerAlignment: false
+
+###################################
+#          断行配置
+###################################
+# BreakBeforeBinaryOperators: 在二元运算符之前断行
+# 可选项：None, NonAssignment, All
+BreakBeforeBinaryOperators: None
+
+# BreakBeforeBraces: 大括号断行风格
+# 可选项：Attach, Break, Stroustrup, Allman, GNU, WebKit, Custom
+BreakBeforeBraces: Attach
+
+# BreakBeforeTernaryOperators: 在三元运算符之前断行
+BreakBeforeTernaryOperators: true
+
+# BreakConstructorInitializersBeforeComma: 在构造函数初始化列表的逗号之前断行
+BreakConstructorInitializersBeforeComma: false
+
+# AlwaysBreakTemplateDeclarations: 总是断开模板声明
+AlwaysBreakTemplateDeclarations: true
+
+# AlwaysBreakAfterReturnType: 总是在返回类型后断开
+# 可选项：None, All, TopLevel
+AlwaysBreakAfterReturnType: None
+
+# AlwaysBreakBeforeMultilineStrings: 总是在多行字符串之前断开
+AlwaysBreakBeforeMultilineStrings: true
+
+# BinPackArguments: 将参数打包到一行
+BinPackArguments: false
+
+# BinPackParameters: 将参数打包到一行
+BinPackParameters: false
+
+# BreakStringLiterals: 断开字符串字面量
+BreakStringLiterals: false
+
+# ColumnLimit: 列限制
+ColumnLimit: 80
+
+###################################
+#          注释配置
+###################################
+# CommentPragmas: 用于指定注释的正则表达式
+CommentPragmas: '^ IWYU pragma:'
+
+# SpacesBeforeTrailingComments: 尾随注释前的空格数
+SpacesBeforeTrailingComments: 1
+
+# ReflowComments: 是否重排注释
+ReflowComments: true
+
+###################################
+#          其他配置
+###################################
+# AccessModifierOffset: 访问修饰符偏移量
+AccessModifierOffset: -1
+
+# AllowAllParametersOfDeclarationOnNextLine: 允许声明的所有参数放在下一行
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# AllowShortBlocksOnASingleLine: 允许短代码块在单行
+# 可选项：Empty, Always, InlineOnly
+AllowShortBlocksOnASingleLine: Empty
+
+# AllowShortCaseLabelsOnASingleLine: 允许短 case 标签在单行
+AllowShortCaseLabelsOnASingleLine: false
+
+# AllowShortFunctionsOnASingleLine: 允许短函数在单行
+# 可选项：Empty, Inline, All, InlineOnly
+AllowShortFunctionsOnASingleLine: Empty
+
+# AllowShortIfStatementsOnASingleLine: 允许短 If 语句在单行
+AllowShortIfStatementsOnASingleLine: true
+
+# AllowShortLoopsOnASingleLine: 允许短循环在单行
+AllowShortLoopsOnASingleLine: true
+
+# BreakAfterJavaFieldAnnotations: 在 Java 字段注解后断行
+BreakAfterJavaFieldAnnotations: false
+
+# CompactNamespaces: 压缩命名空间
+CompactNamespaces: false
+
+# ConstructorInitializerAllOnOneLineOrOnePerLine: 构造函数初始化列表全部在一行或每行一个
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+
+# ConstructorInitializerIndentWidth: 构造函数初始化列表缩进宽度
+ConstructorInitializerIndentWidth: 4
+
+# Cpp11BracedListStyle: C++11 风格的花括号列表
+Cpp11BracedListStyle: true
+
+# DisableFormat: 禁用格式化
+DisableFormat: false
+
+# ForEachMacros: ForEach 宏
+ForEachMacros:
+  - FOR_EACH_RANGE
+  - FOR_EACH
+
+# IncludeCategories: 包含头文件分类
+IncludeCategories:
+  - Regex: '^<.*\.h(pp)?>'
+    Priority: 1
+  - Regex: '^<.*'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+
+# KeepEmptyLinesAtTheStartOfBlocks: 保留代码块开头的空行
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# MacroBlockBegin: 宏块开始
+MacroBlockBegin: ''
+
+# MacroBlockEnd: 宏块结束
+MacroBlockEnd: ''
+
+# MaxEmptyLinesToKeep: 保留的最大空行数
+MaxEmptyLinesToKeep: 1
+
+# PenaltyBreakBeforeFirstCallParameter: 在第一个调用参数之前断行的惩罚
+PenaltyBreakBeforeFirstCallParameter: 1
+
+# PenaltyBreakComment: 注释断行的惩罚
+PenaltyBreakComment: 300
+
+# PenaltyBreakFirstLessLess: 第一个 << 断行的惩罚
+PenaltyBreakFirstLessLess: 120
+
+# PenaltyBreakString: 字符串断行的惩罚
+PenaltyBreakString: 1000
+
+# PenaltyExcessCharacter: 超出字符数的惩罚
+PenaltyExcessCharacter: 1000000
+
+# PenaltyReturnTypeOnItsOwnLine: 返回类型独占一行的惩罚
+PenaltyReturnTypeOnItsOwnLine: 2000000
+
+# SortIncludes: 是否排序 includes
+SortIncludes: true
+
+# SpaceAfterCStyleCast: C 风格类型转换后是否添加空格
+SpaceAfterCStyleCast: false
+
+# SpaceBeforeAssignmentOperators: 赋值运算符前是否添加空格
+SpaceBeforeAssignmentOperators: true
+
+# SpaceBeforeParens: 圆括号前是否添加空格
+# 可选项：Never, ControlStatements, Always
+SpaceBeforeParens: ControlStatements
+
+# SpaceInEmptyParentheses: 空圆括号中是否添加空格
+SpaceInEmptyParentheses: false
+
+# SpacesInAngles: 尖括号中是否添加空格
+SpacesInAngles: false
+
+# SpacesInContainerLiterals: 容器字面量中是否添加空格
+SpacesInContainerLiterals: true
+
+# SpacesInCStyleCastParentheses: C 风格类型转换的圆括号中是否添加空格
+SpacesInCStyleCastParentheses: false
+
+# SpacesInParentheses: 圆括号中是否添加空格
+SpacesInParentheses: false
+
+# SpacesInSquareBrackets: 方括号中是否添加空格
+SpacesInSquareBrackets: false
+
+###################################
+#          BraceWrapping 配置
+###################################
+# BraceWrapping: 大括号换行配置
+BraceWrapping:
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterObjCDeclaration: false
+  AfterStruct: false
+  AfterUnion: false
+  BeforeCatch: false
+  BeforeElse: false
+  IndentBraces: false
+---
+Language: C
+
+---
+# C++ Specific
+Language: Cpp
+BasedOnStyle: Google
+Cpp11BracedListStyle: true
+# Standard: 语言标准
+# 可选项：Auto, C++03, C++11, C++14, C++17, C++20, C++23, C++26
+Standard: c++20
+BreakAfterJavaFieldAnnotations: false
+DerivePointerAlignment: false
+---
+Language: CSharp
+# BasedOnStyle: Microsoft
+---

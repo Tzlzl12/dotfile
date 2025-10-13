@@ -1,0 +1,1 @@
+autoconf bat bottom clang cmake diffutils dust doctest eza fd fish fzf flex git-delta gitui inetutils net-tools less libsixel llvm macchina make meson neovim ninja nodejs npm openssh pkgconf plocate podman procs ripgrep sd starship stlink tealdeer tio unzip uv usbutils verilator wget which xmake zoxide

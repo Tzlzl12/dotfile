@@ -1,0 +1,104 @@
+i+ | aaa_base-extras                                   | SUSE Linux Base Package (recommended part)                                      | package
+i+ | aaa_base-wsl                                      | SUSE Linux Base Package (Windows Subsystem for Linux)                           | package
+i+ | bat                                               | A cat(1) clone with syntax highlighting and Git integration                     | package
+i+ | Bear                                              | Tool to generate compilation database for clang tooling                         | package
+i+ | btop                                              | Usage and stats for processor, memory, disks, network and processes             | package
+i+ | bzip2                                             | A Program for Compressing Files                                                 | package
+i+ | ca-certificates                                   | Utilities for system wide CA certificate installation                           | package
+i+ | ca-certificates-mozilla                           | CA certificates for OpenSSL                                                     | package
+i+ | clang                                             | CLANG frontend for LLVM                                                         | package
+i+ | cmake                                             | Cross-platform make system                                                      | package
+i+ | cnf                                               | A command-not-found handler for openSUSE                                        | package
+i+ | cross-arm-none-gcc15                              | The GNU Compiler Collection targeting arm-none                                  | package
+i+ | deno                                              | A secure JavaScript and TypeScript runtime                                      | package
+i+ | deno-zsh-completion                               | Zsh Completion for deno                                                         | package
+i+ | dos2unix                                          | Text converters to and from DOS/MAC to UNIX                                     | package
+i+ | dust                                              | A more intuitive version of du                                                  | package
+i+ | eza                                               | Replacement for ls written in Rust                                              | package
+i+ | fastfetch                                         | Neofetch-like tool written mostly in C                                          | package
+i+ | fd                                                | An alternative to the "find" utility                                            | package
+i+ | filesystem                                        | Basic Directory Layout                                                          | package
+i+ | fzf                                               | A command-line fuzzy finder                                                     | package
+i+ | gcc                                               | The system GNU C Compiler                                                       | package
+i+ | gcc-c++                                           | The system GNU C++ Compiler                                                     | package
+i+ | gdb                                               | A GNU source-level debugger for C, C++, Fortran and other languages             | package
+i+ | gh                                                | The official CLI for GitHub                                                     | package
+i+ | git                                               | Fast, scalable, distributed revision control system                             | package
+i+ | git-delta                                         | A syntax-highlighter for git and diff output                                    | package
+i+ | gitui                                             | Terminal UI for git                                                             | package
+i+ | glibc                                             | Standard Shared Libraries (from the GNU C Library)                              | package
+i+ | gnuplot                                           | Function Plotting Utility and more                                              | package
+i+ | helix                                             | A post-modern modal text editor written in Rust                                 | package
+i+ | ImageMagick                                       | Viewer and Converter for Images                                                 | package
+i+ | iputils                                           | IPv4 and IPv6 Networking Utilities                                              | package
+i+ | joe                                               | A Text Editor                                                                   | package
+i+ | kitty                                             | A GPU-based terminal emulator                                                   | package
+i+ | less                                              | Text File Browser and Pager Similar to more                                     | package
+i+ | libc++-devel                                      | C++ standard library implementation (devel package)                             | package
+i+ | libc++abi-devel                                   | C++ standard library ABI (devel package)                                        | package
+i+ | libjpeg8-devel                                    | Development Tools for applications which will use the Libjpeg Library           | package
+i+ | libopenssl-3-devel                                | Development files for OpenSSL                                                   | package
+i+ | libpng16-devel                                    | Development tools for applications which will use libpng                        | package
+i+ | libsixel-zsh-completion                           | ZSH Completion for libsixel                                                     | package
+i+ | libusb-0_1-4                                      | libusb-1.0 Compatibility Library for libusb-0.1                                 | package
+i+ | libvulkan_nouveau                                 | Mesa vulkan driver for NVK (Nouveau Vulkan)                                     | package
+i+ | libyui-ncurses-pkg16                              | Libyui - yast2 package selector widget for the NCurses UI                       | package
+i+ | lld                                               | Linker for Clang/LLVM                                                           | package
+i+ | llvm                                              | Low Level Virtual Machine                                                       | package
+i+ | lsof                                              | A Program That Lists Information about Files Opened by Processes                | package
+i+ | luajit                                            | JIT compiler for Lua language                                                   | package
+i+ | man                                               | A Program for Displaying man Pages                                              | package
+i+ | Mesa-demo                                         | Mesa demo programs for the OpenGL stack                                         | package
+i+ | Mesa-dri-nouveau                                  | Mesa DRI plug-in for 3D acceleration via Nouveau                                | package
+i+ | neovim                                            | Vim-fork focused on extensibility and agility                                   | package
+i+ | net-tools                                         | Important Programs for Networking                                               | package
+i+ | ninja                                             | A small build system closest in spirit to Make                                  | package
+i+ | nodejs22                                          | Evented I/O for V8 JavaScript                                                   | package
+i+ | npm22                                             | Package manager for Node.js                                                     | package
+i+ | openocd                                           | Debugging, in-system programming and boundary-scan testing for embedded devices | package
+i+ | openssh                                           | Secure Shell Client and Server (Remote Login Program)                           | package
+i+ | openSUSE                                          | openSUSE Tumbleweed                                                             | product
+i+ | openSUSE-build-key                                | The public gpg keys for rpm package signature verification                      | package
+i+ | openSUSE-release                                  | openSUSE Tumbleweed                                                             | package
+i+ | openSUSE-release-appliance-wsl                    | openSUSE Tumbleweed                                                             | package
+i+ | pam-config                                        | Utility to modify common PAM configuration files                                | package
+i+ | patterns-base-minimal_base                        | Minimal Appliance Base                                                          | package
+i+ | patterns-wsl-gui                                  | WSL GUI packages                                                                | package
+i+ | patterns-wsl-systemd                              | WSL systemd setup                                                               | package
+i+ | procps                                            | The ps utilities for /proc                                                      | package
+i+ | procs                                             | A modern replacement for ps written in Rust                                     | package
+i+ | python313-pipx                                    | Install and Run Python Applications in Isolated Environments                    | package
+i+ | python313-tk                                      | TkInter, a Python Tk Interface                                                  | package
+i+ | qemu-arm                                          | Machine emulator and virtualizer for ARM architectures                          | package
+i+ | qt6-base-devel                                    | Qt 6 base development meta package                                              | package
+i+ | ripgrep                                           | A search tool that combines ag with grep                                        | package
+i+ | rpm                                               | The RPM Package Manager                                                         | package
+i+ | screen                                            | A program to allow multiple screens on a VT100/ANSI Terminal                    | package
+i+ | sd                                                | Intuitive find & replace CLI                                                    | package
+i+ | SDL2                                              | Simple DirectMedia Layer Library                                                | package
+i+ | sdl2-compat-devel                                 | Header and build system files for sdl2-compat                                   | package
+i+ | starship                                          | A customizable prompt for many shells                                           | package
+i+ | stlink                                            | STM32 discovery line linux programmer                                           | package
+i+ | stow                                              | Manage the installation of software packages from source                        | package
+i+ | sudo                                              | Execute some commands as root                                                   | package
+i+ | system-user-nobody                                | System user and group nobody                                                    | package
+i+ | tealdeer                                          | An implementation of tldr in Rust                                               | package
+i+ | timezone                                          | Time Zone Descriptions                                                          | package
+i+ | timg                                              | Terminal image viewer                                                           | package
+i+ | tk-devel                                          | Header Files and C API Documentation for Tk                                     | package
+i+ | tokei                                             | Code statistics commandline tool                                                | package
+i+ | translate-shell                                   | Command line translator using various online services as backends               | package
+i+ | tree-sitter                                       | An incremental parsing system for programming tools                             | package
+i+ | usbutils                                          | Tools and libraries for USB devices                                             | package
+i+ | vim                                               | Vi IMproved                                                                     | package
+i+ | vulkan-tools                                      | Diagnostic utilities for Vulkan                                                 | package
+i+ | wget                                              | A Tool for Mirroring FTP and HTTP Servers                                       | package
+i+ | wsl_gui                                           | WSL GUI packages                                                                | pattern
+i+ | wsl_systemd                                       | WSL systemd setup                                                               | pattern
+i+ | yast2-firstboot                                   | YaST2 - Initial System Configuration                                            | package
+i+ | yast2-firstboot-wsl                               | YaST2 firstboot settings for WSL images                                         | package
+i+ | yast2-packager                                    | YaST2 - Package Library                                                         | package
+i+ | zip                                               | File compression program                                                        | package
+i+ | zoxide                                            | A smarter cd command                                                            | package
+i+ | zsh                                               | Shell with comprehensive completion                                             | package
+i+ | zypper                                            | Command line software manager using libzypp                                     | package

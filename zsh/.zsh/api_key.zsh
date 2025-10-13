@@ -1,0 +1,2 @@
+export GEMINI_API_KEY="AIzaSyBY60VsHw-_KjBrz33nmGbzfAxhwL_ToeU"
+export OPENROUTER_API_KEY="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"

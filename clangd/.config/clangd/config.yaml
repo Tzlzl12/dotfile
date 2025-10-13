@@ -1,0 +1,85 @@
+# ---
+# If:
+#   PathMatch: [.*\.c$]
+# CompileFlags:
+#   Add: [-std=c11]
+# ---
+# If:
+#   PathMatch: [.*\.cpp$]
+# CompileFlags:
+#   Add: [
+#     -I~/.local/include,
+#     -std=c++20,
+#     -stdlib=libc++
+#   ]
+Diagnostics:
+  ClangTidy:
+    Add: [
+      clang-analyzer-core.*,
+      clang-analyzer-cplusplus.*,
+      bugprone-*,
+      # clang-diagnostic-missing-prototypes,
+      cppcoreguidelines-*,
+      hicpp-exception-baseclass,
+      hicpp-avoid-goto,
+      misc-*,
+      modernize-*,
+      performance-*,
+      # readability-container-size-empty,
+      readability-delete-null-pointer,
+      # readability-duplicate-include
+      readability-misplaced-array-index,
+      readability-redundant-access-specifiers,
+      readability-redundant-function-ptr-dereference,
+      readability-redundant-smartptr-get,
+      readability-simplify-subscript-expr,
+      readability-string-compare,
+      readability-identifier-naming-*.
+      google-explicit-constructor,
+      google-readability-casting
+    ]
+    Remove: [
+      performance-no-int-to-ptr,
+      bugprone-too-small-loop-variable,
+      bugprone-easily-swappable-parameters,
+      bugprone-forward-declaration-namespace,
+      bugprone-macro-parentheses,
+      bugprone-lambda-function-name,
+      bugprone-reserved-identifier,
+      bugprone-swapped-arguments,
+      bugprone-unchecked-optional-access,
+      cppcoreguidelines-avoid-do-while,
+      cppcoreguidelines-avoid-c-arrays,
+      cppcoreguidelines-avoid-magic-numbers,
+      cppcoreguidelines-avoid-non-const-global-variables,
+      cppcoreguidelines-interfaces-global-init,
+      cppcoreguidelines-macro-usage,
+      cppcoreguidelines-owning-memory,
+      cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+      cppcoreguidelines-pro-bounds-constant-array-index,
+      cppcoreguidelines-pro-bounds-pointer-arithmetic,
+      cppcoreguidelines-pro-type-cstyle-cast,
+      cppcoreguidelines-pro-type-reinterpret-cast,
+      cppcoreguidelines-pro-type-static-cast-downcast,
+      cppcoreguidelines-pro-type-union-access,
+      cppcoreguidelines-pro-type-vararg,
+      cppcoreguidelines-special-member-functions,
+      cppcoreguidelines-non-private-member-variables-in-classes,
+      misc-unused-parameters,
+      misc-no-recursion,
+      misc-non-private-member-variables-in-classes,
+      misc-confusable-identifiers,
+      modernize-avoid-c-arrays,
+      modernize-return-braced-init-list,
+      modernize-use-auto,
+      modernize-use-default-member-init,
+      modernize-use-using,
+      modernize-use-trailing-return-type,
+      modernize-use-nodiscard,
+      readability-uppercase-literal-suffix
+    ]
+# ---
+# WarningsAsErrors: ''
+# HeaderFilterRegex: ''
+SemanticTokens:
+  DisabledKinds: [InactiveCode]

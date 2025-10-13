@@ -1,0 +1,32 @@
+# 最大行宽
+max_width = 100
+
+# 缩进的空格数
+tab_spaces = 2
+
+# 是否合并导入语句
+merge_imports = true
+
+# 是否在控制流表达式中使用花括号
+control_brace_style = "AlwaysSameLine"
+
+# 函数调用中参数的风格
+fn_args_layout = "Compressed"
+
+# 引用的格式化
+match_arm_blocks = true
+
+# 是否将结构体字段放在单独一行
+struct_field_align_threshold = 0
+
+# 是否对注释重新格式化
+wrap_comments = false
+
+# 是否重新组织 imports
+reorder_imports = true
+
+# 强制使用制表符而不是空格
+use_small_heuristics = "Default"
+
+# 是否为一行的块使用花括号
+empty_item_single_line = true
