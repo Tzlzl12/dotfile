@@ -6,8 +6,8 @@ function M.setup()
   local utils = require "dap.utils"
   local is_windows = require("configs.platform").is_windows
 
-  local get_cargo_name = require "dap.utils.cargo"
-  local cargo_name = get_cargo_name(require("utils").get_root_dir())
+  local get_cargo_name = require("dap.utils.cargo").get_cargo_package_name
+  local cargo_name = get_cargo_name(require("utils").get_root_dir()) or ""
 
   if vim.fn.executable "codelldb" == 0 then
     vim.notify("Make sure `codelldb` is in your path", vim.log.levels.WARN)

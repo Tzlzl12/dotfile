@@ -181,18 +181,25 @@ return {
           table.insert(commands, { args = { "run", "--bin", file_name_without_exet }, tags = { TAG.RUN } })
         end
       else
+        local cargo_info = require("dap.utils.cargo").ParseCargoToml() or {}
         commands = {
           { args = { "build", "--release" }, tags = { TAG.BUILD } },
           { args = { "run", "--release" }, tags = { TAG.RUN } },
           { args = { "test" }, tags = { TAG.TEST } },
           { args = { "clean" }, tags = { TAG.CLEAN } },
           { args = { "check" } },
-          -- { args = { "bench" } },
           { args = { "publish" } },
-          -- { args = { "doc" } },
-          -- { args = { "doc", "--open" } },
-          -- { args = { "update" } },
         }
+        if not cargo_info.package_name and #cargo_info.workspace_members > 0 then
+          -- 为每个成员添加 run 命令
+          for _, member in ipairs(cargo_info.workspace_members) do
+            table.insert(commands, {
+              args = { "run", "-p", member },
+              tags = { "run", "workspace", member },
+              label = "run:" .. member,
+            })
+          end
+        end
       end
       local roots = { {
         postfix = "",

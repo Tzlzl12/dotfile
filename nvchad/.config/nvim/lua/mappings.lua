@@ -15,12 +15,12 @@ map("n", "<C-l>", "<C-w>l", { desc = "General switch window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "General switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "General switch window up" })
 
-map("n", "<leader>tt", function()
-  vim.system({ "usbipd.exe", "list" }, { text = true }, function(res)
-    local result = string.sub(res.stdout, 1, -2)
-    vim.notify(result, vim.log.levels.WARN)
-  end)
-end)
+-- map("n", "<leader>tt", function()
+--   vim.system({ "usbipd.exe", "list" }, { text = true }, function(res)
+--     local result = string.sub(res.stdout, 1, -2)
+--     vim.notify(result, vim.log.levels.WARN)
+--   end)
+-- end)
 map("n", "<esc>", function()
   require("noice").cmd "dismiss"
   if vim.o.hlsearch then

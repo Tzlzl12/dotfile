@@ -2,8 +2,8 @@ local M = {}
 
 function M.setup()
   local dap = require "dap"
-  local get_cargo_name = require "dap.utils.cargo"
-  local cargo_name = get_cargo_name(require("utils").get_root_dir())
+  local get_cargo_name = require("dap.utils.cargo").get_cargo_package_name
+  local cargo_name = get_cargo_name(require("utils").get_root_dir()) or ""
   dap.adapters.cppdbg = {
     id = "cppdbg",
     type = "executable",

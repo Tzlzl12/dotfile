@@ -66,7 +66,7 @@ return {
       { "<leader>gd", function() Snacks.picker.git_diff( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Diff (Hunks)" },
       { "<leader>gf", function() Snacks.picker.git_log_file( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snakcs Git Log File" },
       -- Grep
-      { "<leader>/", function() Snacks.picker.lines() end, desc = "Snacks Buffer Lines" },
+      -- { "<leader>/", function() Snacks.picker.lines() end, desc = "Snacks Buffer Lines" },
 
       { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Snacks Search History" },
       { "<leader>sa", function() Snacks.picker.autocmds({preset = "ivy"}) end, desc = "Snacks Autocmds" },

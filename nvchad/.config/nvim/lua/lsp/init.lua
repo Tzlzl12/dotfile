@@ -8,12 +8,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(event)
     dofile(vim.g.base46_cache .. "lsp")
     -- keymap
-    local lsp_action = nil
-    if vim.g.nvchad_use_telescope then
-      lsp_action = require "telescope.builtin"
-    else
-      lsp_action = Snacks.picker
-    end
+    -- local lsp_action = nil
+    -- if vim.g.nvchad_use_telescope then
+    --   lsp_action = require "telescope.builtin"
+    -- else
+    --   lsp_action = Snacks.picker
+    -- end
     local client = vim.lsp.get_client_by_id(event.data.client_id)
     local bufnr = event.buf
     local function opts(desc)
@@ -35,6 +35,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       })
     end
 
+    require "keymaps.goto"
     map("n", "gh", function()
       if (client and client.name == "clangd") or (client and client.name == "ccls") then
         return require("pretty_hover").hover()
@@ -44,12 +45,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         }
       end
     end, opts "Hover")
-    map("n", "gy", lsp_action.lsp_type_definitions, opts "Go to declaration")
-    map("n", "gd", lsp_action.lsp_definitions, opts "Go to definition")
-    if not vim.g.nvchad_use_telescope then
-      map("n", "gD", lsp_action.lsp_declarations, opts "Go to declaration")
-    end
-    map("n", "gi", lsp_action.lsp_implementations, opts "Go to implementation")
+    require "keymaps.lsp"
     -- map("n", "<leader>sh", vim.lsp.buf.signature_help, opts "Show signature help")
     map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts "Add workspace folder")
     map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts "Remove workspace folder")
@@ -64,7 +60,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- documentationFormat = "markdown",
       })
     end, opts " Diagnostics")
-    map("n", "gr", lsp_action.lsp_references, opts "Show references")
 
     -- inlay_hints
     if vim.fn.has "nvim-0.10" == 1 then

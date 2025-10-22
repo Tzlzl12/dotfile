@@ -48,6 +48,20 @@ return {
         },
       },
       strategies = {
+        inline = {
+          adapter = "gemini",
+          keymaps = {
+            accept_change = {
+              modes = { n = "ga" },
+              description = "Accept the suggested change",
+            },
+            reject_change = {
+              modes = { n = "gr" },
+              opts = { nowait = true },
+              description = "Reject the suggested change",
+            },
+          },
+        },
         chat = {
           adapter = "gemini",
           keymaps = {
@@ -59,7 +73,6 @@ return {
             },
           },
         },
-        inline = { adapter = "gemini" },
       },
 
       adapter = {

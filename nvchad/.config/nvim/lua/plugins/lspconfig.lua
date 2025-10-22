@@ -34,11 +34,6 @@ return {
     end,
     config = function()
       local default = require "lsp.default"
-      vim.lsp.config("*", {
-        capabilities = default.capabilities,
-        on_init = default.on_init,
-        on_attach = default.on_attach,
-      })
 
       local lsp_servers = {
         "lua_ls",
@@ -54,6 +49,12 @@ return {
         vim.lsp.config(lsp_server, config)
         vim.lsp.enable(lsp_server)
       end
+      print "into lspconfig"
+      vim.lsp.config("*", {
+        capabilities = default.capabilities,
+        on_init = default.on_init,
+        on_attach = default.on_attach,
+      })
     end,
   },
 }

@@ -32,6 +32,7 @@ return {
   filetypes = filetypes,
   cmd = cmd,
   keys = keys,
+  support_single_file = true,
   init_options = init_options,
   -- root_markers = root_markers,
 }
