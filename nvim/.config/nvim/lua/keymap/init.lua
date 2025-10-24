@@ -1,12 +1,13 @@
 local map = vim.keymap.set
 local del = vim.keymap.del
 
+local fn = require "keymap.fn"
 map("n", "<c-n>", function()
-	local dir = require("utils").get_root_dir()
-	require("neo-tree.command").execute({
-		toggle = true,
-		dir = dir,
-	})
+  local dir = require("utils").get_root_dir()
+  require("neo-tree.command").execute {
+    toggle = true,
+    dir = dir,
+  }
 end, { desc = " General Toggle Explorer" })
 
 map("n", ";", ":", { desc = "General CMD enter command mode" })
@@ -15,12 +16,27 @@ map("n", "<C-l>", "<C-w>l", { desc = "General switch window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "General switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "General switch window up" })
 
+-- buffer
+map("n", "<tab>", function()
+  fn.next()
+end, { desc = "buffer goto next" })
+map("n", "<S-tab>", function()
+  fn.prev()
+end, { desc = "buffer goto prev" })
+map("n", "<leader>x", function()
+  fn.del_curbuf()
+end, { desc = "General Close Buffer" })
+map("n", "<leader>bx", function()
+  fn.del_othbuf()
+end, { desc = "General Close other Buffer" })
+
+---
 map("n", "q", "", {})
 map("n", "<esc>", function()
-	require("noice").cmd("dismiss")
-	if vim.o.hlsearch then
-		vim.cmd.nohlsearch()
-	end
+  require("noice").cmd "dismiss"
+  if vim.o.hlsearch then
+    vim.cmd.nohlsearch()
+  end
 end, { desc = "General Dismiss" })
 
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "General Save File" })
@@ -43,17 +59,17 @@ map("n", "<A-Right>", "<C-o>")
 
 -- custon function
 map("n", "<leader>tr", function()
-	require("utils.fanyi").fanyi()
+  require("utils.fanyi").fanyi()
 end, { desc = "General Translate(en to ch)" })
 map("n", "<leader>ti", function()
-	require("utils.fanyi").fanyi_ch_to_en()
+  require("utils.fanyi").fanyi_ch_to_en()
 end, { desc = "General Translate(ch to en)" })
 map("n", "rw", function()
-	require("utils.replace")()
+  require "utils.replace"()
 end, { desc = "General Replace Word" })
 
 vim.schedule(function()
-	require("keymap.jump")
-	require("keymap.term")
-	require("keymap.ui")
+  require "keymap.jump"
+  require "keymap.term"
+  require "keymap.ui"
 end)
