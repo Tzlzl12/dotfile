@@ -10,8 +10,8 @@ M.save = function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 end
 -- 删除当前 buffer（智能删除，保持窗口布局）
-function M.del_curbuf()
-  local buf = vim.api.nvim_get_current_buf()
+function M.del_curbuf(bufid)
+  local buf = bufid or vim.api.nvim_get_current_buf()
   local buftype = vim.bo[buf].buftype
 
   -- 如果是特殊 buffer（terminal, quickfix 等），直接关闭窗口
