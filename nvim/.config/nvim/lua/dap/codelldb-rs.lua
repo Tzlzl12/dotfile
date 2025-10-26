@@ -6,13 +6,9 @@ function M.setup()
   local utils = require "dap.utils"
   -- local is_windows = require("configs.platform").is_windows
 
-  local file = vim.fn.expand "%:p"
-  local current_dir = vim.fn.expand "%:p:h"
-  local file_without_ext = vim.fn.fnamemodify(file, ":t:r")
-  local program = current_dir .. "/bin/" .. file_without_ext
+  local get_cargo_name = require "dap.utils.cargo"
+  local cargo_name = get_cargo_name.ParseCargoToml().package_name or ""
 
-  local get_cmake_name = require "dap.utils.cmake"
-  local cmake_name = get_cmake_name(vim.fn.getcwd())
   if vim.fn.executable "codelldb" == 0 then
     vim.notify("Make sure `codelldb` is in your path", vim.log.levels.WARN)
     return
@@ -31,29 +27,27 @@ function M.setup()
     },
   }
 
-  if not dap.configurations.c then
-    dap.configurations.c = {}
+  if not dap.configurations.rust then
+    dap.configurations.rust = {}
   end
-
   -- 配置 C/C++/Rust 的调试配置
-  dap.configurations.c = {
+  dap.configurations.rust = {
     {
       name = "Debug",
       type = "codelldb",
       request = "launch",
       -- program = utils.input_exec_path(),
-      program = program,
+      program = "${workspaceFolder}/target/debug/" .. cargo_name,
 
       cwd = "${workspaceFolder}",
       stopOnEntry = false,
       terminal = "integrated",
     },
-
     {
       name = "Debug (with args)",
       type = "codelldb",
       request = "launch",
-      program = program,
+      program = "${workspaceFolder}/target/debug/" .. cargo_name,
       args = utils.input_args(),
       cwd = "${workspaceFolder}",
       stopOnEntry = false,
@@ -70,23 +64,6 @@ function M.setup()
       waitFor = true,
     },
   }
-
-  local cwd = vim.fn.getcwd()
-  if vim.fn.filereadable(cwd .. "/CMakeLists.txt") == 1 then
-    local cmake = {
-      name = "Debug With CMake",
-      type = "codelldb",
-      request = "launch",
-      program = "${workspaceFolder}/build/" .. cmake_name,
-      cwd = "${workspaceFolder}",
-      stopOnEntry = false,
-      terminal = "integrated",
-    }
-    table.insert(dap.configurations.c, cmake)
-  end
-  -- 复用 C 的配置给 C++ 和 Rust
-  dap.configurations.cpp = dap.configurations.c
-  -- dap.configurations.rust = dap.configurations.c
 end
 
 return M
