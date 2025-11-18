@@ -12,12 +12,12 @@ opt.confirm = true -- Confirm to save changes before exiting modified buffer
 opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
-	foldopen = "",
-	foldclose = "",
-	fold = " ",
-	foldsep = " ",
-	diff = "╱",
-	eob = " ",
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
 }
 
 opt.foldlevel = 99
@@ -34,11 +34,11 @@ opt.laststatus = 3 -- global statusline
 opt.wrap = true
 opt.linebreak = true -- Wrap lines at convenient points
 opt.showbreak = "↪ "
-opt.list = true -- Show some invisible characters (tabs...
+opt.list = false -- Show some invisible characters (tabs...
 opt.listchars = {
-	space = "·", -- 将空格显示为点
-	tab = " 󰁕", -- 将 Tab 显示为箭头符号
-	trail = "-", -- 可选：将行尾的多余空格显示为破折号
+  space = "·", -- 将空格显示为点
+  tab = " 󰁕", -- 将 Tab 显示为箭头符号
+  trail = "-", -- 可选：将行尾的多余空格显示为破折号
 }
 opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Print line number
@@ -50,7 +50,7 @@ opt.scrolloff = 4 -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
-opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.shortmess:append { W = true, I = true, c = true, C = true }
 opt.showmode = false -- Dont show mode since we have a statusline
 opt.sidescrolloff = 8 -- Columns of context
 opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
@@ -68,6 +68,7 @@ opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to qu
 opt.undofile = true
 opt.undolevels = 10000
 opt.updatetime = 200 -- Save swap file and trigger CursorHold
+opt.swapfile = false
 opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width

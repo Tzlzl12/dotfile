@@ -19,7 +19,7 @@ M.ScrollBar = {
     local i = math.floor(curr_line / lines * (#self.sbar - 1)) + 1
     return string.rep(self.sbar[i], 2)
   end,
-  hl = { fg = "yellow", bg = "bright_bg" },
+  hl = { fg = "orange", bg = "bright_bg" },
 }
 
 return M

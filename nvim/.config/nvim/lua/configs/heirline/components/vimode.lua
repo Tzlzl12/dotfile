@@ -51,13 +51,13 @@ M.ViMode = {
     mode_colors = {
       n = { fg = "#31272f", bg = "cyan" },
       i = { fg = "#31272f", bg = "green" },
-      v = { fg = "#31272f", bg = "blue" },
-      V = { fg = "#31272f", bg = "blue" },
-      ["\22"] = { fg = "#31272f", bg = "blue" }, -- this is an actual ^V, type <C-v><C-v> in insert mode
+      v = { fg = "#31272f", bg = "#25abe4" },
+      V = { fg = "#31272f", bg = "#25abe4" },
+      ["\22"] = { fg = "#31272f", bg = "#25abe4" }, -- this is an actual ^V, type <C-v><C-v> in insert mode
       c = { fg = "#31272f", bg = "orange" },
-      s = { fg = "#31272f", bg = "purple" },
-      S = { fg = "#31272f", bg = "purple" },
-      ["\19"] = { fg = "#31272f", bg = "purple" }, -- this is an actual ^S, type <C-v><C-s> in insert mode
+      s = { fg = "#31272f", bg = "#25abe4" },
+      S = { fg = "#31272f", bg = "#25abe4" },
+      ["\19"] = { fg = "#31272f", bg = "#25abe4" }, -- this is an actual ^S, type <C-v><C-s> in insert mode
       R = { fg = "#31272f", bg = "orange" },
       r = { fg = "#31272f", bg = "orange" },
       ["!"] = { fg = "#31272f", bg = "red" },
@@ -76,13 +76,6 @@ M.ViMode = {
       local colors = self:mode_color()
       return { fg = colors.bg, bg = "None", bold = true }
     end,
-    update = {
-      "ModeChanged",
-      pattern = "*:*",
-      callback = vim.schedule_wrap(function()
-        vim.cmd "redrawstatus"
-      end),
-    },
   },
   {
     provider = function(self)
@@ -92,13 +85,6 @@ M.ViMode = {
       local colors = self:mode_color()
       return { fg = colors.fg, bg = colors.bg, bold = true }
     end,
-    update = {
-      "ModeChanged",
-      pattern = "*:*",
-      callback = vim.schedule_wrap(function()
-        vim.cmd "redrawstatus"
-      end),
-    },
   },
   {
     provider = function()
@@ -108,13 +94,13 @@ M.ViMode = {
       local colors = self:mode_color()
       return { fg = colors.bg, bg = "None", bold = true }
     end,
-    update = {
-      "ModeChanged",
-      pattern = "*:*",
-      callback = vim.schedule_wrap(function()
-        vim.cmd "redrawstatus"
-      end),
-    },
+  },
+  update = {
+    "ModeChanged",
+    pattern = "*:*",
+    callback = vim.schedule_wrap(function()
+      vim.cmd "redrawstatus"
+    end),
   },
 }
 local SearchCount = {

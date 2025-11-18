@@ -1,7 +1,7 @@
 vim.g.nvim_colorhelper = ""
 Ice.colorschemes = {
   ["onedarkpro"] = {
-    color_helper = "onedarkpro.helpers",
+    -- color_helper = "onedarkpro.helpers",
     transparent = true,
     items = {
       ["dark-onedark-wave"] = "vaporwave",
@@ -39,6 +39,8 @@ Ice.colorschemes = {
     },
   },
 }
+
+Ice.palette = {}
 
 -- Predefined colorschemes
 -- colorscheme determined by the name

@@ -1,25 +1,19 @@
+---@diagnostic disable: undefined-field
 local conditions = require "heirline.conditions"
 local utils = require "heirline.utils"
 
-local colors = ""
-
-if not vim.g.nvim_colorhelper == "" then
-  colors = require(vim.g.nvim_colorhelper)
-end
 local function setup_colors()
   return {
-    bg = colors.bg,
-    fg = colors.fg,
-    red = colors.red,
-    orange = colors.orange,
-    yellow = colors.yellow,
-    green = colors.green,
-    cyan = colors.cyan,
-    blue = colors.blue,
-    purple = colors.purple,
-    white = colors.white,
-    black = colors.black,
-    gray = colors.gray,
+    red = utils.get_highlight("Error").fg,
+    orange = utils.get_highlight("Removed").fg,
+    yellow = utils.get_highlight("DiagnosticSignWarn").fg,
+    green = utils.get_highlight("Added ").fg,
+    cyan = utils.get_highlight("Changed").fg,
+    blue = utils.get_highlight("WhichKeyGroup").fg,
+    purple = utils.get_highlight("Keyword").fg,
+    white = utils.get_highlight("Normal").fg,
+    black = utils.get_highlight("ComplHint").fg,
+    gray = utils.get_highlight("NonText").fg,
     bright_bg = "None",
     bright_fg = utils.get_highlight("Folded").fg,
     dark_red = utils.get_highlight("DiffDelete").bg,

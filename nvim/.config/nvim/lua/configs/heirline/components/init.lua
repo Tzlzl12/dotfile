@@ -11,4 +11,6 @@ return {
   TerminalName = require "configs.heirline.components.term",
   Spell = require "configs.heirline.components.spell",
   Overseer = require "configs.heirline.components.overseer",
+  BuildSystem = require "configs.heirline.components.winbar_buildsystem",
+  Dap = require "configs.heirline.components.winbar_dap",
 }

@@ -3,7 +3,6 @@ local Space = { provider = " " }
 local conditions = require "heirline.conditions"
 local utils = require "heirline.utils"
 
-local components = require "configs.heirline.components"
 local icons = require "configs.heirline.common"
 local separators = require("configs.heirline.common").separators
 local CloseButton = {
@@ -26,11 +25,19 @@ local CloseButton = {
     },
   },
 }
+local components = require "configs.heirline.components"
 
 local WinBar = {
+  condition = function()
+    return not conditions.buffer_matches { buftype = { "terminal" } }
+  end,
   Align,
   -- require "configs.heirline.components.winbar_dap",
-  require "configs.heirline.components.winbar_buildsystem",
+  components.BuildSystem,
+  components.Dap,
+  Space,
+  Space,
+  Space,
 }
 
 return WinBar

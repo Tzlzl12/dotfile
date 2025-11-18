@@ -139,7 +139,7 @@ return {
 
 	    -- stylua: ignore
 	    keys = function()
-	      if vim.g.nvchad_use_dapui then
+	      if true then
 	        return {
 	          { "<leader>d", "", desc = "Debug", mode = {"n", "v"} },
 	          { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Dap Breakpoint condition: ')) end, desc = "Dap Breakpoint Condition" },

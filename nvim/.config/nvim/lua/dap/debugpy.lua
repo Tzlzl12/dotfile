@@ -9,7 +9,11 @@ function M.setup()
     vim.notify("Make sure `debugpy` is in your path", vim.log.levels.WARN)
     return
   end
-  local debugpy_root = "debugpy"
+  local has_venv = function()
+    return vim.fn.filereadable(require("utils").get_root_dir() .. "/venv") == 1
+  end
+
+  local python_path = has_venv() and "venv/bin/python" or "python"
 
   dap.adapters.python = function(callback, config)
     if config.request == "attach" then
@@ -24,7 +28,7 @@ function M.setup()
     else
       callback {
         type = "executable",
-        command = is_windows and debugpy_root .. "/venv/Scripts/pythonw.exe" or debugpy_root .. "/venv/bin/python",
+        command = python_path,
         args = { "-m", "debugpy.adapter" },
         options = { source_filetype = "python" },
       }

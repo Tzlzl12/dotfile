@@ -2,6 +2,11 @@ local map = vim.keymap.set
 local del = vim.keymap.del
 
 local fn = require "keymap.fn"
+map("n", "<leader>ta", function()
+  if require("configs.heirline.components.buildsystem").has_file "/Cargo.toml" then
+    print "yes"
+  end
+end)
 map("n", "<c-n>", function()
   local dir = require("utils").get_root_dir()
   require("neo-tree.command").execute {
@@ -53,6 +58,10 @@ map("n", "<c-/>", "gcc", { remap = true, desc = "General Toggle comment line" })
 map("v", "<c-/>", "gc", { remap = true, desc = "General Toggle comment block" })
 map("n", "<c-_>", "gcc", { remap = true, desc = "General Toggle comment line" })
 map("v", "<c-_>", "gc", { remap = true, desc = "General Toggle comment block" })
+
+map("n", "cmg", ":CMakegenerate<CR>", { desc = "General CMake Generate" })
+map("n", "cmb", ":CMakeBuild<cr>", { desc = "General CMake Build" })
+map("n", "cmr", ":CMakeRun<cr>", { desc = "General CMake Run" })
 
 map("n", "<A-Left>", "<C-o>")
 map("n", "<A-Right>", "<C-o>")

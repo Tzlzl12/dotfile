@@ -30,8 +30,7 @@ end
 
 local CMakeBuild = {
   condition = function()
-    local ok, _ = pcall(require, "cmake-tools")
-    return ok and has_file "/CMakeLists.txt"
+    return  has_file "/CMakeLists.txt"
   end,
   Build(function()
     vim.cmd "CMakeBuild"

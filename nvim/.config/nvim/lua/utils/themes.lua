@@ -41,7 +41,7 @@ M.colorscheme = function(colorscheme_name, transparent)
     set_highlight(transperent_highlight)
   end
 
-  vim.g.nvim_colorhelper = config.color_helper or ""
+  -- vim.g.nvim_colorhelper = config.color_helper or ""
   local actual_name = config.items[colorscheme_name]
   vim.cmd("colorscheme " .. actual_name)
   vim.o.background = colorscheme_name:match "^light-" and "light" or "dark"
