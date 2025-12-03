@@ -2,6 +2,7 @@ local map = vim.keymap.set
 local del = vim.keymap.del
 
 local fn = require "keymap.fn"
+
 map("n", "<leader>ta", function()
   if require("configs.heirline.components.buildsystem").has_file "/Cargo.toml" then
     print "yes"

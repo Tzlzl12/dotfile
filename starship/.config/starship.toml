@@ -1,7 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 # add_newline = false
 # [┌─>](color_blue)
-format = """[$os](#6fb424)\
+format = """[$os](#1793d1 )\
 $directory\n
 $character\
 """

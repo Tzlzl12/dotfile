@@ -1,5 +1,6 @@
 alias display='sudo ln -s /mnt/wslg/runtime-dir/wayland-0* /run/user/1000/'
 alias autoremove='zypper rm --clean-deps'
+alias fastfetch=macchina
 alias cls=clear
 alias hx=helix
 alias trans-zh='trans zh-CN:en'

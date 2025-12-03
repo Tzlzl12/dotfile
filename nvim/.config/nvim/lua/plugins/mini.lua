@@ -94,7 +94,7 @@ return {
 	},
 	{
 		"sphamba/smear-cursor.nvim",
-		enabled = not vim.g.neovide,
+		enabled = false,
 		event = "VeryLazy",
 		opts = {
 			legacy_computing_symbols_support = true,

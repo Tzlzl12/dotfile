@@ -33,7 +33,8 @@ append_env "PATH" "$HOME/.bun/bin"
 append_env "PATH" "$HOME/.cargo/bin"
 append_env "PATH" "$HOME/.dotnet"
 append_env "PATH" "$HOME/tools/renode/"
-
+export GALLIUM_DRIVER=d3d12
+export LIBVA_DRIVER_NAME=d3d12
 # export GTK_IM_MODULE=fcitx
 # export QT_IM_MODULE=fcitx
 # export XMODIFIERS=@im=fcitx

@@ -13,12 +13,13 @@ window-height = 30
 window-width = 90
 # window-y = 5
 # window-x = 5
-theme = GitHub-Dark-Dimmed
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 background = #22272e
 foreground = #adbac7
 selection-background = #adbac7
 selection-foreground = #22272e
 
+custom-shader = "~/.config/ghostty/shaders/cursor_smear.glsl"
 cursor-color = #539bf5  
 cursor-text  = #eeeeee  
 
@@ -40,13 +41,17 @@ palette = 12=#6cb6ff
 palette = 13=#dcbdfb
 palette = 14=#56d4dd
 palette = 15=#cdd9e5
+
+# font
 font-size = 14
 font-thicken = true
-font-family = "Maple Mono NF, LXGW WenKai"
-font-style = Maple Mono NF
-font-style-bold = Maple Mono NF
-font-style-italic = Maple Mono NF
-font-style-bold-italic = Maple Mono NF
+font-family = "Maple Mono"
+font-family = "FiraCode Nerd Font Mono"
+font-family = "LXGW WenKai"
+font-style = "Maple Mono" 
+font-style-bold = "Maple Mono" 
+font-style-italic = "Maple Mono" 
+font-style-bold-italic = "Maple Mono" 
 adjust-underline-position = 10%
 adjust-underline-thickness = -20%
 # 按 Ctrl+Shift+W 关闭窗口
@@ -73,10 +78,10 @@ keybind = alt+shift+c=reload_config
 keybind = alt+minus=decrease_font_size:1
 # 按 Alt+Tab 切换到下一个标签页
 keybind = alt+tab=next_tab
-keybind = alt+a=next_tab
+keybind = alt+d=next_tab
 # 按 Alt+Shift+Tab 切换到上一个标签页
 keybind = alt+shift+tab=previous_tab
-keybind = alt+d=previous_tab
+keybind = alt+a=previous_tab
 # 按 Alt+H 切换到左侧分屏
 keybind = alt+h=goto_split:left
 # 按 Alt+J 切换到上方分屏
@@ -88,4 +93,5 @@ keybind = alt+s=new_split:down
 # 按 Ctrl+V 从剪贴板粘贴
 keybind = ctrl+v=paste_from_clipboard
 mouse-hide-while-typing = true
+mouse-scroll-multiplier = 1.5
 
