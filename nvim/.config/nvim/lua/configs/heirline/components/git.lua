@@ -5,7 +5,9 @@ local icons = require("configs.icons").icons
 local separators = require("configs.heirline.common").separators
 
 local git_color = "green"
-return {
+
+local M = {}
+M.gitbranch = {
   condition = function()
     return conditions.is_git_repo()
   end,
@@ -48,6 +50,16 @@ return {
     end,
     hl = { bold = true, fg = "yellow" },
   },
+}
+
+M.gitInfo = {
+  condition = function()
+    return conditions.is_git_repo()
+  end,
+  init = function(self)
+    self.status_dict = vim.b.gitsigns_status_dict
+    self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+  end,
   {
     condition = function(self)
       return self.has_changes
@@ -114,3 +126,4 @@ return {
     provider = ")",
   },
 }
+return M

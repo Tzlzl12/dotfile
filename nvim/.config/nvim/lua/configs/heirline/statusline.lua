@@ -3,11 +3,8 @@ local Space = { provider = " " }
 local conditions = require "heirline.conditions"
 local utils = require "heirline.utils"
 
-local icons = require "configs.heirline.common"
-local separators = require("configs.heirline.common").separators
-local dim = require("configs.heirline.common").dim
-
 local components = require "configs.heirline.components"
+
 local DefaultStatusline = {
   {
     condition = function(self)
@@ -40,21 +37,29 @@ local DefaultStatusline = {
       return " "
     end,
   },
-  components.WorkDir,
-  Space,
+  {
+    flexible = 2,
+    { components.WorkDir, Space },
+  },
   components.File.FileNameBlock,
   -- { provider = "%<" },
   Space,
-  components.Git,
-  Space,
+  {
+    flexible = 3,
+    { components.Git.gitbranch, components.Git.gitInfo, Space },
+    { components.Git.gitbranch },
+  },
   Align,
   -- { flexible = 3,   { Navic, Space }, { provider = "" } },
   Align,
   -- components.DAPMessages,
   components.Diagnostics,
   Space,
-  components.LspActive,
-  -- VirtualEnv,
+  {
+    flexible = 1,
+    { components.LspActive.LspIcon, components.LspActive.LspInfo, Space },
+    { components.LspActive.LspIcon, Space },
+  }, -- VirtualEnv,
   -- components.File.FileType,
   -- { flexible = 3, { components.File.FileEncoding, Space }, { provider = "" } },
   -- SearchCount,
