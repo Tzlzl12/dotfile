@@ -81,5 +81,5 @@ end, { desc = "General Replace Word" })
 vim.schedule(function()
   require "keymap.jump"
   require "keymap.term"
-  require "keymap.ui"
+  -- require "keymap.ui"
 end)
