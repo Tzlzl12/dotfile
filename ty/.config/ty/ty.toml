@@ -1,0 +1,9 @@
+[environment]
+python = "/usr/sbin/python3.12"
+extra-paths = [
+  "~/.local/lib/python3/site-packages"
+]
+python-version = "3.12"  # 根据您的系统版本修改
+
+python-platform = "linux"  # 如果是 Linux 系统
+root = ["."]
