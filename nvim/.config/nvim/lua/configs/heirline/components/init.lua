@@ -13,4 +13,5 @@ return {
   Overseer = require "configs.heirline.components.overseer",
   BuildSystem = require "configs.heirline.components.winbar_buildsystem",
   Dap = require "configs.heirline.components.winbar_dap",
+  CodeCompanion = require "configs.heirline.components.codecompanion",
 }

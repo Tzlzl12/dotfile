@@ -7,4 +7,7 @@ return {
   cmd = cmd,
   filetypes = filetypes,
   root_markers = root_markers,
+  settings = {
+    ty = {},
+  },
 }
