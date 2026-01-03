@@ -31,41 +31,40 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
 # --- 6. 延迟加载自定义配置 ---
-# --- 6. 核心配置：直接加载 (总计 ~50ms，不卡) ---
-load_core_configs() {
-    # 按照依赖顺序加载
-    local core_files=(
-        ~/.zsh/export.zsh
-        ~/.zsh/alias.zsh
-        ~/.zsh/fzf.zsh
-        ~/.zsh/api_key.zsh
-        ~/.zsh/lazy_load.zsh
-        ~/.zsh/zoxide.zsh
-    )
-    for f in $core_files; do
-        [[ -f "$f" ]] && source "$f"
-    done
+load_custom_configs() {
+    # 只有在第一次显示提示符后才触发，完全不占用启动时间
+    if [[ -z "$_CONFIGS_LOADED" ]]; then
+        # 按优先级加载，但不阻塞启动
+        [[ -f ~/.zsh/export.zsh ]]    && source ~/.zsh/export.zsh
+        [[ -f ~/.zsh/fzf.zsh ]]     && source ~/.zsh/fzf.zsh
+        [[ -f ~/.zsh/alias.zsh ]]     && source ~/.zsh/alias.zsh
+        [[ -f ~/.zsh/api_key.zsh ]]   && source ~/.zsh/api_key.zsh
+        [[ -f ~/.zsh/lazy_load.zsh ]] && source ~/.zsh/lazy_load.zsh
+        [[ -f ~/.zsh/zoxide.zsh ]]    && source ~/.zsh/zoxide.zsh
+        [[ -f ~/.xmake/profile ]]     && source ~/.xmake/profile
+        
+        # 补全文件 fzf.zsh 这种比较重的，最后加载
+        [[ -f ~/.zsh/fzf.zsh ]]       && source ~/.zsh/fzf.zsh
+        
+        _CONFIGS_LOADED=1
+        # 卸载钩子，只跑一次
+        add-zsh-hook -d precmd load_custom_configs
+    fi
 }
-load_core_configs  # 立即执行，确保 kk 瞬间可用
 
-# --- 7. 沉重配置：延迟加载 (xmake 等) ---
-load_heavy_stuff() {
-    [[ -f ~/.xmake/profile ]] && source ~/.xmake/profile
-    add-zsh-hook -d precmd load_heavy_stuff
-}
 autoload -Uz add-zsh-hook
-add-zsh-hook precmd load_heavy_stuff
+add-zsh-hook precmd load_custom_configs
 
 # --- 7. 其他静态变量 ---
 HISTFILE=~/.histfile
 HISTSIZE=2000
 SAVEHIST=1000
-export UV_DEFAULT_INDEX="https://pypi.tuna.tsinghua.edu.cn/simple"
 
 # FZF-Tab 样式
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
-
+zstyle ':completion:*' menu no
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid=,comm= --sort=-pid"
 # --- 历史记录搜索增强 ---
 
 # 加载 Zsh 内置的搜索模块
@@ -81,6 +80,6 @@ zle -N down-line-or-beginning-search
 bindkey '^[[A' up-line-or-beginning-search   # 方向上键
 bindkey '^[[B' down-line-or-beginning-search # 方向下键
 
-# 针对 Tmux/某些终端补充绑定 (Keypad 模式)
-bindkey '^[OA' up-line-or-beginning-search
-bindkey '^[OB' down-line-or-beginning-search
+# # 针对 Tmux/某些终端补充绑定 (Keypad 模式)
+# bindkey '^[OA' up-line-or-beginning-search
+# bindkey '^[OB' down-line-or-beginning-search
