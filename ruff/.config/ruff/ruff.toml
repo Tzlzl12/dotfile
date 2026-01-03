@@ -1,6 +1,6 @@
 # Same as Black.
 line-length = 100
-indent-width = 4
+indent-width = 2
 
 [lint]
 # Disable fix for unused imports (`F401`).

@@ -1,0 +1,113 @@
+{
+  "features": {
+    "edit_prediction_provider": "copilot",
+  },
+
+  "icon_theme": "Catppuccin Frappé",
+
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": true,
+    "highlight_on_yank_duration": 0,
+    "use_system_clipboard": "always",
+    "use_smartcase_find": true,
+  },
+  "buffer_font_size": 16,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
+  "ui_font_features": {
+    "calt": true,
+  },
+  "buffer_font_family": "Maple Mono",
+  "buffer_font_fallbacks": ["FiraCode Nerd Font Mono", "Cascadia Mono NF"],
+  "buffer_font_features": {
+    "calt": true,
+  },
+
+  "ui_font_size": 16,
+  // "edit_predictions_disabled_in": ["comment"],
+  "tab_size": 2,
+  "autosave": "on_focus_change",
+  "hide_mouse": "on_typing_and_movement",
+  "soft_wrap": "editor_width",
+
+  "minimap": {
+    "show": "always",
+    "thumb": "always",
+    "thumb_border": "left_open",
+    "current_line_highlight": null,
+  },
+  "terminal": {
+    "font_size": 14,
+    "blinking": "terminal_controlled",
+    "font_family": "Cascadia Code NF",
+    "font_fallbacks": ["FiraCode Nerd Font Mono", "Cascadia Mono NF"],
+    // "scrollback_lines": 10000,
+    "scrollbar": {
+      "show": "auto",
+      // "width": 4
+    },
+    "shell": "system",
+    "cursor_shape": "bar",
+  },
+  "tabs": {
+    "close_position": "right",
+    "file_icons": true,
+    "git_status": false,
+    "activate_on_close": "history",
+    "show_close_button": "hover",
+    "show_diagnostics": "off",
+  },
+  "diagnostics": {
+    "include_warnings": true,
+    "inline": {
+      "enabled": true,
+      "max_severity": "warning",
+    },
+    // "update_with_cursor": false,
+    // "primary_only": false,
+    // "use_rendered": false
+  },
+  "git": {
+    "git_gutter": null,
+    "gutter_debounce": null,
+    "inline_blame": {
+      "enabled": true,
+      "delay_ms": 500,
+    },
+  },
+  "search": {
+    "case_sensitive": false,
+    "whole_word": false,
+    "regex": true,
+    "button": true,
+    // "use_rendered": false
+  },
+  "indent_guides": {
+    "enabled": true,
+    "coloring": "indent_aware",
+  },
+  "format_on_save": "on",
+  "inlay_hints": {
+    "enabled": true,
+  },
+  "lsp": {},
+  "languages": {
+    "Python": {
+      "language_servers": [
+	      "pyright",
+	     // "ty",
+	      "!basedpyright",
+	      "..."
+      ],
+      "indent_guides": {
+        "enabled": true,
+        "coloring": "indent_aware",
+        "background_coloring": "indent_aware",
+      },
+    },
+  },
+}

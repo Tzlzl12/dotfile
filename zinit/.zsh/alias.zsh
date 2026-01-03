@@ -1,4 +1,5 @@
 alias display='sudo ln -s /mnt/wslg/runtime-dir/wayland-0* /run/user/1000/'
+alias ta='tmux attach-session'
 alias autoremove='zypper rm --clean-deps'
 alias fastfetch=macchina
 alias cls=clear

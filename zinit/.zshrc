@@ -62,3 +62,4 @@ sudo modprobe vhci-hcd 2>/dev/null || true
 # # >>> xmake >>>
 # test -f "/home/tll/.xmake/profile" && source "/home/tll/.xmake/profile"
 # # <<< xmake <<<
+export UV_DEFAULT_INDEX="https://pypi.tuna.tsinghua.edu.cn/simple"
