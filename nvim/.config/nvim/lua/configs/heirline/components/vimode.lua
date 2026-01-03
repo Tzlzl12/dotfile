@@ -2,8 +2,6 @@ local conditions = require "heirline.conditions"
 local utils = require "heirline.utils"
 
 local icons = require("configs.icons").icons
-local separators = require("configs.heirline.common").separators
-local dim = require("configs.heirline.common").dim
 
 local M = {}
 
@@ -49,10 +47,10 @@ M.ViMode = {
       t = "T",
     },
     mode_colors = {
-      n = { fg = "#31272f", bg = "cyan" },
-      i = { fg = "#31272f", bg = "green" },
-      v = { fg = "#31272f", bg = "#25abe4" },
-      V = { fg = "#31272f", bg = "#25abe4" },
+      n = { fg = "#31272f", bg = "green" },
+      i = { fg = "#31272f", bg = "blue" },
+      v = { fg = "#31272f", bg = "purple" },
+      V = { fg = "#31272f", bg = "purple" },
       ["\22"] = { fg = "#31272f", bg = "#25abe4" }, -- this is an actual ^V, type <C-v><C-v> in insert mode
       c = { fg = "#31272f", bg = "orange" },
       s = { fg = "#31272f", bg = "#25abe4" },
@@ -61,25 +59,25 @@ M.ViMode = {
       R = { fg = "#31272f", bg = "orange" },
       r = { fg = "#31272f", bg = "orange" },
       ["!"] = { fg = "#31272f", bg = "red" },
-      t = { fg = "#31272f", bg = "green" },
+      t = { fg = "#31272f", bg = "yellow" },
     },
     mode_color = function(self)
       local mode = conditions.is_active() and vim.fn.mode() or "n"
       return self.mode_colors[mode]
     end,
   },
-  {
-    provider = function()
-      return ""
-    end,
-    hl = function(self)
-      local colors = self:mode_color()
-      return { fg = colors.bg, bg = "None", bold = true }
-    end,
-  },
+  -- {
+  -- provider = function()
+  --   return ""
+  -- end,
+  -- hl = function(self)
+  --   local colors = self:mode_color()
+  --   return { fg = colors.bg, bg = "None", bold = true }
+  -- end,
+  -- },
   {
     provider = function(self)
-      return icons.vim .. "%2(" .. self.mode_names[self.mode] .. "%)"
+      return " " .. icons.vim .. "%2(" .. self.mode_names[self.mode] .. "%)"
     end,
     hl = function(self)
       local colors = self:mode_color()
@@ -88,13 +86,22 @@ M.ViMode = {
   },
   {
     provider = function()
-      return ""
+      return ""
     end,
     hl = function(self)
       local colors = self:mode_color()
-      return { fg = colors.bg, bg = "None", bold = true }
+      return { fg = colors.bg, bg = "None" }
     end,
   },
+  -- {
+  --   provider = function()
+  --     return ""
+  --   end,
+  --   hl = function(self)
+  --     local colors = self:mode_color()
+  --     return { fg = colors.bg, bg = "None", bold = true }
+  --   end,
+  -- },
   update = {
     "ModeChanged",
     pattern = "*:*",

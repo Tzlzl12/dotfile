@@ -1,18 +1,14 @@
-local conditions = require "heirline.conditions"
-local utils = require "heirline.utils"
+local workdir_color = { bg = "None", fg = "red" }
 
-local icons = require "configs.heirline.common"
-local separators = require("configs.heirline.common").separators
-local dim = require("configs.heirline.common").dim
+local M = {}
 
-local workdir_color = { bg = "#f38ba8" }
-return utils.surround({ separators.rounded_left, separators.rounded_right }, workdir_color.bg, {
+M.workDir = {
   init = function(self)
     self.icon = " "
 
     self.cwd = string.match(require("utils").get_root_dir(), "([^/]+)/?$")
   end,
-  hl = { fg = "gray", bg = workdir_color.bg, bold = true },
+  hl = { fg = workdir_color.fg, bg = workdir_color.bg, bold = true },
   on_click = {
     callback = function()
       vim.cmd "Neotree toggle"
@@ -21,8 +17,9 @@ return utils.surround({ separators.rounded_left, separators.rounded_right }, wor
   },
   {
     provider = function(self)
-      -- local trail = self.cwd:sub(-1) == "/" and "" or "/"
       return self.icon .. self.cwd
     end,
   },
-})
+}
+
+return M

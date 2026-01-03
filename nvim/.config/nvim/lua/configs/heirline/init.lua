@@ -3,24 +3,28 @@ local conditions = require "heirline.conditions"
 local utils = require "heirline.utils"
 
 local function setup_colors()
+  local color = require "onedarkpro..helpers"
+  local colors = color.get_preloaded_colors()
   return {
-    red = utils.get_highlight("Error").fg,
-    orange = utils.get_highlight("Removed").fg,
-    yellow = utils.get_highlight("DiagnosticSignWarn").fg,
-    green = utils.get_highlight("Added ").fg,
-    cyan = utils.get_highlight("Changed").fg,
-    blue = utils.get_highlight("WhichKeyGroup").fg,
-    purple = utils.get_highlight("Keyword").fg,
-    white = utils.get_highlight("Normal").fg,
-    black = utils.get_highlight("ComplHint").fg,
-    gray = utils.get_highlight("NonText").fg,
-    bright_bg = "None",
-    bright_fg = utils.get_highlight("Folded").fg,
+    red = colors.red,
+    orange = colors.orange,
+    yellow = colors.yellow,
+    green = colors.green,
+    cyan = colors.cyan,
+    blue = colors.blue,
+    purple = colors.purple,
+    white = colors.white,
+    black = colors.black,
+    gray = colors.gray,
+    bright_bg = colors.bg,
+    bright_fg = colors.fg,
     dark_red = utils.get_highlight("DiffDelete").bg,
+
     diag_error = utils.get_highlight("DiagnosticError").fg,
     diag_hint = utils.get_highlight("DiagnosticHint").fg,
     diag_info = utils.get_highlight("DiagnosticInfo").fg,
     diag_warn = utils.get_highlight("DiagnosticWarn").fg,
+
     git_add = utils.get_highlight("diffAdded").fg,
     git_change = utils.get_highlight("diffChanged").fg,
     git_del = utils.get_highlight("diffDeleted").fg,
