@@ -39,7 +39,7 @@ return {
       -- find
       { "<leader>fa", function() Snacks.picker.files({ cwd = vim.fn.stdpath('config'), preset = "ivy" })end, desc = "Snacks Find Config" },
       { "<leader>fb", function() Snacks.picker.buffers({ preset = "ivy" }) end, desc = "Snacks Buffers" },
-      { "<leader>ff", function() Snacks.picker.smart({ preset = "ivy" }) end, desc = "Snacks Find Files" },
+      { "<leader>ff", function() Snacks.picker.files({ preset = "ivy", cwd = require("utils").get_root_dir() }) end, desc = "Snacks Find Files" },
       { "<leader>fg", function() Snacks.picker.git_files({ preset = "ivy" }) end, desc = "Snacks Find Git Files" },
       { "<leader>fh", function() Snacks.picker.highlights({ preset = "ivy" }) end, desc = "Snacks Highlights" },
       { "<leader>fk", function() Snacks.picker.keymaps({ preset = "ivy" }) end, desc = "Snacks Keymaps" },

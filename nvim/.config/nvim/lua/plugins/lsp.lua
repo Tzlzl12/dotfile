@@ -10,6 +10,8 @@ return {
         cpp = { "clang-format" },
         c = { "clang-format" },
         cs = { "clang-format" },
+        zig = { "zigfmt" },
+        sh = {"shfmt"},
         rust = { "rustfmt" },
         json = { "jq" },
         javescript = { "deno_fmt" },
@@ -38,7 +40,6 @@ return {
       opts.events = { "BufWritePost", "BufReadPost", "InsertLeave" }
       opts.linters_by_ft = {
         -- lua = { "selene" },
-        cmake = { "cmakelint" },
         zsh = { "zsh" },
         yaml = { "yamllint" },
         -- javascript = { "deno" },
