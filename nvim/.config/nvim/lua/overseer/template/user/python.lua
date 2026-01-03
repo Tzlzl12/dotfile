@@ -1,3 +1,4 @@
+if true then return {} end
 return {
   name = "run python script",
   builder = function()
