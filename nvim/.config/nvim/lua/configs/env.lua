@@ -38,6 +38,14 @@ Ice.colorschemes = {
       ["dark-tokyonight"] = "tokyonight",
     },
   },
+  ["astrotheme"] = {
+    transparent = true,
+    items = {
+      ["dark-astro"] = "astrodark ",
+      ["light--astro"] = "astrolight ",
+      ["dark-astroMars"] = "astromars ",
+    },
+  },
 }
 
 Ice.palette = {}
