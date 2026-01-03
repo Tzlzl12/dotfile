@@ -1,7 +1,7 @@
 return {
   {
     "rebelot/heirline.nvim",
-    event = "BufEnter",
+    event = "VeryLazy",
     config = function()
       require "configs.heirline"
     end,
@@ -44,7 +44,7 @@ return {
   },
   {
     "nvim-tree/nvim-web-devicons",
-    event = "BufReadPost",
+    lazy = true,
     opts = function()
       return {
         override = {

@@ -1,7 +1,8 @@
 return {
   {
     "olimorris/onedarkpro.nvim",
-    lazy = true,
+    lazy = false,
+    priority = 1000,
     opts = {
       plugins = { -- Override which plugin highlight groups are loaded
         blink_cmp = true,

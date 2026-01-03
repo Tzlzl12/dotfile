@@ -8,13 +8,13 @@ map("n", "<leader>ta", function()
   local colors = color.get_preloaded_colors()
   vim.print(colors)
 end)
-map("n", "<c-n>", function()
-  local dir = require("utils").get_root_dir()
-  require("neo-tree.command").execute {
-    toggle = true,
-    dir = dir,
-  }
-end, { desc = " General Toggle Explorer" })
+-- map("n", "<c-n>", function()
+--   local dir = require("utils").get_root_dir()
+--   require("neo-tree.command").execute {
+--     toggle = true,
+--     dir = dir,
+--   }
+-- end, { desc = "General Toggle Explorer" })
 
 map("n", ";", ":", { desc = "General CMD enter command mode" })
 map("n", "<C-h>", "<C-w>h", { desc = "General switch window left" })

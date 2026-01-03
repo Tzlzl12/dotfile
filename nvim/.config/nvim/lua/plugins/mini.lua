@@ -11,7 +11,7 @@ local ignore_filetypes = {
 	"neogitstatus",
 	"notify",
 	"startify",
-	"toggleterm",
+	-- "toggleterm",
 	"Trouble",
 }
 

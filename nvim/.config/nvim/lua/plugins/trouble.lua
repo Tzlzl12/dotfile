@@ -1,6 +1,7 @@
 return {
   {
     "folke/trouble.nvim",
+    lazy = true,
     cmd = { "Trouble" },
     opts = {
       modes = {
@@ -59,7 +60,7 @@ return {
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    event = "VeryLazy",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {},
     -- stylua: ignore
     keys = {

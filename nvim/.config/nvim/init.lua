@@ -17,10 +17,39 @@ vim.g.maplocalleader = " "
 -- load plugins
 require("lazy").setup({
   { import = "plugins" },
-}, {})
+}, {
+  defaults = {
+    lazy = true,
+  },
+  performance = {
+    cache = {
+      enabled = true,
+    },
+    reset_packpath = true, -- 重置 packpath，减少扫描开销
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+        "man",
+        "osc52",
+        "spellfile",
+      },
+    },
+  },
+  -- 开启这个可以在 Lazy 界面看到更详细的加载信息
+  profiling = {
+    loader = true,
+    require = true,
+  },
+})
 
 require "configs.options"
-require "keymap"
 --
 vim.schedule(function()
   local rtp_plugin_path = vim.fs.joinpath(vim.opt.packpath:get()[1], "plugin")
@@ -58,4 +87,5 @@ vim.schedule(function()
   require "configs.autocmd"
   require "configs.commands"
   require "configs.folding"
+  require "keymap"
 end)
