@@ -12,6 +12,10 @@ local transperent_highlight = {
   TabLineFill = { bg = "NONE" },
   Title = { bg = "NONE" },
 
+  RenderMarkdownCode = {bg = "NONE"},
+  RenderMarkdownCodeInfo = {bg = "NONE"},
+  RenderMarkdownCodeInline = {bg = "NONE"},
+
   NotifyBackground = { bg = "#64B5F6" },
 }
 
