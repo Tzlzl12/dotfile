@@ -34,7 +34,7 @@ return {
 	           -- { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
 	           { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects(require('utils.projects'))",},
 	           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})"},
-	           { icon = " ", key = "s", desc = "Session", section = "session" },
+	           { icon = " ", key = "s", desc = "Session", action = ":lua require('persistence').load({ last = true })" },
 	           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
 	           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
 	         },
