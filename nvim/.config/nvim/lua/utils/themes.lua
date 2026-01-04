@@ -2,9 +2,9 @@ local M = {}
 
 local transperent_highlight = {
   NormalFloat = { bg = "NONE" },
+  NormalNC = { bg = "NONE" },
   WinBarNC = { bg = "NONE" },
   StatusLine = { bg = "NONE" },
-
   FloatBorder = { bg = "NONE" },
   FloatTitle = { bg = "NONE" },
   FloatFooter = { bg = "NONE" },
@@ -12,10 +12,11 @@ local transperent_highlight = {
   TabLineFill = { bg = "NONE" },
   Title = { bg = "NONE" },
 
-  RenderMarkdownCode = {bg = "NONE"},
-  RenderMarkdownCodeInfo = {bg = "NONE"},
-  RenderMarkdownCodeInline = {bg = "NONE"},
+  RenderMarkdownCode = { bg = "NONE" },
+  RenderMarkdownCodeInfo = { bg = "NONE" },
+  RenderMarkdownCodeInline = { bg = "NONE" },
 
+  SnacksPickerPickWin = { bg = "NONE" },
   NotifyBackground = { bg = "#64B5F6" },
 }
 
@@ -41,15 +42,14 @@ M.colorscheme = function(colorscheme_name, transparent)
     return
   end
 
-  if config.transparent then
-    set_highlight(transperent_highlight)
-  end
-
   -- vim.g.nvim_colorhelper = config.color_helper or ""
   local actual_name = config.items[colorscheme_name]
   vim.cmd("colorscheme " .. actual_name)
   vim.o.background = colorscheme_name:match "^light-" and "light" or "dark"
 
+  if config.transparent then
+    set_highlight(transperent_highlight)
+  end
   -- 触发自动命令
   vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter colorscheme" })
 end

@@ -46,10 +46,11 @@ map("n", "<esc>", function()
 end, { desc = "General Dismiss" })
 
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "General Save File" })
-map("n", "<a-down>", "<cmd>m .+1<cr>==", { desc = "General Move Down" })
+
 map("n", "<a-up>", "<cmd>m .-2<cr>==", { desc = "General Move Up" })
-map("v", "<a-down>", ":m '>+1<cr>gv=gv", { desc = "General Move Down" })
-map("v", "<a-up>", ":m '<-2<cr>gv=gv", { desc = "General Move Up" })
+map("n", "<a-down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "General Move Down" })
+map("v", "<a-down>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
+map("v", "<a-up>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
 
 ----
 map("v", "<tab>", ">gv", { desc = "General Indent line" })
@@ -81,5 +82,4 @@ end, { desc = "General Replace Word" })
 vim.schedule(function()
   require "keymap.jump"
   require "keymap.term"
-  -- require "keymap.ui"
 end)
