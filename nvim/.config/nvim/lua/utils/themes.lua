@@ -1,6 +1,7 @@
 local M = {}
 
 local transperent_highlight = {
+  NonText = { fg = "#5c6370", bg = "NONE" },
   NormalFloat = { bg = "NONE" },
   NormalNC = { bg = "NONE" },
   WinBarNC = { bg = "NONE" },
@@ -15,7 +16,8 @@ local transperent_highlight = {
   RenderMarkdownCode = { bg = "NONE" },
   RenderMarkdownCodeInfo = { bg = "NONE" },
   RenderMarkdownCodeInline = { bg = "NONE" },
-
+  NeotreeNormal = { bg = "NONE" },
+  NeotreeNormalNC = { bg = "NONE" },
   SnacksPickerPickWin = { bg = "NONE" },
   NotifyBackground = { bg = "#64B5F6" },
 }

@@ -47,11 +47,16 @@ end, { desc = "General Dismiss" })
 
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "General Save File" })
 
-map("n", "<a-up>", "<cmd>m .-2<cr>==", { desc = "General Move Up" })
-map("n", "<a-down>", "<cmd>execute 'move .+' . v:count1<cr>==", { desc = "General Move Down" })
-map("v", "<a-down>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", { desc = "Move Down" })
-map("v", "<a-up>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", { desc = "Move Up" })
+-- map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
+-- map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
+map("n", "<A-Down>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
+map("n", "<A-Up>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
 
+-- Visual 模式 (移动选中的行块)
+-- map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move Selection Down" })
+-- map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move Selection Up" })
+map("v", "<A-Down>", ":m '>+1<CR>gv=gv", { desc = "Move Selection Down" })
+map("v", "<A-Up>", ":m '<-2<CR>gv=gv", { desc = "Move Selection Up" })
 ----
 map("v", "<tab>", ">gv", { desc = "General Indent line" })
 map("v", "<s-tab>", "<gv", { desc = "General Unindent line" })

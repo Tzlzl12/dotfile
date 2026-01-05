@@ -17,7 +17,7 @@ end
 
 -- 普通模式与终端模式下的 Toggle
 map({ "n", "t" }, "<C-Space>", term_toggle, { desc = "Terminal Toggle" })
--- map({ "n", "t" }, "<c-`>", term_toggle, { desc = "Terminal Toggle" })
+map({ "n", "t" }, "<c-`>", term_toggle, { desc = "Terminal Toggle" })
 -- map("n", "`", term_toggle, { desc = "Terminal Toggle", remap = true })
 -- map("t", "`", term_toggle, { desc = "Terminal Toggle" })
 
