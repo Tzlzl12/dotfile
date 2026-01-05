@@ -46,7 +46,7 @@ return {
     },
 
     dependencies = {
-      "rafamadriz/friendly-snippets",
+      -- "rafamadriz/friendly-snippets",
       {
         "xzbdmw/colorful-menu.nvim",
         opts = {
@@ -187,21 +187,20 @@ return {
           "buffer",
         },
         providers = {
-          lsp = {
-            score_offset = 10,
-          },
-          path = {
-            min_keyword_length = 0,
-            score_offset = 3,
-          },
-          snippets = {
-            min_keyword_length = 1,
-            score_offset = 3,
-          },
-          buffer = {
-            min_keyword_length = 5,
-            max_items = 5,
-          },
+          -- lsp = {
+          --   score_offset = 10,
+          -- },
+          -- path = {
+          --   min_keyword_length = 0,
+          --   score_offset = 3,
+          -- },
+          -- snippets = {
+          --   score_offset = 3,
+          -- },
+          -- buffer = {
+          --   min_keyword_length = 3,
+          --   max_items = 5,
+          -- },
           cmdline = {
             min_keyword_length = function(ctx)
               -- when typing a command, only show when the keyword is 3 characters or longer

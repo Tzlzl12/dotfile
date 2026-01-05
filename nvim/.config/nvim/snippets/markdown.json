@@ -1,0 +1,102 @@
+{
+  "Link": {
+    "prefix": "url",
+    "body": "[${1:desc}](${2:https://})",
+    "description": "insert a link"
+  },
+  "Image": {
+    "prefix": [
+      "img",
+      "image"
+    ],
+    "body": "![${1:alt}](${2:地址})",
+    "description": "插入图片"
+  },
+  "Code Inline": {
+    "prefix": "code",
+    "body": "`${1:code}`",
+    "description": "code inline"
+  },
+  "Code Block": {
+    "prefix": "codeblock",
+    "body": [
+      "```${1:language}",
+      "${2:code}",
+      "```"
+    ],
+    "description": "code block"
+  },
+  "Task List": {
+    "prefix": "task",
+    "body": [
+      "- [ ] ${1:task}",
+      "- [ ] ${2:task}"
+    ],
+    "description": "task list"
+  },
+  "Table 3x1": {
+    "prefix": "table3x1",
+    "body": [
+      "| ${1:Header1} | ${2:Header2} | ${3:Header3} |",
+      "| --- | --- | --- |",
+      "| ${4:content} | ${5:content} | ${6:content} |"
+    ],
+    "description": "3列1行表格"
+  },
+  "Table 3x3": {
+    "prefix": "table3x3",
+    "body": [
+      "| ${1:H1} | ${2:H2} | ${3:H3} |",
+      "| --- | --- | --- |",
+      "| ${4:C1} | ${5:C2} | ${6:C3} |",
+      "| ${7:C4} | ${8:C5} | ${9:C6} |",
+      "| ${10:C7} | ${11:C8} | ${12:C9} |"
+    ],
+    "description": "3x3表格"
+  },
+  "Subscript": {
+    "prefix": "sub",
+    "body": "<sub>${1:text}</sub>",
+    "description": "下标"
+  },
+  "Superscript": {
+    "prefix": "sup",
+    "body": "<sup>${1:text}</sup>",
+    "description": "上标"
+  },
+  "GH Note": {
+    "prefix": "note",
+    "body": "> [!NOTE]\n> ${1:内容}",
+    "description": "GitHub Note 提示"
+  },
+  "GH Tip": {
+    "prefix": "tip",
+    "body": "> [!TIP]\n> ${1:内容}",
+    "description": "GitHub Tip 提示"
+  },
+  "GH Important": {
+    "prefix": "important",
+    "body": "> [!IMPORTANT]\n> ${1:内容}",
+    "description": "GitHub Important 提示"
+  },
+  "GH Warning": {
+    "prefix": "warning",
+    "body": "> [!WARNING]\n> ${1:内容}",
+    "description": "GitHub Warning 提示"
+  },
+  "GH Caution": {
+    "prefix": "caution",
+    "body": "> [!CAUTION]\n> ${1:内容}",
+    "description": "GitHub Caution 提示"
+  },
+  "Details (Fold)": {
+    "prefix": "details",
+    "body": [
+      "<details>",
+      "<summary>${1:content show}</summary>",
+      "${2: content}",
+      "</details>"
+    ],
+    "description": "折叠详情块"
+  }
+}
