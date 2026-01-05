@@ -5,12 +5,12 @@
 # --- 1. 声明唯一性绑定 (Zsh 黑科技) ---
 # -U 代表 Unique（自动去重），-T 代表 Tie（将数组与环境变量绑定）
 # 这样操作 path 数组就等同于操作 PATH 字符串，且不会重复
-typeset -U path PATH
-typeset -U fpath FPATH
-typeset -U ld_library_path LD_LIBRARY_PATH
-typeset -U pkg_config_path PKG_CONFIG_PATH
-typeset -U cplus_include_path CPLUS_INCLUDE_PATH
-typeset -U library_path LIBRARY_PATH
+typeset -gUx path PATH
+typeset -gUx fpath FPATH
+typeset -gUx ld_library_path LD_LIBRARY_PATH
+typeset -gUx pkg_config_path PKG_CONFIG_PATH
+typeset -gUx cplus_include_path CPLUS_INCLUDE_PATH
+typeset -gUx library_path LIBRARY_PATH
 
 # --- 2. 批量设置路径 (最稳的数组写法) ---
 # 优先级从上到下，最上面的路径在 PATH 中最靠前
