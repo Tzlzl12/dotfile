@@ -1,7 +1,7 @@
 # --- 1. Tmux 自动启动 (安全模式) ---
 # 去掉 exec，如果 tmux 启动失败，你会停留在 zsh 而不是关闭终端
 if [[ -z "$TMUX" && -n "$PS1" && -x "$(command -v tmux)" ]]; then
-    tmux attach-session -t default 2>/dev/null || tmux new-session -s default
+    tmux attach-session -t 0 2>/dev/null || tmux new-session -s 0
 fi
 
 # --- 2. Zinit 基础 ---
@@ -36,15 +36,13 @@ load_custom_configs() {
     if [[ -z "$_CONFIGS_LOADED" ]]; then
         # 按优先级加载，但不阻塞启动
         [[ -f ~/.zsh/export.zsh ]]    && source ~/.zsh/export.zsh
-        [[ -f ~/.zsh/fzf.zsh ]]     && source ~/.zsh/fzf.zsh
         [[ -f ~/.zsh/alias.zsh ]]     && source ~/.zsh/alias.zsh
         [[ -f ~/.zsh/api_key.zsh ]]   && source ~/.zsh/api_key.zsh
         [[ -f ~/.zsh/lazy_load.zsh ]] && source ~/.zsh/lazy_load.zsh
         [[ -f ~/.zsh/zoxide.zsh ]]    && source ~/.zsh/zoxide.zsh
         [[ -f ~/.xmake/profile ]]     && source ~/.xmake/profile
         
-        # 补全文件 fzf.zsh 这种比较重的，最后加载
-        [[ -f ~/.zsh/fzf.zsh ]]       && source ~/.zsh/fzf.zsh
+        # [[ -f ~/.zsh/fzf.zsh ]]       && source ~/.zsh/fzf.zsh
         
         _CONFIGS_LOADED=1
         # 卸载钩子，只跑一次
