@@ -1,2 +1,3 @@
-export GEMINI_API_KEY="AIzaSyACpf_S9Y9SD51qt8Y6u_ECk4FmEaSti7Q"
-export OPENROUTER_API_KEY="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"
+export GEMINI_API_KEY=$(pass api/gemini 2>/dev/null)
+export OPENROUTER_API_KEY=""
+export DEEPSEEK_API_KEY=$(pass api/deepseek 2>/dev/null)
