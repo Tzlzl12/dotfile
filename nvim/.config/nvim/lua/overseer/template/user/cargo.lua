@@ -77,7 +77,7 @@ return {
 
       -- 1. 精简后的通用命令列表
       local commands = {
-        { args = { "build" }, tags = { TAG.BUILD }, name_override = "cargo build" },
+        { args = { "build" }, tags = { TAG.BUILD } },
         { args = { "check" }, name_override = "cargo check" },
         { args = { "test" }, tags = { TAG.TEST }, name_override = "cargo test" },
         { args = { "clean" }, tags = { TAG.CLEAN }, name_override = "cargo clean" },
@@ -131,7 +131,6 @@ return {
           table.insert(commands, 1, {
             args = { "run", "--release" },
             tags = { TAG.RUN },
-            name_override = "cargo run --release",
           })
         end
       end
