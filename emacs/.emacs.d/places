@@ -1,0 +1,8 @@
+;;; -*- coding: utf-8; mode: lisp-data -*-
+(("/home/tll/.emacs.d/lisp/init-ui.el" . 73)
+ ("/home/tll/.emacs.d/init.el" . 1054)
+ ("/home/tll/.emacs.d/lisp/init-editor.el" . 201)
+ ("/home/tll/.emacs.d/lisp/init-completion.el" . 137)
+ ("/home/tll/.emacs.d/"
+  (dired-filename . "/home/tll/.emacs.d/init.el"))
+ ("/home/tll/" (dired-filename . "/home/tll/.emacs.d")))
