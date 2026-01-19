@@ -172,6 +172,7 @@ return {
         },
       },
       signature = {
+        enabled = true,
         window = {
           border = "rounded",
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
@@ -182,25 +183,17 @@ return {
       sources = {
         default = {
           "lsp",
-          "path",
           "snippets",
+          "path",
           "buffer",
         },
         providers = {
-          -- lsp = {
-          --   score_offset = 10,
-          -- },
-          -- path = {
-          --   min_keyword_length = 0,
-          --   score_offset = 3,
-          -- },
-          -- snippets = {
-          --   score_offset = 3,
-          -- },
-          -- buffer = {
-          --   min_keyword_length = 3,
-          --   max_items = 5,
-          -- },
+          -- stylua: ignore 
+          lsp = { score_offset = 10, },
+          path = { min_keyword_length = 0, score_offset = 3 },
+          -- snippets = { score_offset = 3 },
+          buffer = { min_keyword_length = 3, max_items = 5 },
+          --
           cmdline = {
             min_keyword_length = function(ctx)
               -- when typing a command, only show when the keyword is 3 characters or longer
@@ -247,12 +240,6 @@ return {
               vim.api.nvim_input(require("codeium.virtual_text").accept())
               return true
             end
-            -- else
-            -- if require("copilot.suggestion").is_visible() then
-            -- require("copilot.suggestion").accept()
-            -- return true
-            -- end
-            -- end
           end,
           function(cmp)
             if has_words_before() and vim.api.nvim_get_mode().mode == "c" then

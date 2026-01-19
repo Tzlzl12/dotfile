@@ -1,11 +1,8 @@
-.git-credentials
-*.key
-.env
-auto-save-list
-emacs/.emacs.d/eln-cache
-emacs/.emacs.d/elpa
-lisp
-emacs/.emacs.d/history
-init.el
-emacs/.emacs.d/init.elc
-emacs/.emacs.d/places
+# Emacs 生成文件
+**/.emacs.d/auto-save-list/
+**/.emacs.d/elpa/
+**/.emacs.d/eln-cache/
+**/.emacs.d/history/
+
+# codex 生成文件（根据你列出的路径）
+**/.codex/

@@ -1,8 +1,22 @@
 # --- 1. Tmux 自动启动 (安全模式) ---
-# 去掉 exec，如果 tmux 启动失败，你会停留在 zsh 而不是关闭终端
-if [[ -z "$TMUX" && -n "$PS1" && -x "$(command -v tmux)" ]]; then
-    tmux attach-session -t 0 2>/dev/null || tmux new-session -s 0
-fi
+# if [[ -z "$TMUX" && -n "$PS1" && -x "$(command -v tmux)" ]]; then
+#     if [[ "${IS_ZED_TERMINAL}" == "true" ]]; then
+#         return  #  
+#     fi
+#     # 检查 session 0 是否存在
+#     if tmux has-session -t 0 2>/dev/null; then
+#         # 获取连接到 session 0 的客户端数量
+#         # list-clients -t 0 会列出所有连接，wc -l 统计行数
+#         client_count=$(tmux list-clients -t 0 2>/dev/null | wc -l)
+#
+#         if [ "$client_count" -eq 0 ]; then
+#             # 存在但没人用，连上去
+#             tmux attach-session -t 0
+#         fi
+#     else
+#         tmux new-session -s 0
+#     fi
+# fi
 
 # --- 2. Zinit 基础 ---
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"

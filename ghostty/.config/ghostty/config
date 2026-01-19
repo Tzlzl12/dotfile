@@ -55,42 +55,45 @@ font-style-italic = "Maple Mono"
 font-style-bold-italic = "Maple Mono" 
 adjust-underline-position = 10%
 adjust-underline-thickness = -20%
+
+############## keymap ##################
+keybind=clear
+# 在 Ghostty 配置中添加
+keybind = alt+j=text:\x1bj
+keybind = alt+k=text:\x1bk
+keybind = alt+up=text:\x1b[1;3A
+keybind = alt+down=text:\x1b[1;3B
+
 # 按 Ctrl+Shift+W 关闭窗口
 keybind = ctrl+shift+w=close_window
-# 按 Alt+W 关闭标签页
-keybind = alt+w=close_tab
-# 按 Alt+L 切换到右侧分屏
-keybind = alt+l=goto_split:right
 # 按 F11 切换全屏模式
 keybind = f11=toggle_fullscreen
-# 按 Alt+C 创建新的标签页
-keybind = alt+c=new_tab
-# # 按 Ctrl+C 复制到剪贴板
-# keybind = ctrl+c=copy_to_clipboard
-# 按 Alt+V 在右侧创建新的分屏
-keybind = alt+v=new_split:right
 # 按 Alt+Plus 增大字体大小
 keybind = alt+plus=increase_font_size:1
 # 按 Alt+Q 退出程序
 keybind = alt+q=quit
 # 按 Alt+Shift+C 重新加载配置文件
-keybind = alt+shift+c=reload_config
+keybind = ctrl+shift+c=reload_config
 # 按 Alt+Minus 减小字体大小
 keybind = alt+minus=decrease_font_size:1
-# 按 Alt+Tab 切换到下一个标签页
-keybind = alt+tab=next_tab
-keybind = alt+d=next_tab
-# 按 Alt+Shift+Tab 切换到上一个标签页
-keybind = alt+shift+tab=previous_tab
-keybind = alt+a=previous_tab
+
+# 按 Alt+W 关闭标签页
+# keybind = alt+w=close_tab
+# 按 Alt+L 切换到右侧分屏
+# keybind = alt+l=goto_split:right
+# # 按 Alt+Tab 切换到下一个标签页
+# keybind = alt+tab=next_tab
+# # 按 Alt+Shift+Tab 切换到上一个标签页
+# keybind = alt+shift+tab=previous_tab
 # 按 Alt+H 切换到左侧分屏
-keybind = alt+h=goto_split:left
+# keybind = alt+h=goto_split:left
 # 按 Alt+J 切换到上方分屏
-keybind = alt+j=goto_split:up
+# keybind = alt+j=goto_split:up
 # 按 Alt+Down 滚动到页面底部
-keybind = alt+down=scroll_to_bottom
+# keybind = alt+down=scroll_to_bottom
 # 按 Alt+S 在下方创建新的分屏
-keybind = alt+s=new_split:down
+# keybind = alt+s=new_split:down
 # # 按 Ctrl+V 从剪贴板粘贴
-# keybind = ctrl+v=paste_from_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
+keybind = ctrl+shift+c=copy_to_clipboard
 
