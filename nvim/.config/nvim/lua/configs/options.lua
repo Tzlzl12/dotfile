@@ -1,13 +1,14 @@
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
-
 local opt = vim.opt
 
-opt.runtimepath:append(vim.fn.stdpath "config" .. "/snippets")
+opt.clipboard = "unnamedplus"
 
+vim.o.autoread = true
 opt.autowrite = true -- Enable auto write
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically.
-opt.clipboard = "unnamedplus" -- Sync with system clipboard
+-- opt.clipboard = "unnamedplus" -- Sync with system clipboard
+opt.runtimepath:append(vim.fn.stdpath "config" .. "snippets")
 
 opt.completeopt = "menu,menuone,noselect"
 opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
