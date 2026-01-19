@@ -31,6 +31,7 @@ local keymap = {
 
 return {
   "sudo-tee/opencode.nvim",
+  enabled = false,
   cmd = "Opencode",
   opts = {
     preferred_picker = "snacks",

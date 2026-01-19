@@ -1,118 +1,86 @@
 local prefix = "<leader>a"
-local highlight = {
-  MiniDiffSignAdd = { link = "GitSignsAdd" },
-  MiniDiffSignChange = { link = "GitSignsChange" },
-  MiniDiffSignDelete = { link = "GitSignsDelete" },
-  MiniDiffOverAdd = { bg = "#40a02b", fg = "#282828" },
-  MiniDiffOverChange = { bg = "#df8e1d", fg = "#282828" },
-  MiniDiffOverChangeBuf = { bg = "#df8e1d", fg = "#282828" },
-  MiniDiffOverContext = { bg = "#df8e1d", fg = "#282828" },
-  MiniDiffOverContextBuf = { bg = "#df8e1d", fg = "#282828" },
-  MiniDiffOverDelete = { bg = "#d20f39", fg = "#282828" },
-}
+
 return {
-  {
-    "olimorris/codecompanion.nvim",
-    enabled = false,
-    keys = {
-      {
-        prefix .. "a",
-        mode = { "n", "x" },
-        ":CodeCompanion<cr>",
-        desc = "AI Command Inline",
+  "olimorris/codecompanion.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
+  },
+
+  -- 使用 opts 代替 config
+  opts = function()
+    -- 只有在需要用到内置适配器扩展时才在这里 require
+    local adapters = require "codecompanion.adapters"
+
+    return {
+      adapters = {
+        http = {
+          modelscope = function()
+            return adapters.extend("openai_compatible", {
+              name = "modelscope",
+              formatted_name = "ModelScope",
+              url = "https://api-inference.modelscope.cn/v1/chat/completions",
+              env = {
+                api_key = "MODELSCOPE_API_KEY",
+              },
+              headers = {
+                ["Content-Type"] = "application/json",
+                ["Authorization"] = "Bearer ${api_key}",
+              },
+              schema = {
+                model = {
+                  order = 1,
+                  mapping = "parameters",
+                  type = "enum",
+                  default = "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+                  choices = {
+                    ["Qwen/Qwen3-Coder-480B-A35B-Instruct"] = { formatted_name = "Qwen3 Coder 480B" },
+                    ["ZhipuAI/GLM-4.7"] = { formatted_name = "GLM-4.7" },
+                    ["qwen/Qwen2.5-Coder-32B-Instruct"] = { formatted_name = "Qwen2.5 Coder 32B" },
+                  },
+                },
+                temperature = { type = "number", default = 1 },
+                max_tokens = { type = "integer", default = 8192 },
+              },
+            })
+          end,
+        },
       },
-      {
-        prefix .. "c",
-        mode = { "n" },
-        ":CodeCompanionChat<cr>",
-        desc = "AI Chat",
+      strategies = {
+        chat = { adapter = "modelscope" },
+        inline = { adapter = "modelscope", model = "ZhipuAI/GLM-4.7" },
+        agent = { adapter = "modelscope" },
       },
-      {
-        prefix .. "m",
-        mode = { "n" },
-        ":CodeCompanionActions<cr>",
-        desc = "AI Menu",
-      },
-    },
-    opts = {
       display = {
-        action_palette = {
-          width = 95,
-          height = 10,
-          prompt = "Prompt ", -- Prompt used for interactive LLM calls
-          -- provider = "telescope", -- default|telescope|mini_pick
-        },
-        chat = {
-          window = {
-            width = 0.35,
-          },
-        },
-        diff = {
-          enabled = true,
-          close_chat_at = 240, -- Close an open chat buffer if the total columns of your display are less than...
-          layout = "buffer", -- vertical|horizontal split for default provider
-          opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
-          provider = "mini_diff", -- default|mini_diff
-        },
-        inline = {
-          layout = "buffer",
-        },
-      },
-      interactions = {
-        chat = {
-          adapter = "gemini",
-          model = "gemini-2.5-flash",
-          keymaps = {
-            send = {
-              modes = { n = "<cr>", i = "<C-s>" },
-            },
-            close = {
-              modes = { n = "q", i = "<C-c>" },
-            },
-          },
-        },
-        inline = {
-          keymaps = {
-            accept_change = {
-              modes = { n = "gda" }, -- Remember this as DiffAccept
-            },
-            reject_change = {
-              modes = { n = "gdr" }, -- Remember this as DiffReject
-            },
-          },
-          adapter = {
-            name = "gemini",
-            model = "gemini-2.5-flash",
-          },
-        },
+        action_palette = { width = 95, height = 10, prompt = "> " },
+        chat = { window = { width = 0.4 } },
+        diff = { enabled = true, layout = "buffer" },
+        inline = { layout = "buffer" },
       },
       opts = {
+        log_level = "WARN",
         language = "Chinese",
       },
-    },
-    config = true,
-    dependencies = {
-      {
-        "echasnovski/mini.diff",
-        config = function()
-          local diff = require "mini.diff"
-          diff.setup {
-            view = {
-              style = "sign",
-              signs = {
-                add = "▎",
-                change = "▎",
-                delete = "",
-              },
-            },
-            source = diff.gen_source.none(),
-          }
-
-          for group, color in pairs(highlight) do
-            vim.api.nvim_set_hl(0, group, color)
-          end
-        end,
+      keymaps = {
+        inline = {
+          accept_change = {
+            modes = { n = "ga" }, -- 改成 ga 接受（g = git-like, a = accept）
+          },
+          reject_change = {
+            modes = { n = "gr" }, -- 改成 gr 拒绝
+          },
+        },
       },
-    },
+    }
+  end,
+
+  -- config 这一行可以完全删掉，lazy 会自动调用 setup 并传入上面的 opts
+
+  keys = {
+    { prefix .. "a", mode = { "n", "x" }, "<cmd>CodeCompanion<cr>", desc = "AI Ask" },
+    -- 这里的 Toggle 已经按照你之前的要求配置好了
+    { prefix .. "c", mode = { "n", "x" }, "<cmd>CodeCompanionChat Toggle<cr>", desc = "AI Chat Toggle" },
+    { prefix .. "x", mode = { "n" }, "<cmd>CodeCompanionActions<cr>", desc = "AI Menu" },
   },
 }

@@ -5,29 +5,29 @@ end
 
 local menu_cols = { { "label" }, { "kind_icon" }, { "kind" } }
 local highlights = {
-  BlinkCmpMenuSelection = { bg = "#a6e3a1", fg = "#fb4934" }, -- gruvbox green/red
-  BlinkCmpKindEnum = { fg = "#fb4934" }, -- gruvbox red
-  BlinkCmpKindFile = { fg = "#d65d0e" }, -- gruvbox orange
-  BlinkCmpKindText = { fg = "#b8bb26" }, -- gruvbox green
-  BlinkCmpKindUnit = { fg = "#83a598" }, -- gruvbox blue
-  BlinkCmpGhostText = { fg = "#928374" }, -- gruvbox gray
-  BlinkCmpKindClass = { fg = "#83a598" }, -- gruvbox blue
-  BlinkCmpKindColor = { fg = "#fb4934" }, -- gruvbox red
-  BlinkCmpKindEvent = { fg = "#fb4934" }, -- gruvbox red
-  BlinkCmpKindField = { fg = "#fabd2f" }, -- gruvbox yellow
-  BlinkCmpKindValue = { fg = "#d3869b" }, -- gruvbox purple
-  BlinkCmpKindFolder = { fg = "#d65d0e" }, -- gruvbox orange
-  BlinkCmpKindMethod = { fg = "#8ec07c" }, -- gruvbox aqua
-  BlinkCmpKindModule = { fg = "#83a598" }, -- gruvbox blue
-  BlinkCmpKindStruct = { fg = "#83a598" }, -- gruvbox blue
-  BlinkCmpMenuBorder = { fg = "#665c54" }, -- gruvbox dark gray
-  BlinkCmpKindKeyword = { fg = "#fabd2f" }, -- gruvbox yellow
-  BlinkCmpKindSnippet = { fg = "#b8bb26" }, -- gruvbox green
-  BlinkCmpKindConstant = { fg = "#d3869b" }, -- gruvbox purple
-  BlinkCmpKindFunction = { fg = "#8ec07c" }, -- gruvbox aqua
-  BlinkCmpKindOperator = { fg = "#8ec07c" }, -- gruvbox aqua
-  BlinkCmpKindProperty = { fg = "#fabd2f" }, -- gruvbox yellow
-  BlinkCmpKindVariable = { fg = "#d3869b" }, -- gruvbox purple
+  BlinkCmpMenuSelection = { bg = "#a6e3a1", fg = "#fb4934" },
+  BlinkCmpKindEnum = { fg = "#fb4934" },
+  BlinkCmpKindFile = { fg = "#d65d0e" },
+  BlinkCmpKindText = { fg = "#b8bb26" },
+  BlinkCmpKindUnit = { fg = "#83a598" },
+  BlinkCmpGhostText = { fg = "#928374" },
+  BlinkCmpKindClass = { fg = "#83a598" },
+  BlinkCmpKindColor = { fg = "#fb4934" },
+  BlinkCmpKindEvent = { fg = "#fb4934" },
+  BlinkCmpKindField = { fg = "#fabd2f" },
+  BlinkCmpKindValue = { fg = "#d3869b" },
+  BlinkCmpKindFolder = { fg = "#d65d0e" },
+  BlinkCmpKindMethod = { fg = "#8ec07c" },
+  BlinkCmpKindModule = { fg = "#83a598" },
+  BlinkCmpKindStruct = { fg = "#83a598" },
+  BlinkCmpMenuBorder = { fg = "#665c54" },
+  BlinkCmpKindKeyword = { fg = "#fabd2f" },
+  BlinkCmpKindSnippet = { fg = "#b8bb26" },
+  BlinkCmpKindConstant = { fg = "#d3869b" },
+  BlinkCmpKindFunction = { fg = "#8ec07c" },
+  BlinkCmpKindOperator = { fg = "#8ec07c" },
+  BlinkCmpKindProperty = { fg = "#fabd2f" },
+  BlinkCmpKindVariable = { fg = "#d3869b" },
   Pmenu = { fg = "#64B5F6", bg = "NONE" },
   PmenuSel = { fg = "#61afef", bg = "NONE" },
   PmenuTumb = { bg = "NONE" },
@@ -187,6 +187,15 @@ return {
           "path",
           "buffer",
         },
+        per_filetype = {
+          codecompanion = {
+            "codecompanion", -- 必须有这个
+            "lsp",
+            "path",
+            "snippets",
+            "buffer", -- 手动继承 default，避免空菜单
+          },
+        },
         providers = {
           -- stylua: ignore 
           lsp = { score_offset = 10, },
@@ -220,6 +229,7 @@ return {
       },
       keymap = {
         preset = "enter",
+
         ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
         ["<Up>"] = { "select_prev", "fallback" },
         ["<Down>"] = { "select_next", "fallback" },
@@ -234,12 +244,17 @@ return {
         ["<Tab>"] = {
           "snippet_forward",
           "accept",
-          function(cmp)
+          function()
             -- if require("copilot.client").is_disabled() then
-            if require("codeium.virtual_text").get_current_completion_item() then
-              vim.api.nvim_input(require("codeium.virtual_text").accept())
+            local codeium = require "neocodeium"
+            if codeium.visible() then
+              codeium.accept()
               return true
             end
+            -- if require("codeium.virtual_text").get_current_completion_item() then
+            --   vim.api.nvim_input(require("codeium.virtual_text").accept())
+            --   return true
+            -- end
           end,
           function(cmp)
             if has_words_before() and vim.api.nvim_get_mode().mode == "c" then
@@ -298,6 +313,21 @@ return {
           },
         },
       },
+    },
+  },
+  {
+    "saghen/blink.cmp",
+    dependencies = {
+      "olimorris/codecompanion.nvim", -- 重要：加这个，让 blink 能加载 codecompanion source
+    },
+    opts = {
+      sources = {
+        per_filetype = {
+          codecompanion = { "codecompanion" },
+        },
+      },
+
+      keymap = { preset = "super-tab" },
     },
   },
 }
