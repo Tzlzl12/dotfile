@@ -1,0 +1,47 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "*": "ask",
+    "read": "allow",
+    "grep": "allow",
+    "glob": "allow",
+    "write": "ask",
+    "edit": "ask",
+    "patch": "ask",
+    "bash": "ask"
+  },
+  "mcp": {
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
+      },
+      "enabled": true
+    }
+  },
+  "provider": {
+    "modelscope": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "ModelScope",
+      "options": {
+        "baseURL": "https://api-inference.modelscope.cn/v1",
+        "apiKey": "{env:MODELSCOPE_API_KEY}"
+      },
+      "models": {
+        "qwen-coder": {
+          "name": "Qwen3-Coder-480B",
+          "id": "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+        },
+        "glm4.7": {
+          "name": "GLM-4.7",
+          "id": "ZhipuAI/GLM-4.7"
+        },
+        "deepseek": {
+          "name": "DeepSeek",
+          "id": "ZhipuAI/GLM-4.7"
+        }
+      }
+    }
+  }
+}
