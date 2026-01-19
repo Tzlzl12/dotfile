@@ -13,6 +13,7 @@ local highlight = {
 return {
   {
     "olimorris/codecompanion.nvim",
+    enabled = false,
     keys = {
       {
         prefix .. "a",

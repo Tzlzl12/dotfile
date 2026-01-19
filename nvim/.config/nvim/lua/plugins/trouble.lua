@@ -20,7 +20,7 @@ return {
     keys = {
       { "<leader>qx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble Diagnostics " },
       { "<leader>qX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Trouble Buffer Diagnostics" },
-      { "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Trouble Symbols" },
+      { "<leader>cs", "<cmd>Trouble symbols toggle focus=true<cr>", desc = "Trouble Symbols" },
       { "<leader>cS", "<cmd>Trouble lsp toggle<cr>", desc = "Trouble LSP Tools" },
       { "<leader>qL", "<cmd>Trouble loclist toggle<cr>", desc = "Trouble Location List " },
       { "<leader>qQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble Quickfix List " },
