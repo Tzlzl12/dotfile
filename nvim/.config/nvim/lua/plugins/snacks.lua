@@ -14,7 +14,7 @@ return {
       bigfile = { enabled = true },
       dim = { enabled = true },
       input = { enabled = true },
-      terminal = {enabled = true},
+      terminal = { enabled = true },
       notifier = {
         enabled = true,
         icons = {
@@ -53,7 +53,7 @@ return {
       { "<leader>fw", function() Snacks.picker.grep({cwd = require("utils").get_root_dir(), preset = "ivy"}) end, desc = "Snacks Picker Grep" },
       { "<leader>fW", function() Snacks.picker.grep_word({preset = "ivy"}) end, desc = "Visual selection or word", mode = { "n", "x" } },
       {"<leader>fp", function ()
-        Snacks.picker.projects({ projects=require("project_nvim.utils.history").get_recent_projects(), recent=false, preset = "ivy" })
+        Snacks.picker.projects(require('utils.projects'))
       end, desc = "Snacks Find Projects "},
       -- git
       { "<leader>gb", function() Snacks.picker.git_branches( { cwd = find_git_root(), preset="ivy" }  ) end, desc = "Snacks Git Branches" },

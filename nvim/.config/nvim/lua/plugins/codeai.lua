@@ -2,15 +2,13 @@ local prefix = "<leader>a"
 
 return {
   "olimorris/codecompanion.nvim",
+  event = "VeryLazy",
+  enabled = false,
   dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-treesitter/nvim-treesitter",
     { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
   },
 
-  -- 使用 opts 代替 config
   opts = function()
-    -- 只有在需要用到内置适配器扩展时才在这里 require
     local adapters = require "codecompanion.adapters"
 
     return {
@@ -33,11 +31,12 @@ return {
                   order = 1,
                   mapping = "parameters",
                   type = "enum",
-                  default = "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+                  default = "ZhipuAI/GLM-4.7",
                   choices = {
-                    ["Qwen/Qwen3-Coder-480B-A35B-Instruct"] = { formatted_name = "Qwen3 Coder 480B" },
                     ["ZhipuAI/GLM-4.7"] = { formatted_name = "GLM-4.7" },
+                    ["Qwen/Qwen3-Coder-480B-A35B-Instruct"] = { formatted_name = "Qwen3 Coder 480B" },
                     ["qwen/Qwen2.5-Coder-32B-Instruct"] = { formatted_name = "Qwen2.5 Coder 32B" },
+                    ["deepseek-ai/DeepSeek-V3.2"] = { formatted_name = "DeepSeek V3.2" },
                   },
                 },
                 temperature = { type = "number", default = 1 },
@@ -48,9 +47,9 @@ return {
         },
       },
       strategies = {
-        chat = { adapter = "modelscope" },
+        chat = { adapter = "opencode", model = "deepseek-ai/DeepSeek-V3.2" },
         inline = { adapter = "modelscope", model = "ZhipuAI/GLM-4.7" },
-        agent = { adapter = "modelscope" },
+        agent = { adapter = "modelscope", model = "qwen/Qwen2.5-Coder-32B-Instruct" },
       },
       display = {
         action_palette = { width = 95, height = 10, prompt = "> " },
@@ -78,9 +77,10 @@ return {
   -- config 这一行可以完全删掉，lazy 会自动调用 setup 并传入上面的 opts
 
   keys = {
-    { prefix .. "a", mode = { "n", "x" }, "<cmd>CodeCompanion<cr>", desc = "AI Ask" },
+    { prefix .. "a", mode = { "n", "x" }, ":CodeCompanion ", desc = "AI Ask" },
     -- 这里的 Toggle 已经按照你之前的要求配置好了
-    { prefix .. "c", mode = { "n", "x" }, "<cmd>CodeCompanionChat Toggle<cr>", desc = "AI Chat Toggle" },
-    { prefix .. "x", mode = { "n" }, "<cmd>CodeCompanionActions<cr>", desc = "AI Menu" },
+    { prefix .. "c", mode = { "n" }, "<cmd>CodeCompanionChat Toggle<cr>", desc = "AI Chat Toggle" },
+    { prefix .. "m", mode = { "n" }, "<cmd>CodeCompanionActions<cr>", desc = "AI Menu" },
+    { prefix .. "x", mode = { "x", "v" }, "<cmd>CodeCompanionChat Add<cr>", desc = "AI Add Text" },
   },
 }
