@@ -17,10 +17,23 @@
       "headers": {
         "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
       },
-      "enabled": true
+      "enabled": false
     }
   },
   "provider": {
+    "cerebras": {
+      "npm": "@ai-sdk/cerebras",
+      "name": "Cerebras",
+      "options": {
+        "apiKey": "{env:CEREBRAS_API_KEY}"
+      },
+      "models": {
+        "gpt-oss-120b": {
+          "name": "gpt-oss-120b",
+          "id": "gpt-oss-120b"
+        }
+      }
+    },
     "modelscope": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "ModelScope",
