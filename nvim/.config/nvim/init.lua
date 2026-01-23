@@ -12,6 +12,9 @@ vim.opt.termguicolors = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- set for project config
+vim.o.exrc = true
+vim.o.secure = true
 -- local lazy_config = require "configs.lazy"
 
 -- load plugins
