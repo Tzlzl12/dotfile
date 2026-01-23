@@ -11,7 +11,7 @@ return {
         "<c-n>",
         mode = { "n" },
         function()
-          local dir = require("utils").get_root_dir()
+          local dir = require("utils").workspace()
           require("neo-tree.command").execute {
             toggle = true,
             dir = dir,

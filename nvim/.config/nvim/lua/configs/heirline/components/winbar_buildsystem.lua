@@ -1,6 +1,6 @@
 --   󰡨  
 
-local get_root = require("utils").get_root_dir
+local get_root = require("utils").workspace
 
 local once = 0
 local M = {}
@@ -30,7 +30,7 @@ end
 
 local CMakeBuild = {
   condition = function()
-    return  has_file "/CMakeLists.txt"
+    return has_file "/CMakeLists.txt"
   end,
   Build(function()
     vim.cmd "CMakeBuild"

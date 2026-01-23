@@ -130,7 +130,7 @@ local TablineCloseButton = {
     hl = { fg = "gray" },
     on_click = {
       callback = function(_, minwid)
-        require("keymap.fn").del_curbuf(minwid)
+        Snacks.bufdelete(minwid)
       end,
       minwid = function(self)
         return self.bufnr

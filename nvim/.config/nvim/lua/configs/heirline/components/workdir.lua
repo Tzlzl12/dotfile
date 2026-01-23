@@ -6,7 +6,7 @@ M.workDir = {
   init = function(self)
     self.icon = " "
 
-    self.cwd = string.match(require("utils").get_root_dir(), "([^/]+)/?$")
+    self.cwd = string.match(require("utils").workspace(), "([^/]+)/?$")
   end,
   hl = { fg = workdir_color.fg, bg = workdir_color.bg, bold = true },
   on_click = {

@@ -1,12 +1,8 @@
 local map = vim.keymap.set
 local del = vim.keymap.del
 
-local fn = require "keymap.fn"
-
 map("n", "<leader>ta", function()
-  local color = require "onedarkpro.helpers"
-  local colors = color.get_preloaded_colors()
-  vim.print(colors)
+  require("utils.workspace").open(vim.env.HOME)
 end)
 -- map("n", "<c-n>", function()
 --   local dir = require("utils").get_root_dir()
@@ -23,17 +19,13 @@ map("n", "<C-j>", "<C-w>j", { desc = "General switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "General switch window up" })
 
 -- buffer
-map("n", "<tab>", function()
-  fn.next()
-end, { desc = "buffer goto next" })
-map("n", "<S-tab>", function()
-  fn.prev()
-end, { desc = "buffer goto prev" })
+map("n", "<s-tab>", "<cmd>bprevious<cr>", { desc = "General Buffer Prev" })
+map("n", "<tab>", "<cmd>bnext<cr>", { desc = "General Buffer Next" })
 map("n", "<leader>x", function()
-  fn.del_curbuf()
+  Snacks.bufdelete()
 end, { desc = "General Close Buffer" })
 map("n", "<leader>bx", function()
-  fn.del_othbuf()
+  Snacks.bufdelete.other()
 end, { desc = "General Close other Buffer" })
 
 ---

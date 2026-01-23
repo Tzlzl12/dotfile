@@ -1,7 +1,7 @@
 -- if not vim.g.nvchad_lsp.clangd then
 --   return {}
 -- end
-local get_root_dir = require("utils").get_root_dir
+local get_root_dir = require("utils").workspace
 --
 return {
   {

@@ -5,7 +5,7 @@ return {
     local file_without_ext = vim.fn.fnamemodify(file, ":t:r")
     local file_type = vim.bo.filetype
     local parent_dir = vim.fn.fnamemodify(file, ":h:h")
-    local root_dir = require("utils").get_root_dir()
+    local root_dir = require("utils").workspace()
     local bin_dir = root_dir .. "/bin"
 
     if vim.fn.isdirectory(bin_dir) == 0 then

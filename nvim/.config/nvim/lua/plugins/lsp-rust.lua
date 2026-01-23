@@ -9,70 +9,60 @@ return {
   },
   {
     "mrcjkb/rustaceanvim",
-    version = vim.fn.has "nvim-0.10.0" == 0 and "^5" or false,
     ft = { "rust" },
     enabled = vim.g.nvchad_lsp_rust,
     opts = {
       server = {
-        on_attach = function(client, bufnr)
+        on_attach = function(_, bufnr)
           require "keymap.lsp"
           require "keymap.goto"
-          -- require("lsp.default_config").on_attach(client, bufnr)
+
           vim.keymap.set("n", "gh", function()
-            vim.lsp.buf.hover {
-              border = "rounded",
-            }
-          end, { desc = "Lsp Hover", buffer = bufnr })
-          vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Lsp Code action" })
+            vim.lsp.buf.hover { border = "rounded" }
+          end, { buffer = bufnr })
+
+          vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr })
           vim.keymap.set("n", "<leader>ce", function()
             vim.cmd.RustLsp "expandMacro"
-          end, { desc = "Lsp Diagnose", buffer = bufnr })
+          end, { buffer = bufnr })
+
           vim.keymap.set("n", "<leader>cf", function()
             vim.cmd.RustLsp "joinLines"
-          end, { desc = "Lsp JoinLines", buffer = bufnr })
+          end, { buffer = bufnr })
+
           vim.keymap.set("n", "<leader>cl", function()
-            vim.cmd.RustLsp "code len"
-          end, { desc = "Lsp CodeLens", buffer = bufnr })
-          -- vim.keymap.set("n", "<leader>cr", function()
-          --   vim.cmd.RustLsp "debuggables"
-          -- end, { desc = "Lsp Rust Debuggables", buffer = bufnr })
+            vim.cmd.RustLsp "codeLens"
+          end, { buffer = bufnr })
         end,
-        default_settings = {
-          -- rust-analyzer language server configuration
-          ["rust-analyzer"] = {
-            cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              buildScripts = {
-                enable = true,
-              },
-            },
-            check = {
-              allTargets = false,
-              targets = "x86_64-unknown-linux-gnu",
-            },
-            -- Add clippy lints for Rust.
-            checkOnSave = true,
-            procMacro = {
-              enable = true,
-              ignored = {
-                ["async-trait"] = { "async_trait" },
-                ["napi-derive"] = { "napi" },
-                ["async-recursion"] = { "async_recursion" },
-              },
-            },
-          },
-        },
+
+        -- default_settings = {
+        --   ["rust-analyzer"] = {
+        --     cargo = {
+        --       allFeatures = true,
+        --       buildScripts = { enable = true },
+        --     },
+        --
+        --     checkOnSave = {
+        --       command = "clippy",
+        --     },
+        --
+        --     procMacro = {
+        --       enable = true,
+        --     },
+        --
+        --     diagnostics = {
+        --       enable = true,
+        --     },
+        --   },
+        -- },
       },
     },
+
     config = function(_, opts)
-      if vim.fn.filereadable(vim.uv.cwd() .. "/memory.x") == 1 then
-        opts.server.default_settings["rust-analyzer"].check.allTargets = false
-        opts.server.default_settings["rust-analyzer"].check.targets = "thumbv7em-none-eabihf"
-      end
-      vim.g.rustaceanvim = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
+      vim.g.rustaceanvim = vim.tbl_deep_extend("force", vim.g.rustaceanvim or {}, opts)
+
       if vim.fn.executable "rust-analyzer" == 0 then
-        vim.notify("**rust-analyzer** not found in PATH, please install it.\nhttps://rust-analyzer.github.io/", 1)
+        vim.notify("rust-analyzer not found in PATH", vim.log.levels.WARN)
       end
     end,
   },

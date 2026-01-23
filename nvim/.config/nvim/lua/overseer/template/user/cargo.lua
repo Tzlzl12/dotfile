@@ -39,7 +39,7 @@ local function parse_chip_name(cargo_dir)
     elseif line:match "^%[" then
       in_section = false
     elseif in_section then
-      local chip = line:match '^chip%s*=%s*["\']([^"\']+)["\']'
+      local chip = line:match "^chip%s*=%s*[\"']([^\"']+)[\"']"
       if chip then
         return chip
       end
@@ -60,7 +60,7 @@ return {
 
   condition = {
     callback = function(opts)
-      if vim.fn.executable("cargo") == 0 then
+      if vim.fn.executable "cargo" == 0 then
         return false, "cargo not found"
       end
       return get_cargo_file(opts) ~= nil
@@ -78,141 +78,134 @@ return {
     --------------------------------------------------------
     -- cargo metadata
     --------------------------------------------------------
-    vim.system(
-      { "cargo", "metadata", "--no-deps", "--format-version", "1" },
-      { cwd = cargo_dir },
-      function(res)
-        if res.code ~= 0 then
-          vim.schedule(function()
-            cb {}
+    vim.system({ "cargo", "metadata", "--no-deps", "--format-version", "1" }, { cwd = cargo_dir }, function(res)
+      if res.code ~= 0 then
+        vim.schedule(function()
+          cb {}
+        end)
+        return
+      end
+
+      local ok, data = pcall(json.decode, res.stdout)
+      local workspace_root = ok and data and data.workspace_root or nil
+
+      ----------------------------------------------------
+      -- command definitions (NO buffer state here)
+      ----------------------------------------------------
+      local commands = {
+        -- run
+        { kind = "run", mode = "debug", args = { "run" }, tags = { TAG.RUN }, priority = 40 },
+        { kind = "run", mode = "release", args = { "run", "--release" }, tags = { TAG.RUN }, priority = 41 },
+
+        -- common
+        { args = { "build" }, tags = { TAG.BUILD } },
+        { args = { "check" }, name_override = "cargo check" },
+        { args = { "test" }, tags = { TAG.TEST }, name_override = "cargo test" },
+        { args = { "clean" }, tags = { TAG.CLEAN }, name_override = "cargo clean" },
+      }
+
+      ----------------------------------------------------
+      -- embedded support
+      ----------------------------------------------------
+      local is_embedded = vim.fn.filereadable(cargo_dir .. "/memory.x") == 1
+      local chip = is_embedded and parse_chip_name(cargo_dir) or nil
+
+      if is_embedded and chip then
+        table.insert(commands, 1, {
+          kind = "flash",
+          args = { "flash", "--chip", chip, "--release" },
+          tags = { TAG.RUN },
+          name_override = "cargo flash --chip " .. chip .. " --release",
+          priority = 30,
+        })
+
+        if not usb_attached then
+          vim.system({ "usbipd.exe", "list" }, {}, function(usb_res)
+            local busid = usb_res.stdout and usb_res.stdout:match "(%d+%.%d+)%s+STLink"
+            if busid then
+              vim.system { "usbipd.exe", "attach", "--wsl", "--busid", busid }
+              usb_attached = true
+            end
           end)
-          return
         end
+      end
 
-        local ok, data = pcall(json.decode, res.stdout)
-        local workspace_root = ok and data and data.workspace_root or nil
+      ----------------------------------------------------
+      -- roots
+      ----------------------------------------------------
+      local roots = {
+        { postfix = "", cwd = cargo_dir },
+      }
 
-        ----------------------------------------------------
-        -- command definitions (NO buffer state here)
-        ----------------------------------------------------
-        local commands = {
-          -- run
-          { kind = "run", mode = "debug", args = { "run" }, tags = { TAG.RUN }, priority = 40 },
-          { kind = "run", mode = "release", args = { "run", "--release" }, tags = { TAG.RUN }, priority = 41 },
+      if workspace_root and workspace_root ~= cargo_dir then
+        table.insert(roots, {
+          postfix = " (workspace)",
+          cwd = workspace_root,
+          relative_file_root = workspace_root,
+        })
+      end
 
-          -- common
-          { args = { "build" }, tags = { TAG.BUILD } },
-          { args = { "check" }, name_override = "cargo check" },
-          { args = { "test" }, tags = { TAG.TEST }, name_override = "cargo test" },
-          { args = { "clean" }, tags = { TAG.CLEAN }, name_override = "cargo clean" },
-        }
+      ----------------------------------------------------
+      -- build tasks
+      ----------------------------------------------------
+      local ret = {}
 
-        ----------------------------------------------------
-        -- embedded support
-        ----------------------------------------------------
-        local is_embedded = vim.fn.filereadable(cargo_dir .. "/memory.x") == 1
-        local chip = is_embedded and parse_chip_name(cargo_dir) or nil
+      for _, root in ipairs(roots) do
+        for _, cmd in ipairs(commands) do
+          local task_name = cmd.name_override or string.format("cargo %s%s", table.concat(cmd.args, " "), root.postfix)
 
-        if is_embedded and chip then
-          table.insert(commands, 1, {
-            kind = "flash",
-            args = { "flash", "--chip", chip, "--release" },
-            tags = { TAG.RUN },
-            name_override = "cargo flash --chip " .. chip .. " --release",
-            priority = 30,
-          })
+          table.insert(ret, {
+            name = task_name,
+            tags = cmd.tags,
+            priority = cmd.priority or 55,
 
-          if not usb_attached then
-            vim.system({ "usbipd.exe", "list" }, {}, function(usb_res)
-              local busid = usb_res.stdout and usb_res.stdout:match "(%d+%.%d+)%s+STLink"
-              if busid then
-                vim.system { "usbipd.exe", "attach", "--wsl", "--busid", busid }
-                usb_attached = true
-              end
-            end)
-          end
-        end
+            builder = function()
+              ------------------------------------------------
+              -- DYNAMIC buffer-sensitive logic (核心)
+              ------------------------------------------------
+              local buf = vim.api.nvim_get_current_buf()
+              local buf_path = vim.api.nvim_buf_get_name(buf)
+              local file_name = vim.fn.fnamemodify(buf_path, ":t:r")
 
-        ----------------------------------------------------
-        -- roots
-        ----------------------------------------------------
-        local roots = {
-          { postfix = "", cwd = cargo_dir },
-        }
+              local args = vim.deepcopy(cmd.args)
 
-        if workspace_root and workspace_root ~= cargo_dir then
-          table.insert(roots, {
-            postfix = " (workspace)",
-            cwd = workspace_root,
-            relative_file_root = workspace_root,
-          })
-        end
-
-        ----------------------------------------------------
-        -- build tasks
-        ----------------------------------------------------
-        local ret = {}
-
-        for _, root in ipairs(roots) do
-          for _, cmd in ipairs(commands) do
-            local task_name =
-              cmd.name_override
-              or string.format("cargo %s%s", table.concat(cmd.args, " "), root.postfix)
-
-            table.insert(ret, {
-              name = task_name,
-              tags = cmd.tags,
-              priority = cmd.priority or 55,
-
-              builder = function()
-                ------------------------------------------------
-                -- DYNAMIC buffer-sensitive logic (核心)
-                ------------------------------------------------
-                local buf = vim.api.nvim_get_current_buf()
-                local buf_path = vim.api.nvim_buf_get_name(buf)
-                local file_name = vim.fn.fnamemodify(buf_path, ":t:r")
-
-                local args = vim.deepcopy(cmd.args)
-
-                if cmd.kind == "run" and buf_path ~= "" then
-                  if is_in_subdir(buf_path, "examples") then
-                    args = { "run", "--example", file_name }
-                    if cmd.mode == "release" then
-                      table.insert(args, "--release")
-                    end
-                  elseif is_in_subdir(buf_path, "src/bin") then
-                    args = { "run", "--bin", file_name }
-                    if cmd.mode == "release" then
-                      table.insert(args, "--release")
-                    end
+              if cmd.kind == "run" and buf_path ~= "" then
+                if is_in_subdir(buf_path, "examples") then
+                  args = { "run", "--example", file_name }
+                  if cmd.mode == "release" then
+                    table.insert(args, "--release")
+                  end
+                elseif is_in_subdir(buf_path, "src/bin") then
+                  args = { "run", "--bin", file_name }
+                  if cmd.mode == "release" then
+                    table.insert(args, "--release")
                   end
                 end
+              end
 
-                return {
-                  cmd = { "cargo" },
-                  args = args,
-                  cwd = root.cwd,
-                  default_component_params = {
-                    errorformat =
-                      [[%Eerror: %\%%(aborting %\|could not compile%\)%\@!%m,]]
-                      .. [[%Eerror[E%n]: %m,]]
-                      .. [[%Inote: %m,]]
-                      .. [[%Wwarning: %\%%(%.%# warning%\)%\@!%m,]]
-                      .. [[%C %#--> %f:%l:%c,]]
-                      .. [[%E  left:%m,%C right:%m %f:%l:%c,%Z,]]
-                      .. [[%.%#panicked at \'%m\'\, %f:%l:%c]],
-                    relative_file_root = root.relative_file_root,
-                  },
-                }
-              end,
-            })
-          end
+              return {
+                cmd = { "cargo" },
+                args = args,
+                cwd = root.cwd,
+                default_component_params = {
+                  errorformat = [[%Eerror: %\%%(aborting %\|could not compile%\)%\@!%m,]]
+                    .. [[%Eerror[E%n]: %m,]]
+                    .. [[%Inote: %m,]]
+                    .. [[%Wwarning: %\%%(%.%# warning%\)%\@!%m,]]
+                    .. [[%C %#--> %f:%l:%c,]]
+                    .. [[%E  left:%m,%C right:%m %f:%l:%c,%Z,]]
+                    .. [[%.%#panicked at \'%m\'\, %f:%l:%c]],
+                  relative_file_root = root.relative_file_root,
+                },
+              }
+            end,
+          })
         end
-
-        vim.schedule(function()
-          cb(ret)
-        end)
       end
-    )
+
+      vim.schedule(function()
+        cb(ret)
+      end)
+    end)
   end,
 }

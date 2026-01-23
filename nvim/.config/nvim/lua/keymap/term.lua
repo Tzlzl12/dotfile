@@ -9,7 +9,7 @@ local term_toggle = function()
       position = "float",
       border = "double",
     },
-    cwd = require("utils").get_root_dir(), -- 保持你原本的 root 逻辑
+    cwd = require("utils").workspace(), -- 保持你原本的 root 逻辑
   })
 end
 
@@ -41,7 +41,7 @@ map("n", "<leader>gg", function()
       height = 0.9,
     },
     -- 确保在项目的根目录下打开
-    cwd = require("utils").get_root_dir(),
+    cwd = require("utils").workspace(),
   })
 end, { desc = "Terminal Gitui" })
 

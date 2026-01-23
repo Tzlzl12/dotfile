@@ -14,7 +14,7 @@ local Dap = {
       local dap_choice = { "use configure(deafault)", "use configure(project)" }
       vim.ui.select(dap_choice, { prompt = "Dap Configure" }, function(choice)
         if choice == "use configure(project)" then
-          local root_dir = require("utils").get_root_dir()
+          local root_dir = require("utils").workspace()
           local dap_file = root_dir .. "/.dap.lua"
           if not vim.fn.filereadable(dap_file) then -- 文件不存在存在
             vim.cmd "CreateDap"
