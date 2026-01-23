@@ -1,15 +1,3 @@
-# --- 1. Tmux 自动启动 (安全模式) 仅在非ZED终端启动 ---
-if [[ -z "$TMUX" && -n "$PS1" && -x "$(command -v tmux)" && "${IS_ZED_TERMINAL}" != "true" ]]; then
-    if tmux has-session -t 0 2>/dev/null; then
-        client_count=$(tmux list-clients -t 0 2>/dev/null | wc -l)
-        if [ "$client_count" -eq 0 ]; then
-            tmux attach-session -t 0
-        fi
-    else
-        tmux new-session -s 0
-    fi
-fi
-
 # --- 2. Zinit 基础 ---
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
 if [[ ! -d $ZINIT_HOME ]]; then
@@ -83,6 +71,7 @@ zle -N down-line-or-beginning-search
 # [注]：某些终端环境下箭头键的转义码不同，这里覆盖了常见的两种模式
 bindkey '^[[A' up-line-or-beginning-search   # 方向上键
 bindkey '^[[B' down-line-or-beginning-search # 方向下键
+
 
 # # 针对 Tmux/某些终端补充绑定 (Keypad 模式)
 # bindkey '^[OA' up-line-or-beginning-search
