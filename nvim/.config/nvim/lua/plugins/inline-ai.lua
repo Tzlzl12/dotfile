@@ -4,9 +4,9 @@ return {
     event = "VeryLazy",
     opts = {
       server = {
-        -- api_url = "https://codeium.company.net/_route/api_server",
         portal_url = "https://windsurf.com",
       },
+      silent = true,
       filter = function(bufnr)
         local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
         local bt = vim.api.nvim_get_option_value("buftype", { buf = bufnr })
@@ -17,7 +17,7 @@ return {
           return false
         end
 
-        return true
+        return vim.api.nvim_get_mode().mode ~= "c"
       end,
       filetype = {
         help = false,

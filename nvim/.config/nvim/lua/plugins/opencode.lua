@@ -1,18 +1,17 @@
 local prefix = "<leader>a"
 local keymap = {
   editor = {
-    [prefix .. "t"] = { "toggle" },
-    [prefix .. "i"] = { "open_input" },
-    [prefix .. "s"] = { "select_session" },
-    [prefix .. "m"] = { "configure_provider" },
-    [prefix .. "d"] = { "diff_open" },
-    ["[a"] = { "diff_prev" },
-    ["]a"] = { "diff_next" },
-    [prefix .. "pa"] = { "permission_accept" },
-    [prefix .. "pA"] = { "permission_accept_all" },
-    [prefix .. "pd"] = { "permission_deny" },
-    [prefix .. "x"] = { "toggle_tool_output" },
-    [prefix .. "a"] = { "quick_chat", mode = { "n", "x" } },
+    [prefix .. "t"] = { "toggle", desc = "AI Toggle" },
+    [prefix .. "i"] = { "open_input", desc = "AI Open Input" },
+    [prefix .. "s"] = { "select_session", desc = "AI Select Session" },
+    [prefix .. "m"] = { "configure_provider", desc = "AI Configure Provider" },
+    [prefix .. "d"] = { "diff_open", desc = "AI Open Diff" },
+    ["[a"] = { "diff_prev", desc = "AI Diff Previous" },
+    ["]a"] = { "diff_next", desc = "AI Diff Next" },
+    [prefix .. "pa"] = { "permission_accept", desc = "AI Permission Accept" },
+    [prefix .. "pA"] = { "permission_accept_all", desc = "AI Permission Accept All" },
+    [prefix .. "pd"] = { "permission_deny", desc = "AI Permission Deny" },
+    [prefix .. "x"] = { "toggle_tool_output", desc = "AI Toggle Tools" },
   },
   output_window = {
     ["<esc>"] = { "close" },
@@ -31,7 +30,6 @@ local keymap = {
 
 return {
   "sudo-tee/opencode.nvim",
-  enabled = false,
   cmd = "Opencode",
   opts = {
     preferred_picker = "snacks",
@@ -55,21 +53,9 @@ return {
   keys = {
     -- toggle chat 
     { prefix .. "t",  function() require("opencode").toggle()             end, desc = "AI Toggle" },
-    { prefix .. "i",  function() require("opencode").open_input()         end, desc = "AI Open Input" },
     { prefix .. "s",  function() require("opencode").select_session()     end, desc = "AI Select Session" },
-
-    { prefix .. "m",  function() require("opencode").configure_provider() end, desc = "AI Configure Provider" },
-
     { prefix .. "d",  function() require("opencode").diff_open()          end, desc = "AI Open Diff" },
-    { "[a",           function() require("opencode").diff_prev()          end, desc = "AI Diff Previous" },
-    { "]a",           function() require("opencode").diff_next()          end, desc = "AI Diff Next" },
-    -- permissions
-    { prefix .. "pa", function() require("opencode").permission_accept()     end, desc = "AI Permission Accept" },
-    { prefix .. "pA", function() require("opencode").permission_accept_all() end, desc = "AI Permission Accept All" },
-    { prefix .. "pd", function() require("opencode").permission_deny()       end, desc = "AI Permission Deny" },
-
     { prefix .. "x",  function() require("opencode").toggle_tool_output() end, desc = "AI Toggle Tool Output" },
-    { prefix .. "a",  function() require("opencode").quick_chat() end, mode = { "n", "x" }, desc = "AI Quick Chat" },
   },
   --
 }

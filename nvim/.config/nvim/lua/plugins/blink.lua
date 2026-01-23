@@ -187,41 +187,8 @@ return {
           "path",
           "buffer",
         },
-        -- per_filetype = {
-        --   codecompanion = {
-        --     "codecompanion", -- 必须有这个
-        --     "lsp",
-        --     "path",
-        --     "snippets",
-        --     "buffer", -- 手动继承 default，避免空菜单
-        --   },
-        -- },
         providers = {
           -- stylua: ignore 
-          avante_commands = {
-            name = "avante_commands",
-            module = "blink.compat.source",
-            score_offset = 90, -- 显示优先级高于 lsp
-            opts = {},
-          },
-          avante_files = {
-            name = "avante_files",
-            module = "blink.compat.source",
-            score_offset = 100, -- 显示优先级高于 lsp
-            opts = {},
-          },
-          avante_mentions = {
-            name = "avante_mentions",
-            module = "blink.compat.source",
-            score_offset = 1000, -- 显示优先级高于 lsp
-            opts = {},
-          },
-          avante_shortcuts = {
-            name = "avante_shortcuts",
-            module = "blink.compat.source",
-            score_offset = 1000, -- 显示优先级高于 lsp
-            opts = {},
-          },
           lsp = { score_offset = 10 },
           path = { min_keyword_length = 0, score_offset = 3 },
           -- snippets = { score_offset = 3 },

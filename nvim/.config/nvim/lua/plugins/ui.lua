@@ -33,6 +33,7 @@ return {
 	           -- { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
 	           -- { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
 	           { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects(require('utils.projects'))",},
+	           { icon = " ", key = "d", desc = "Dirs", action = ":lua require('utils.workspace').open(vim.env.HOME)",},
 	           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})"},
 	           { icon = " ", key = "s", desc = "Session", action = ":lua require('persistence').load({ last = true })" },
 	           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },

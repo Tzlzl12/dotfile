@@ -2,10 +2,11 @@ return {
   "yetone/avante.nvim",
   build = "make",
   event = "VeryLazy",
+  enabled = false,
   ---@module 'avante'
   ---@type avante.Config
   opts = {
-    provider = "modelscope",
+    provider = "opencode",
 
     providers = {
       ["modelscope"] = {
@@ -46,6 +47,12 @@ return {
           top_p = 0.95,
           stream = true,
         },
+      },
+    },
+    acp_providers = {
+      ["opencode"] = {
+        command = "opencode",
+        args = { "acp" },
       },
     },
     behaviour = {
