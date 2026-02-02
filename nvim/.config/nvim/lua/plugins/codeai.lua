@@ -2,7 +2,7 @@ local prefix = "<leader>a"
 
 return {
   "olimorris/codecompanion.nvim",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
   dependencies = {
     { "MeanderingProgrammer/render-markdown.nvim", ft = { "markdown", "codecompanion" } },
   },
@@ -25,6 +25,11 @@ return {
                 ["Content-Type"] = "application/json",
                 ["Authorization"] = "Bearer ${api_key}",
               },
+              opts = {
+                extra_body = {
+                  thinking = { type = "disabled" },
+                },
+              },
               schema = {
                 model = {
                   order = 1,
@@ -34,7 +39,7 @@ return {
                   choices = {
                     ["ZhipuAI/GLM-4.7"] = { formatted_name = "GLM-4.7" },
                     ["Qwen/Qwen3-Coder-480B-A35B-Instruct"] = { formatted_name = "Qwen3 Coder 480B" },
-                    ["qwen/Qwen2.5-Coder-32B-Instruct"] = { formatted_name = "Qwen2.5 Coder 32B" },
+                    ["ZhipuAI/GLM-4.7-Flash"] = { formatted_name = "GLM-4.7-Flash" },
                     ["deepseek-ai/DeepSeek-V3.2"] = { formatted_name = "DeepSeek V3.2" },
                   },
                 },
@@ -47,7 +52,7 @@ return {
       },
       strategies = {
         chat = { adapter = "opencode", model = "deepseek-ai/DeepSeek-V3.2" },
-        inline = { adapter = "modelscope", model = "ZhipuAI/GLM-4.7" },
+        inline = { adapter = "modelscope", model = "ZhipuAI/GLM-4.7-Flash" },
         agent = { adapter = "opencode", model = "qwen/Qwen2.5-Coder-32B-Instruct" },
       },
       display = {

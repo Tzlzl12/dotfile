@@ -3,35 +3,15 @@ local function has_words_before()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
 
+local CREATE_UNDO = vim.api.nvim_replace_termcodes("<c-G>u", true, true, true)
+local function create_undo()
+  if vim.api.nvim_get_mode().mode == "i" then
+    vim.api.nvim_feedkeys(CREATE_UNDO, "n", false)
+  end
+end
+
 local menu_cols = { { "label" }, { "kind_icon" }, { "kind" } }
-local highlights = {
-  BlinkCmpMenuSelection = { bg = "#a6e3a1", fg = "#fb4934" },
-  BlinkCmpKindEnum = { fg = "#fb4934" },
-  BlinkCmpKindFile = { fg = "#d65d0e" },
-  BlinkCmpKindText = { fg = "#b8bb26" },
-  BlinkCmpKindUnit = { fg = "#83a598" },
-  BlinkCmpGhostText = { fg = "#928374" },
-  BlinkCmpKindClass = { fg = "#83a598" },
-  BlinkCmpKindColor = { fg = "#fb4934" },
-  BlinkCmpKindEvent = { fg = "#fb4934" },
-  BlinkCmpKindField = { fg = "#fabd2f" },
-  BlinkCmpKindValue = { fg = "#d3869b" },
-  BlinkCmpKindFolder = { fg = "#d65d0e" },
-  BlinkCmpKindMethod = { fg = "#8ec07c" },
-  BlinkCmpKindModule = { fg = "#83a598" },
-  BlinkCmpKindStruct = { fg = "#83a598" },
-  BlinkCmpMenuBorder = { fg = "#665c54" },
-  BlinkCmpKindKeyword = { fg = "#fabd2f" },
-  BlinkCmpKindSnippet = { fg = "#b8bb26" },
-  BlinkCmpKindConstant = { fg = "#d3869b" },
-  BlinkCmpKindFunction = { fg = "#8ec07c" },
-  BlinkCmpKindOperator = { fg = "#8ec07c" },
-  BlinkCmpKindProperty = { fg = "#fabd2f" },
-  BlinkCmpKindVariable = { fg = "#d3869b" },
-  Pmenu = { fg = "#64B5F6", bg = "NONE" },
-  PmenuSel = { fg = "#61afef", bg = "NONE" },
-  PmenuTumb = { bg = "NONE" },
-}
+local highlights = {}
 
 return {
   {
@@ -103,7 +83,14 @@ return {
           markdown = true,
         },
         config = function(_, opts)
-          require("mini.pairs").setup(opts)
+          -- require("mini.pairs").setup(opts)
+          local pairs = require "mini.pairs"
+          pairs.setup {}
+
+          vim.keymap.set("i", "<CR>", function()
+            return pairs.cr()
+          end, { expr = true, replace_keycodes = true })
+          pairs.setup(opts)
         end,
       },
     },
@@ -124,6 +111,7 @@ return {
       },
       completion = {
         accept = {
+          auto_brackets = { enabled = false },
           -- experimental auto-brackets support
           -- auto_brackets = {
           --   enabled = true,
@@ -140,6 +128,8 @@ return {
             return ctx.mode ~= "cmdline"
           end,
           border = "single",
+          min_width = 15,
+          max_height = 10,
           draw = {
             columns = menu_cols,
             gap = 2,
@@ -166,6 +156,13 @@ return {
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 100,
+          window = {
+            border = "single",
+            direction_priority = {
+              menu_north = { "s", "w" }, -- appearent in menu north
+              menu_south = { "n", "w" },
+            },
+          },
         },
         ghost_text = {
           enabled = true,
@@ -237,15 +234,21 @@ return {
           "accept",
           function()
             -- if require("copilot.client").is_disabled() then
-            local codeium = require "neocodeium"
-            if codeium.visible() then
-              codeium.accept()
-              return true
+            if not vim.g.use_copilot then
+              local codeium = require "neocodeium"
+              if codeium.visible() then
+                create_undo()
+                codeium.accept()
+                return true
+              end
+            else
+              local copilot = require "copilot.suggestion"
+              if copilot.is_visible() then
+                create_undo()
+                copilot.accept()
+                return true
+              end
             end
-            -- if require("codeium.virtual_text").get_current_completion_item() then
-            --   vim.api.nvim_input(require("codeium.virtual_text").accept())
-            --   return true
-            -- end
           end,
           function(cmp)
             if has_words_before() and vim.api.nvim_get_mode().mode == "c" then
@@ -275,9 +278,6 @@ return {
       opts.appearance.kind_icons =
         vim.tbl_extend("force", opts.appearance.kind_icons or {}, require("configs.icons").icons.kinds)
       require("blink.cmp").setup(opts)
-      for group, colors in pairs(highlights) do
-        vim.api.nvim_set_hl(0, group, colors)
-      end
 
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "neo-tree", -- 监听的文件类型
@@ -308,9 +308,9 @@ return {
   },
   {
     "saghen/blink.cmp",
-    dependencies = {
-      "olimorris/codecompanion.nvim", -- 重要：加这个，让 blink 能加载 codecompanion source
-    },
+    -- dependencies = {
+    --   "olimorris/codecompanion.nvim", -- 重要：加这个，让 blink 能加载 codecompanion source
+    -- },
     opts = {
       sources = {
         per_filetype = {
