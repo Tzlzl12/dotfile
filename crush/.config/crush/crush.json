@@ -1,0 +1,54 @@
+{
+  "$schema": "https://charm.land/crush.json",
+  "permissions": {
+    "allowed_tools": [
+      "read",
+      "grep",
+      "glob",
+      "view",
+      "ls"
+    ]
+  },
+  "providers": {
+    "modelscope": {
+      "type": "openai-compat",
+      "name": "ModelScope",
+      "base_url": "https://api-inference.modelscope.cn/v1",
+      "api_key": "$MODELSCOPE_API_KEY",
+      "models": [
+        {
+          "id": "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+          "name": "Qwen3-Coder-480B",
+          "context_window": 131072
+        },
+        {
+          "id": "ZhipuAI/GLM-4.7",
+          "name": "GLM-4.7",
+          "context_window": 205000
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V3.2",
+          "name": "DeepSeek",
+          "context_window": 131072
+        }
+      ]
+    }
+  },
+  "models": {
+    "qwen-coder": {
+      "provider": "modelscope",
+      "model": "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+    },
+    "glm-4.7": {
+      "provider": "modelscope",
+      "model": "ZhipuAI/GLM-4.7"
+    },
+    "deepseek": {
+      "provider": "modelscope",
+      "model": "deepseek-ai/DeepSeek-V3"
+    }
+  },
+  "tools": {
+    "ls": {}
+  }
+}
