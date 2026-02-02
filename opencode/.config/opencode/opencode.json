@@ -50,9 +50,16 @@
           "name": "GLM-4.7",
           "id": "ZhipuAI/GLM-4.7"
         },
+        "glm4.7-flash": {
+          "name": "GLM-4.7-Flash",
+          "id": "ZhipuAI/GLM-4.7-Flash",
+          "options": {
+            "enable_thinking": false
+          }
+        },
         "deepseek": {
           "name": "DeepSeek",
-          "id": "ZhipuAI/GLM-4.7"
+          "id": "deepseek-ai/DeepSeek-V3.2"
         }
       }
     }
