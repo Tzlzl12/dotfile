@@ -1,6 +1,7 @@
 local M = {}
 
 local transperent_highlight = {
+  BlinkCmpMenuSelection = { bg = "#a6e3a1", fg = "#fb4934" },
   NonText = { fg = "#5c6370", bg = "NONE" },
   NormalFloat = { bg = "NONE" },
   NormalNC = { bg = "NONE" },
@@ -21,6 +22,10 @@ local transperent_highlight = {
   NeotreeNormalNC = { bg = "NONE" },
   SnacksPickerPickWin = { bg = "NONE" },
   NotifyBackground = { bg = "#64B5F6" },
+
+  Pmenu = { fg = "#64B5F6", bg = "NONE" },
+  PmenuSel = { fg = "#61afef", bg = "NONE" },
+  PmenuTumb = { bg = "NONE" },
 }
 
 local function set_highlight(hl)
@@ -47,7 +52,8 @@ M.colorscheme = function(colorscheme_name, transparent)
 
   -- vim.g.nvim_colorhelper = config.color_helper or ""
   local actual_name = config.items[colorscheme_name]
-  vim.cmd("colorscheme " .. actual_name)
+  vim.g.nvim_colorscheme = actual_name
+  vim.cmd("colorscheme " .. vim.g.nvim_colorscheme)
   vim.o.background = colorscheme_name:match "^light-" and "light" or "dark"
 
   if config.transparent then
