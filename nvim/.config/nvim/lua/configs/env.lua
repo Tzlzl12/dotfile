@@ -1,7 +1,8 @@
-vim.g.nvim_colorhelper = ""
+vim.g.nvim_colorscheme = ""
 
 vim.g.workspace = nil
 
+vim.g.use_copilot = true
 Ice.colorschemes = {
   ["onedarkpro"] = {
     -- color_helper = "onedarkpro.helpers",

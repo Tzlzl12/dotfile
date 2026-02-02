@@ -6,6 +6,10 @@ vim.api.nvim_create_user_command("AddProject", function()
   require("utils.projects").write_projects_to_history()
 end, {})
 
+vim.api.nvim_create_user_command("InlineToggle", function()
+  require("utils.inline").inlint_toggle()
+end, {})
+
 vim.api.nvim_create_user_command("ProjectLspConfig", function()
   require("utils.lspconfig").apply_base_lsp_config()
 end, {})

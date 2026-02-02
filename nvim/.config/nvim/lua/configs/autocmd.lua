@@ -1,24 +1,40 @@
+local yank = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
+  group = yank,
   desc = "Highlight yanked text", -- 描述，可选
   pattern = "*", -- 适用于所有文件
   callback = function()
     (vim.hl or vim.highlight).on_yank() -- 调用高亮方法
   end,
 })
--- 在主题改变时, 自动重新加载语法高亮
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
+local ai = vim.api.nvim_create_augroup("AI", { clear = true })
+vim.api.nvim_create_autocmd("InsertEnter", {
+  group = ai,
+  desc = "In the first time, disable codeium",
+  once = true,
   callback = function()
-    vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = "#f7768e" })
-    vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = "#e0af68" })
-    vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { fg = "#7aa2f7" })
-    vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { fg = "#ff9e64" })
-    vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { fg = "#9ece6a" })
-    vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = "#bb9af7" })
-    vim.api.nvim_set_hl(0, "RainbowDelimiterCyan", { fg = "#7dc4e4" })
+    print "disable codeium"
+    require("neocodeium.commands").disable()
   end,
 })
-
+-- -- 在主题改变时, 自动重新加载语法高亮
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   pattern = "*",
+--   callback = function()
+--     vim.api.nvim_set_hl(0, "RainbowDelimiterRed", { fg = "#f7768e" })
+--     vim.api.nvim_set_hl(0, "RainbowDelimiterYellow", { fg = "#e0af68" })
+--     vim.api.nvim_set_hl(0, "RainbowDelimiterBlue", { fg = "#7aa2f7" })
+--     vim.api.nvim_set_hl(0, "RainbowDelimiterOrange", { fg = "#ff9e64" })
+--     vim.api.nvim_set_hl(0, "RainbowDelimiterGreen", { fg = "#9ece6a" })
+--     vim.api.nvim_set_hl(0, "RainbowDelimiterViolet", { fg = "#bb9af7" })
+--     vim.api.nvim_set_hl(0, "RainbowDelimiterCyan", { fg = "#7dc4e4" })
+--   end,
+-- })
+vim.api.nvim_create_autocmd("DirChanged", {
+  callback = function()
+    vim.g.workspace = vim.uv.cwd() -- 每次目录变化都更新
+  end,
+})
 vim.api.nvim_create_autocmd("User", {
   pattern = "IceAfter colorscheme",
   callback = function()
@@ -50,8 +66,11 @@ vim.api.nvim_create_autocmd("User", {
     })
   end,
 })
+
+local listchar = vim.api.nvim_create_augroup("ListCharVisual", { clear = true })
 -- 进入 Visual 模式时启用 listchars
 vim.api.nvim_create_autocmd("ModeChanged", {
+  group = listchar,
   pattern = "*:[vV\x16]", -- 匹配进入 Visual 模式
   callback = function()
     vim.opt.list = true -- 启用 listchars
@@ -60,6 +79,7 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 
 -- 离开 Visual 模式时禁用 listchars
 vim.api.nvim_create_autocmd("ModeChanged", {
+  group = listchar,
   pattern = "*:[^vV\x16]", -- 匹配离开 Visual 模式
   callback = function()
     vim.opt.list = false -- 禁用 listchars
@@ -68,14 +88,22 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 
 local blink_inline = vim.api.nvim_create_augroup("BlinkCmpCopilot", { clear = true })
 
--- vim.api.nvim_create_autocmd("User", {
---   group = blink_inline,
---   pattern = "BlinkCmpMenuOpen",
---   callback = function()
---     require("codeium.virtual_text").clear()
---     vim.b.copilot_suggestion_hidden = true
---   end,
--- })
+vim.api.nvim_create_autocmd("User", {
+  group = blink_inline,
+  pattern = "BlinkCmpMenuOpen",
+  callback = function()
+    vim.b.copilot_suggestion_hidden = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  group = blink_inline,
+  pattern = "BlinkCmpMenuClose",
+  callback = function()
+    vim.b.copilot_suggestion_hidden = false
+  end,
+})
+
 vim.api.nvim_create_autocmd("User", {
   group = blink_inline,
   pattern = "BlinkCmpMenuOpen",
@@ -84,10 +112,32 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("User", {
---   group = blink_inline,
---   pattern = "BlinkCmpMenuClose",
+-- local window_num = function()
+--   local normal_win_count = 0
+--   for _, winid in ipairs(vim.api.nvim_list_wins()) do
+--     if vim.api.nvim_win_get_config(winid).relative == "" then
+--       normal_win_count = normal_win_count + 1
+--     end
+--   end
+--   return normal_win_count
+-- end
+-- local toggle_minimap = vim.api.nvim_create_augroup("ToggleMinimap", { clear = true })
+-- vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, {
+--   group = toggle_minimap,
 --   callback = function()
---     vim.b.copilot_suggestion_hidden = false
+--     local function should_trigger()
+--       -- 排除dashboard和空缓冲区
+--       return vim.bo.filetype ~= "dashboard" and vim.api.nvim_buf_get_name(0) ~= ""
+--     end
+--
+--     if should_trigger() then
+--       local num = window_num()
+--       if num > 1 then
+--         -- disable minimap
+--         vim.cmd "Neominimap Disable"
+--       else
+--         vim.cmd "Neominimap Enable"
+--       end
+--     end
 --   end,
 -- })
