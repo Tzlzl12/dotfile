@@ -27,9 +27,20 @@ M.LspInfo = {
   end,
   update = { "LspAttach", "LspDetach", "WinEnter" },
   -- provider = icons.ActiveLSP .. "LSP",
-  provider = function(self)
-    local names = {}
-    return vim.lsp.get_clients()[1].config.name
+  provider = function()
+    local clients = vim.lsp.get_clients() -- 当前 buffer 的所有 clients
+
+    if #clients == 0 then
+      return "" -- 或 "No LSP"，看你喜好
+    end
+
+    for _, client in ipairs(clients) do
+      if client.config.name ~= "copilot" then
+        return client.config.name
+      end
+    end
+
+    return clients[1].config.name -- 安全取第一个
   end,
   hl = { fg = "green", bold = true },
 }

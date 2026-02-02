@@ -1,4 +1,5 @@
 return {
+  AI = require("configs.heirline.components.ai").Ai,
   Vimode = require("configs.heirline.components.vimode").ViMode,
   File = require "configs.heirline.components.file",
   ScrollBar = require "configs.heirline.components.scrollbar",

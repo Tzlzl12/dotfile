@@ -68,7 +68,7 @@ vim.schedule(function()
       end
     end
   end
-  local colorscheme_name = "" -- 默认主题
+  -- local colorscheme_name = "" -- 默认主题
   local colorscheme_cache = vim.fs.joinpath(vim.fn.stdpath "data", "colorscheme")
 
   -- 尝试从缓存文件读取主题设置
@@ -79,13 +79,13 @@ vim.schedule(function()
       f:close()
       -- 验证缓存的主题是否仍然有效
       if require("utils.themes").get_colorscheme_config(cached) then
-        colorscheme_name = cached
+        vim.g.nvim_colorscheme = cached
       end
     end
   end
 
-  if colorscheme_name ~= "" then
-    require("utils.themes").colorscheme(colorscheme_name, true)
+  if vim.g.nvim_colorscheme ~= "" then
+    require("utils.themes").colorscheme(vim.g.nvim_colorscheme, true)
   end
 end)
 if vim.fn.has "wsl" == 1 then
