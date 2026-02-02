@@ -1,0 +1,8 @@
+[Unit]
+Description=Clear oversized nvim log files (>100k)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/script/nvim-log-clear.sh
+# 或者更保险的写法（推荐）：
+# ExecStart=/bin/sh -c 'for f in ~/.local/state/nvim/*.log; do [ -f "$f" ] && [ $(stat -c %%s "$f") -gt 102400 ] && truncate -s 0 "$f"; done'

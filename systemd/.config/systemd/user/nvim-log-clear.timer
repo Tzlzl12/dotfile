@@ -1,0 +1,15 @@
+[Unit]
+Description=Clear Oversize nvim log files(7d)
+
+[Timer]
+# 第一次运行：安装/重载后等待 5 分钟（避免开机立即执行）
+OnBootSec=5min
+
+# 之后每7天执行一次（604800秒 = 7×24×3600）
+OnUnitActiveSec=7d
+# 或者更直观的写法（推荐）：
+# OnCalendar=Sun *-*-* 03:00:00  # 每周日凌晨3点
+# Persistent=true                 # 如果关机错过，下次开机补执行
+
+[Install]
+WantedBy=timers.target
