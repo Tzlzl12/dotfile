@@ -4,26 +4,9 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      plugins = { -- Override which plugin highlight groups are loaded
-        blink_cmp = true,
-        codecompanion = true,
-        flash_nvim = true,
-        gitsigns = true,
-        lsp_semantic_tokens = true,
-        mini_diff = true,
-        mini_indentscope = true,
-        neotest = true,
-        neo_tree = true,
-        nvim_dap = true,
-        nvim_dap_ui = true,
-        nvim_lsp = true,
-        persisted = true,
-        rainbow_delimiters = true,
-        render_markdown = true,
-        toggleterm = true,
-        treesitter = true,
-        trouble = true,
-        which_key = true,
+      styles = {
+        keywords = "italic",
+        virtural_text = "italic",
       },
       options = {
         cursorline = true, -- Use cursorline highlighting?
@@ -93,6 +76,9 @@ return {
     opts = {
       style = {
         transparent = true, -- Bool value, toggles transparency.
+      },
+      plugins = {
+        ["blink.cmp"] = false,
       },
     },
   },

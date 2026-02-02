@@ -32,7 +32,7 @@ return {
   "sudo-tee/opencode.nvim",
   cmd = "Opencode",
   opts = {
-    preferred_picker = "snacks",
+    -- preferred_picker = "snacks",
     preferred_completion = "blink",
     -- defalut_global_keymaps = false,
     default_mode = "plan",
@@ -44,6 +44,7 @@ return {
     ui = {
       input_height = 0.3,
       completion = { file_sources = { preferred_cli_tool = "fd" } },
+      input = { text = { wrap = true } },
     },
   },
   config = function(_, opts)
