@@ -19,7 +19,7 @@ path=(
     "$HOME/.local/bin"
     "$HOME/.local/share/nvim/mason/bin"
     "$HOME/.rustup/toolchains/esp/riscv32-esp-elf/esp-15.2.0_20250920/riscv32-esp-elf/bin/"
-    # "$HOME/.bun/bin"
+    "$HOME/.bun/bin"
     "$HOME/.cargo/bin"
     # "$HOME/.dotnet"
     # "$HOME/tools/renode"
