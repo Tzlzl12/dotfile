@@ -1,6 +1,7 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
+    -- enabled = false,
     specs = {
       { "nvim-lua/plenary.nvim", lazy = true },
       { "MunifTanjim/nui.nvim", lazy = true },
@@ -21,7 +22,6 @@ return {
       },
     },
     cmd = "Neotree",
-    lazy = true,
     deactivate = function()
       vim.cmd [[Neotree close]]
     end,

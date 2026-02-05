@@ -12,6 +12,9 @@ return {
     ft = { "rust" },
     enabled = vim.g.nvchad_lsp_rust,
     opts = {
+      dap = {
+        autoload_configurations = false,
+      },
       server = {
         on_attach = function(_, bufnr)
           require "keymap.lsp"
@@ -34,27 +37,6 @@ return {
             vim.cmd.RustLsp "codeLens"
           end, { buffer = bufnr })
         end,
-
-        -- default_settings = {
-        --   ["rust-analyzer"] = {
-        --     cargo = {
-        --       allFeatures = true,
-        --       buildScripts = { enable = true },
-        --     },
-        --
-        --     checkOnSave = {
-        --       command = "clippy",
-        --     },
-        --
-        --     procMacro = {
-        --       enable = true,
-        --     },
-        --
-        --     diagnostics = {
-        --       enable = true,
-        --     },
-        --   },
-        -- },
       },
     },
 

@@ -117,9 +117,9 @@ function M.open(dir)
 
       if item.is_dir then
         vim.g.workspace = item.file
-        vim.cmd("Neotree position=top dir=" .. vim.fn.fnameescape(item.file))
+        vim.cmd("Neotree dir=" .. vim.fn.fnameescape(item.file))
       else
-        vim.cmd("edit " .. vim.fn.fnameescape(item.file))
+        vim.cmd("edit " .. item.file)
       end
       picker:close()
     end,
@@ -128,6 +128,7 @@ function M.open(dir)
         keys = {
           ["<Right>"] = { "enter_dir", mode = { "n", "i" } },
           ["<Left>"] = { "parent_dir", mode = { "n", "i" } },
+          ["<tab>"] = { "toggle_hidden", mode = { "n", "i" } },
         },
       }, -- input
     }, -- win
@@ -138,6 +139,11 @@ function M.open(dir)
 
       parent_dir = function(picker)
         require("utils.change_path").parent_dir(picker)
+      end,
+
+      toggle_hidden = function(picker)
+        state.show_hidden = not state.show_hidden
+        picker:refresh()
       end,
     },
   }

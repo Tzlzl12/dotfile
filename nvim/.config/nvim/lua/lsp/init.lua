@@ -62,23 +62,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- inlay_hints
     if vim.fn.has "nvim-0.10" == 1 then
+      vim.lsp.inlay_hint.enable(true)
       -- in Insert mode disable inlay_hint
-      vim.api.nvim_create_autocmd("ModeChanged", {
-        callback = function()
-          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-            local mode = vim.api.nvim_get_mode().mode
-            if mode == "n" then
-              -- 严格进入 Normal 模式
-              vim.g.inlay_hints_visible = true
-              vim.lsp.inlay_hint.enable(true)
-            else
-              -- 其他模式都隐藏
-              vim.g.inlay_hints_visible = false
-              vim.lsp.inlay_hint.enable(false)
-            end
-          end
-        end,
-      })
+      -- vim.api.nvim_create_autocmd("ModeChanged", {
+      --   callback = function()
+      --     if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+      --       local mode = vim.api.nvim_get_mode().mode
+      --       if mode == "n" then
+      --         -- 严格进入 Normal 模式
+      --         vim.g.inlay_hints_visible = true
+      --         vim.lsp.inlay_hint.enable(true)
+      --       else
+      --         -- 其他模式都隐藏
+      --         vim.g.inlay_hints_visible = false
+      --         vim.lsp.inlay_hint.enable(false)
+      --       end
+      --     end
+      --   end,
+      -- })
       -- vim.api.nvim_create_autocmd("InsertEnter", {
       -- 	callback = function()
       -- 		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then

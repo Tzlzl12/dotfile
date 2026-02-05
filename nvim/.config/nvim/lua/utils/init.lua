@@ -12,6 +12,7 @@ M.get_icon = function(icon_name)
   return require("configs.icons").icons[icon_name]
 end
 
+--- return lsp.root_dir , then workspace global variable, and fallback to `vim.uv.cwd()`
 M.workspace = function()
   return vim.tbl_map(function(client)
     return client.config.root_dir

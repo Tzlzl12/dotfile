@@ -32,6 +32,7 @@ return {
       server = {
         portal_url = "https://windsurf.com",
       },
+      -- bin = "codeium",
       silent = true,
       filter = function(bufnr)
         local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })

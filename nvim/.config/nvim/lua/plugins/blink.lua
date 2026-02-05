@@ -11,7 +11,6 @@ local function create_undo()
 end
 
 local menu_cols = { { "label" }, { "kind_icon" }, { "kind" } }
-local highlights = {}
 
 return {
   {
@@ -30,6 +29,7 @@ return {
       {
         "xzbdmw/colorful-menu.nvim",
         opts = {
+          -- blink = { max_width = 40 },
           ls = {
             lua_ls = {
               -- Maybe you want to dim arguments a bit.
@@ -127,15 +127,16 @@ return {
           auto_show = function(ctx)
             return ctx.mode ~= "cmdline"
           end,
-          border = "single",
+          border = "rounded",
           min_width = 15,
           max_height = 10,
           draw = {
             columns = menu_cols,
-            gap = 2,
+            gap = 1,
             treesitter = { "lsp" },
             components = {
               label = {
+                width = { max = 60 },
                 text = function(ctx)
                   return require("colorful-menu").blink_components_text(ctx)
                 end,
@@ -157,7 +158,7 @@ return {
           auto_show = true,
           auto_show_delay_ms = 100,
           window = {
-            border = "single",
+            border = "rounded",
             direction_priority = {
               menu_north = { "s", "w" }, -- appearent in menu north
               menu_south = { "n", "w" },
@@ -237,14 +238,14 @@ return {
             if not vim.g.use_copilot then
               local codeium = require "neocodeium"
               if codeium.visible() then
-                create_undo()
+                -- create_undo()
                 codeium.accept()
                 return true
               end
             else
               local copilot = require "copilot.suggestion"
               if copilot.is_visible() then
-                create_undo()
+                -- create_undo()
                 copilot.accept()
                 return true
               end

@@ -53,6 +53,8 @@ return {
         require("dap.codelldb").setup()
       elseif file_type == "python" then
         require("dap.debugpy").setup()
+      elseif file_type == "rust" then
+        vim.g.rustaceanvim.dap.autoload_configurations = true
       end
 
       -- B. 加载项目本地 .dap.lua 配置 (修复了覆盖漏洞)

@@ -88,21 +88,6 @@ vim.schedule(function()
     require("utils.themes").colorscheme(vim.g.nvim_colorscheme, true)
   end
 end)
-if vim.fn.has "wsl" == 1 then
-  vim.g.clipboard = {
-    name = "WslClipboard",
-    copy = {
-      ["+"] = "clip.exe",
-      ["*"] = "clip.exe",
-    },
-    paste = {
-      -- 使用 powershell 过滤掉回车符 \r
-      ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-      ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    },
-    cache_enabled = 0,
-  }
-end
 vim.schedule(function()
   require "configs.autocmd"
   require "configs.commands"

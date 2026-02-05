@@ -48,6 +48,21 @@ local function parse_chip_name(cargo_dir)
   return nil
 end
 
+local function detect_workspace_member(buf_path, metadata)
+  if not metadata or not metadata.packages then
+    return nil
+  end
+
+  for _, pkg in ipairs(metadata.packages) do
+    local root = pkg.manifest_path:gsub("/Cargo.toml$", "")
+    if buf_path:find(root, 1, true) == 1 then
+      return pkg.name
+    end
+  end
+
+  return nil
+end
+
 ------------------------------------------------------------
 -- template
 ------------------------------------------------------------
@@ -86,22 +101,29 @@ return {
         return
       end
 
-      local ok, data = pcall(json.decode, res.stdout)
-      local workspace_root = ok and data and data.workspace_root or nil
+      local ok, metadata = pcall(json.decode, res.stdout)
+      local workspace_root = ok and metadata and metadata.workspace_root or nil
 
       ----------------------------------------------------
       -- command definitions (NO buffer state here)
       ----------------------------------------------------
       local commands = {
         -- run
+        -- {
+        --   kind = "run_file",
+        --   mode = "debug",
+        --   name_override = "cargo run (current file)",
+        --   tags = { TAG.RUN },
+        --   priority = 50,
+        -- },
         { kind = "run", mode = "debug", args = { "run" }, tags = { TAG.RUN }, priority = 40 },
-        { kind = "run", mode = "release", args = { "run", "--release" }, tags = { TAG.RUN }, priority = 41 },
+        -- { kind = "run", mode = "release", args = { "run", "--release" }, tags = { TAG.RUN }, priority = 41 },
 
         -- common
         { args = { "build" }, tags = { TAG.BUILD } },
-        { args = { "check" }, name_override = "cargo check" },
-        { args = { "test" }, tags = { TAG.TEST }, name_override = "cargo test" },
-        { args = { "clean" }, tags = { TAG.CLEAN }, name_override = "cargo clean" },
+        -- { args = { "check" }, name_override = "cargo check" },
+        -- { args = { "test" }, tags = { TAG.TEST }, name_override = "cargo test" },
+        -- { args = { "clean" }, tags = { TAG.CLEAN }, name_override = "cargo clean" },
       }
 
       ----------------------------------------------------
@@ -169,20 +191,38 @@ return {
 
               local args = vim.deepcopy(cmd.args)
 
-              if cmd.kind == "run" and buf_path ~= "" then
-                if is_in_subdir(buf_path, "examples") then
-                  args = { "run", "--example", file_name }
-                  if cmd.mode == "release" then
-                    table.insert(args, "--release")
-                  end
-                elseif is_in_subdir(buf_path, "src/bin") then
-                  args = { "run", "--bin", file_name }
-                  if cmd.mode == "release" then
-                    table.insert(args, "--release")
-                  end
-                end
-              end
+              if (cmd.kind == "run" or cmd.kind == "run_file") and buf_path ~= "" then
+                local member = detect_workspace_member(buf_path, metadata)
 
+                if is_in_subdir(buf_path, "examples") then
+                  args = { "run" }
+
+                  if member then
+                    table.insert(args, "-p")
+                    table.insert(args, member)
+                  end
+
+                  table.insert(args, "--example")
+                  table.insert(args, file_name)
+                elseif is_in_subdir(buf_path, "src/bin") then
+                  args = { "run" }
+
+                  if member then
+                    table.insert(args, "-p")
+                    table.insert(args, member)
+                  end
+
+                  table.insert(args, "--bin")
+                  table.insert(args, file_name)
+                elseif cmd.kind == "run_file" then
+                  -- 普通 src/main.rs 或单文件项目
+                  args = { "run" }
+                end
+
+                -- if cmd.mode == "release" then
+                --   table.insert(args, "--release")
+                -- end
+              end
               return {
                 cmd = { "cargo" },
                 args = args,

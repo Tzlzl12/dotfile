@@ -13,10 +13,15 @@ vim.api.nvim_create_autocmd("InsertEnter", {
   desc = "In the first time, disable codeium",
   once = true,
   callback = function()
-    print "disable codeium"
-    require("neocodeium.commands").disable()
+    if vim.g.use_copilot == true then
+      print "disable codeium"
+      require("neocodeium.commands").disable()
+    else
+      require("copilot.command").disable()
+    end
   end,
 })
+
 -- -- 在主题改变时, 自动重新加载语法高亮
 -- vim.api.nvim_create_autocmd("ColorScheme", {
 --   pattern = "*",
@@ -32,6 +37,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 -- })
 vim.api.nvim_create_autocmd("DirChanged", {
   callback = function()
+    print "into"
     vim.g.workspace = vim.uv.cwd() -- 每次目录变化都更新
   end,
 })
@@ -104,40 +110,11 @@ vim.api.nvim_create_autocmd("User", {
   end,
 })
 
-vim.api.nvim_create_autocmd("User", {
-  group = blink_inline,
-  pattern = "BlinkCmpMenuOpen",
-  callback = function()
-    require("neocodeium").clear() -- 清除当前 neocodeium 建议（ghost text 消失）
-  end,
-})
-
--- local window_num = function()
---   local normal_win_count = 0
---   for _, winid in ipairs(vim.api.nvim_list_wins()) do
---     if vim.api.nvim_win_get_config(winid).relative == "" then
---       normal_win_count = normal_win_count + 1
---     end
---   end
---   return normal_win_count
--- end
--- local toggle_minimap = vim.api.nvim_create_augroup("ToggleMinimap", { clear = true })
--- vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, {
---   group = toggle_minimap,
+-- vim.api.nvim_create_autocmd("User", {
+--   group = blink_inline,
+--   pattern = "BlinkCmpMenuOpen",
 --   callback = function()
---     local function should_trigger()
---       -- 排除dashboard和空缓冲区
---       return vim.bo.filetype ~= "dashboard" and vim.api.nvim_buf_get_name(0) ~= ""
---     end
---
---     if should_trigger() then
---       local num = window_num()
---       if num > 1 then
---         -- disable minimap
---         vim.cmd "Neominimap Disable"
---       else
---         vim.cmd "Neominimap Enable"
---       end
---     end
+--     require("neocodeium").clear() -- 清除当前 neocodeium 建议（ghost text 消失）
 --   end,
 -- })
+--

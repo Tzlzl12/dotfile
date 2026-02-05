@@ -2,7 +2,9 @@ local M = {}
 
 local transperent_highlight = {
   BlinkCmpMenuSelection = { bg = "#a6e3a1", fg = "#fb4934" },
-  NonText = { fg = "#5c6370", bg = "NONE" },
+  Comment = { fg = "#8694a3" },
+  NonText = { fg = "#7f8c98", bg = "NONE" },
+  -- NonText = { fg = "#5c6370", bg = "NONE" },
   NormalFloat = { bg = "NONE" },
   NormalNC = { bg = "NONE" },
   WinBarNC = { bg = "NONE" },

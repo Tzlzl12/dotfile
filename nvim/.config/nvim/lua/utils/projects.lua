@@ -76,5 +76,8 @@ M.win = {
       },
     },
   },
+  actions = {
+    config_workspace = function(picker) end,
+  },
 }
 return M

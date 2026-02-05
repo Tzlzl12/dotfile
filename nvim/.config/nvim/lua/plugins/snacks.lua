@@ -30,66 +30,48 @@ return {
   },
   {
     "folke/snacks.nvim",
-    -- stylua: ignore
-    keys = {
-      -- Top Pickers & Explorer
-      -- { "<leader><space>", function() Snacks.picker.smart() end, desc = "Snacks Smart Find Files" },
-      -- { "<leader>:", function() Snacks.picker.command_history() end, desc = "Snacks Command History" },
-
-      { "<leader>fn", function() Snacks.picker.notifications() end, desc = "Snacks Notification History" },
-      -- find
-      { "<leader>fa", function() Snacks.picker.files({ cwd = vim.fn.stdpath('config'), preset = "ivy" })end, desc = "Snacks Find Config" },
-      { "<leader>fb", function() Snacks.picker.buffers({ preset = "ivy" }) end, desc = "Snacks Buffers" },
-      { "<leader>ff", function() Snacks.picker.files({ preset = "ivy", cwd = require("utils").workspace() }) end, desc = "Snacks Find Files" },
-      { "<leader>fg", function() Snacks.picker.git_files({ preset = "ivy" }) end, desc = "Snacks Find Git Files" },
-      { "<leader>fh", function() Snacks.picker.highlights({ preset = "ivy" }) end, desc = "Snacks Highlights" },
-      { "<leader>fk", function() Snacks.picker.keymaps({ preset = "ivy" }) end, desc = "Snacks Keymaps" },
-      { "<leader>fm", function() Snacks.picker.marks({preset = "ivy"}) end, desc = "Snacks Marks" },
-      { "<leader>fq", function() Snacks.picker.qflist({preset = "ivy"}) end, desc = "Snakcs Quickfix List" },
-      { "<leader>ft", function ()
-        Snacks.picker.colorschemes(require("utils.select-themes"))
-      end, desc = "Snacks Colorschemes" },
-      { "<leader>fu", function() Snacks.picker.undo({ preset = "ivy" }) end, desc = "Snacks Undo History" },
-      { "<leader>fw", function() Snacks.picker.grep({cwd = require("utils").workspace(), preset = "ivy"}) end, desc = "Snacks Picker Grep" },
-      { "<leader>fW", function() Snacks.picker.grep_word({preset = "ivy"}) end, desc = "Visual selection or word", mode = { "n", "x" } },
-      {"<leader>fp", function ()
-        Snacks.picker.projects(require('utils.projects'))
-      end, desc = "Snacks Find Projects "},
-      -- git
-      { "<leader>gb", function() Snacks.picker.git_branches( { cwd = find_git_root(), preset="ivy" }  ) end, desc = "Snacks Git Branches" },
-      { "<leader>gl", function() Snacks.picker.git_log( { cwd = find_git_root(), preset="ivy"} ) end, desc = "Snacks Git Log" },
-      { "<leader>gL", function() Snacks.picker.git_log_line( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Log Line" },
-      { "<leader>gs", function() Snacks.picker.git_status( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Status" },
-      { "<leader>gS", function() Snacks.picker.git_stash( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Stash" },
-      { "<leader>gd", function() Snacks.picker.git_diff( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Diff (Hunks)" },
-      { "<leader>gf", function() Snacks.picker.git_log_file( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snakcs Git Log File" },
-      -- Grep
-      { "<leader>/", function() Snacks.picker.lines() end, desc = "Snacks Buffer Lines" },
-
-      { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Snacks Search History" },
-      { "<leader>sa", function() Snacks.picker.autocmds({preset = "ivy"}) end, desc = "Snacks Autocmds" },
-      { "<leader>sb", function() Snacks.picker.lines() end, desc = "Snacks Buffer Lines" },
-      { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Snacks Command History" },
-      { "<leader>sC", function() Snacks.picker.commands() end, desc = "Snacks Commands" },
-      { "<leader>sd", function() Snacks.picker.diagnostics({preset = "ivy"}) end, desc = "Snacks Diagnostics" },
-      { "<leader>sD", function() Snacks.picker.diagnostics_buffer({preset = "ivy"}) end, desc = "Snacks Buffer Diagnostics" },
-      { "<leader>sH", function() Snacks.picker.help() end, desc = "Snacks Help Pages" },
-      { "<leader>si", function() Snacks.picker.icons() end, desc = "Snacks Icons" },
-      { "<leader>sj", function() Snacks.picker.jumps() end, desc = "Snacks Jumps" },
-      { "<leader>sl", function() Snacks.picker.loclist() end, desc = "Snacks Location List" },
-      { "<leader>sm", function() Snacks.picker.man() end, desc = "Snacks Man Pages" },
-      { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Snacks Search for Plugin Spec" },
-      { "<leader>sR", function() Snacks.picker.resume() end, desc = "Snacks Resume" },
-      -- LSP
-      { "<leader>ls", function() Snacks.picker.lsp_symbols({preset = "ivy"}) end, desc = "LSP Symbols" },
-      { "<leader>lS", function() Snacks.picker.lsp_workspace_symbols({preset = "ivy"}) end, desc = "LSP Workspace Symbols" },
-    },
-    --
+    init = function()
+      local fs = vim.api.nvim_create_augroup("FileSystem", { clear = true })
+      vim.api.nvim_create_autocmd("BufEnter", {
+        once = true,
+        group = fs,
+        callback = function()
+          local state = vim.uv.fs_stat(vim.fn.argv(0))
+          if state and state.type == "directory" then
+            local buf = vim.api.nvim_get_current_buf()
+            vim.api.nvim_buf_delete(buf, { force = true })
+            Snacks.picker.explorer {}
+          end
+        end,
+      })
+    end,
     opts = function(_, opts)
-      if vim.g.nvchad_use_telescope then
-        return opts
-      end
       opts.picker = {
+        -- sources = {
+        --   explorer = {
+        --     -- replace_netrw = true,
+        --     layout = {
+        --       auto_hide = { "input" },
+        --       preset = "left",
+        --       layout = {
+        --         width = 0.3,
+        --         min_width = 30,
+        --       },
+        --     },
+        --     win = {
+        --       list = {
+        --         keys = {
+        --           ["."] = function(picker)
+        --             picker:action "tcd"
+        --             -- 然后关闭
+        --             picker:close()
+        --           end,
+        --           -- ["<C-n>"] = "close",
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
         prompt = " ",
         layout = {
           preset = "ivy",
@@ -155,11 +137,63 @@ return {
       }
       return opts
     end,
+    -- stylua: ignore
+    keys = {
+    -- Top Pickers & Explorer
+    -- { "<leader><space>", function() Snacks.picker.smart() end, desc = "Snacks Smart Find Files" },
+    -- {"<c-n>", function () Snacks.picker.explorer({cwd = require("utils").workspace()}, {desc = "General File Finder"}) end},
+    { "<leader>fn", function() Snacks.picker.notifications() end, desc = "Snacks Notification History" },
+    -- find
+    { "<leader>fa", function() Snacks.picker.files({ cwd = vim.fn.stdpath('config'), preset = "ivy" })end, desc = "Snacks Find Config" },
+    { "<leader>fb", function() Snacks.picker.buffers({ preset = "ivy" }) end, desc = "Snacks Buffers" },
+    { "<leader>ff", function() Snacks.picker.files({ preset = "ivy", cwd = require("utils").workspace() }) end, desc = "Snacks Find Files" },
+    { "<leader>fg", function() Snacks.picker.git_files({ preset = "ivy" }) end, desc = "Snacks Find Git Files" },
+    { "<leader>fh", function() Snacks.picker.highlights({ preset = "ivy" }) end, desc = "Snacks Highlights" },
+    { "<leader>fk", function() Snacks.picker.keymaps({ preset = "ivy" }) end, desc = "Snacks Keymaps" },
+    { "<leader>fm", function() Snacks.picker.marks({preset = "ivy"}) end, desc = "Snacks Marks" },
+    { "<leader>fq", function() Snacks.picker.qflist({preset = "ivy"}) end, desc = "Snakcs Quickfix List" },
+    { "<leader>ft", function ()
+      Snacks.picker.colorschemes(require("utils.select-themes"))
+    end, desc = "Snacks Colorschemes" },
+    { "<leader>fu", function() Snacks.picker.undo({ preset = "ivy" }) end, desc = "Snacks Undo History" },
+    { "<leader>fw", function() Snacks.picker.grep({cwd = require("utils").workspace(), preset = "ivy"}) end, desc = "Snacks Picker Grep" },
+    { "<leader>fW", function() Snacks.picker.grep_word({preset = "ivy"}) end, desc = "Visual selection or word", mode = { "n", "x" } },
+    {"<leader>fp", function ()
+      Snacks.picker.projects(require('utils.projects'))
+    end, desc = "Snacks Find Projects "},
+    -- git
+    { "<leader>gb", function() Snacks.picker.git_branches( { cwd = find_git_root(), preset="ivy" }  ) end, desc = "Snacks Git Branches" },
+    { "<leader>gl", function() Snacks.picker.git_log( { cwd = find_git_root(), preset="ivy"} ) end, desc = "Snacks Git Log" },
+    { "<leader>gL", function() Snacks.picker.git_log_line( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Log Line" },
+    { "<leader>gs", function() Snacks.picker.git_status( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Status" },
+    { "<leader>gS", function() Snacks.picker.git_stash( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Stash" },
+    { "<leader>gd", function() Snacks.picker.git_diff( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snacks Git Diff (Hunks)" },
+    { "<leader>gf", function() Snacks.picker.git_log_file( { cwd = find_git_root(), preset="ivy" } ) end, desc = "Snakcs Git Log File" },
+    -- Grep
+    { "<leader>/", function() Snacks.picker.lines() end, desc = "Snacks Buffer Lines" },
+
+    { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Snacks Search History" },
+    { "<leader>sa", function() Snacks.picker.autocmds({preset = "ivy"}) end, desc = "Snacks Autocmds" },
+    { "<leader>sb", function() Snacks.picker.lines() end, desc = "Snacks Buffer Lines" },
+    { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Snacks Command History" },
+    { "<leader>sC", function() Snacks.picker.commands() end, desc = "Snacks Commands" },
+    { "<leader>sd", function() Snacks.picker.diagnostics({preset = "ivy"}) end, desc = "Snacks Diagnostics" },
+    { "<leader>sD", function() Snacks.picker.diagnostics_buffer({preset = "ivy"}) end, desc = "Snacks Buffer Diagnostics" },
+    { "<leader>sH", function() Snacks.picker.help() end, desc = "Snacks Help Pages" },
+    { "<leader>si", function() Snacks.picker.icons() end, desc = "Snacks Icons" },
+    { "<leader>sj", function() Snacks.picker.jumps() end, desc = "Snacks Jumps" },
+    { "<leader>sl", function() Snacks.picker.loclist() end, desc = "Snacks Location List" },
+    { "<leader>sm", function() Snacks.picker.man() end, desc = "Snacks Man Pages" },
+    { "<leader>sp", function() Snacks.picker.lazy() end, desc = "Snacks Search for Plugin Spec" },
+    { "<leader>sR", function() Snacks.picker.resume() end, desc = "Snacks Resume" },
+    -- LSP
+    { "<leader>ls", function() Snacks.picker.lsp_symbols({preset = "ivy"}) end, desc = "LSP Symbols" },
+    { "<leader>lS", function() Snacks.picker.lsp_workspace_symbols({preset = "ivy"}) end, desc = "LSP Workspace Symbols" },
+  },
   },
   -- Flash integration
   {
     "folke/flash.nvim",
-    optional = true,
     specs = {
       {
         "folke/snacks.nvim",

@@ -3,6 +3,8 @@ return {
   event = "BufReadPre",
   init = function()
     local get_icon = require("utils").get_icon
+    vim.api.nvim_set_hl(0, "NeominimapCursorLine", { fg = "None", bg = "#665c54" })
+
     vim.g.neominimap = {
       auto_enale = true,
       layout = "split",
