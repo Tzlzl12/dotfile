@@ -37,7 +37,6 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 -- })
 vim.api.nvim_create_autocmd("DirChanged", {
   callback = function()
-    print "into"
     vim.g.workspace = vim.uv.cwd() -- 每次目录变化都更新
   end,
 })

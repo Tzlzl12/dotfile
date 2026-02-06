@@ -12,6 +12,8 @@ end)
 --   }
 -- end, { desc = "General Toggle Explorer" })
 
+map("n", "<up>", "gk", { desc = "General Move line up" })
+map("n", "<down>", "gj", { desc = "General Move line down" })
 map("n", ";", ":", { desc = "General CMD enter command mode" })
 map("n", "<C-h>", "<C-w>h", { desc = "General switch window left" })
 map("n", "<C-l>", "<C-w>l", { desc = "General switch window right" })

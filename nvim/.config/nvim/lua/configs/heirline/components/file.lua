@@ -1,17 +1,26 @@
 local conditions = require "heirline.conditions"
 local utils = require "heirline.utils"
- 
+
 local icons = require("configs.heirline.common").icons
 local separators = require("configs.heirline.common").separators
 local dim = require("configs.heirline.common").dim
 
-local file_color = "orange"
+local file_color = "white"
 local M = {}
 M.FileIcon = {
   init = function(self)
     local filename = self.filename
     local extension = vim.fn.fnamemodify(filename, ":e")
-    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+    -- self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+    local icons = require "mini.icons"
+    local icon, hl, _ = icons.get("file", filename)
+
+    -- 提取高亮组的渲染颜色 (对应之前的 icon_color)
+    local color = vim.api.nvim_get_hl(0, { name = hl, link = false }).fg
+    local icon_color = string.format("#%06x", color)
+
+    self.icon = icon
+    self.icon_color = icon_color
   end,
   provider = function(self)
     return self.icon and (self.icon .. " ")
