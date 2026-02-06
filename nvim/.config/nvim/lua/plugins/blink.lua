@@ -1,5 +1,6 @@
 local function has_words_before()
   local line, col = (unpack or table.unpack)(vim.api.nvim_win_get_cursor(0))
+
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
 
@@ -16,6 +17,7 @@ return {
   {
     "saghen/blink.cmp",
     event = "InsertEnter",
+    -- enabled = false,
     -- version = "*",
     build = "cargo build --release",
     opts_extend = {
@@ -28,6 +30,7 @@ return {
       -- "rafamadriz/friendly-snippets",
       {
         "xzbdmw/colorful-menu.nvim",
+        enabled = false,
         opts = {
           -- blink = { max_width = 40 },
           ls = {
@@ -53,10 +56,6 @@ return {
               -- See https://github.com/xzbdmw/colorful-menu.nvim/pull/36
               preserve_type_when_truncate = true,
             },
-            zls = {
-              -- Similar to the same setting of gopls.
-              align_type_to_right = true,
-            },
           },
         },
       },
@@ -72,14 +71,9 @@ return {
         event = "InsertEnter",
         opts = {
           modes = { insert = true, command = true, terminal = false },
-          -- skip autopair when next character is one of these
           skip_next = [=[[%w%%%'%[%"%.%`%$]]=],
-          -- skip autopair when the cursor is inside these treesitter nodes
           skip_ts = { "string" },
-          -- skip autopair when next character is closing pair
-          -- and there are more closing pairs than opening pairs
           skip_unbalanced = true,
-          -- better deal with markdown code blocks
           markdown = true,
         },
         config = function(_, opts)
@@ -101,21 +95,12 @@ return {
         preset = "default",
       },
       appearance = {
-        -- sets the fallback highlight groups to nvim-cmp's highlight groups
-        -- useful for when your theme doesn't support blink.cmp
-        -- will be removed in a future release, assuming themes add support
         use_nvim_cmp_as_default = false,
-        -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-        -- adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
       },
       completion = {
         accept = {
           auto_brackets = { enabled = false },
-          -- experimental auto-brackets support
-          -- auto_brackets = {
-          --   enabled = true,
-          -- },
         },
         list = {
           selection = {
@@ -127,28 +112,29 @@ return {
           auto_show = function(ctx)
             return ctx.mode ~= "cmdline"
           end,
-          border = "rounded",
+          border = { "┌", "─", "", "", "", "─", "└", "│" },
           min_width = 15,
-          max_height = 10,
+          -- max_width = 40,
+          max_height = 8,
           draw = {
             columns = menu_cols,
             gap = 1,
             treesitter = { "lsp" },
             components = {
-              label = {
-                width = { max = 60 },
-                text = function(ctx)
-                  return require("colorful-menu").blink_components_text(ctx)
-                end,
-                highlight = function(ctx)
-                  return require("colorful-menu").blink_components_highlight(ctx)
-                end,
-              },
               kind_icon = {
                 text = function(ctx)
-                  -- default kind icon
-                  local icon = require("configs.icons").icons.kinds[ctx.kind] or ""
-                  return icon .. ctx.icon_gap
+                  local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return kind_icon
+                end,
+                highlight = function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
+                end,
+              },
+              kind = {
+                highlight = function(ctx)
+                  local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
+                  return hl
                 end,
               },
             },
@@ -158,10 +144,13 @@ return {
           auto_show = true,
           auto_show_delay_ms = 100,
           window = {
-            border = "rounded",
+            min_width = 10,
+            max_width = 50,
+            max_height = 20,
+            border = { "┌", "─", "", "", "", "─", "└", "│" },
             direction_priority = {
-              menu_north = { "s", "w" }, -- appearent in menu north
-              menu_south = { "n", "w" },
+              menu_north = { "s", "n", "w" }, -- appearent in menu north
+              menu_south = { "n", "s", "w" },
             },
           },
         },
@@ -169,13 +158,13 @@ return {
           enabled = true,
         },
       },
-      signature = {
-        enabled = true,
-        window = {
-          border = "rounded",
-          winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
-        },
-      },
+      -- signature = {
+      --   enabled = true,
+      --   window = {
+      --     border = "rounded",
+      --     winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+      --   },
+      -- },
       -- experimental signature help support
 
       sources = {

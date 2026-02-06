@@ -11,10 +11,10 @@ opt.autowrite = true -- Enable auto write
 -- opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.runtimepath:append(vim.fn.stdpath "config" .. "snippets")
 
-opt.completeopt = "menu,menuone,noselect"
+opt.completeopt = { "menu", "menuone", "noinsert", "fuzzy" }
 opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
-opt.cursorline = true -- Enable highlighting of the current line
+opt.cursorline = false -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 opt.fillchars = {
   foldopen = "",
@@ -62,7 +62,7 @@ opt.listchars = {
 opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Print line number
 opt.pumblend = 10 -- Popup blend
-opt.pumheight = 10 -- Maximum number of entries in a popup
+-- opt.pumheight = 6 -- Maximum number of entries in a popup
 opt.relativenumber = true -- Relative line numbers
 opt.ruler = false -- Disable the default ruler
 opt.scrolloff = 4 -- Lines of context
