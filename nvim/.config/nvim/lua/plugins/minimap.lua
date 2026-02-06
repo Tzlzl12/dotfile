@@ -9,7 +9,7 @@ return {
       auto_enale = true,
       layout = "split",
       split = {
-        minimap_width = 12,
+        minimap_width = 15,
         close_if_last_window = true,
       },
       float = {

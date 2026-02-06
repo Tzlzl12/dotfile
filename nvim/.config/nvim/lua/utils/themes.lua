@@ -27,7 +27,15 @@ local transperent_highlight = {
 
   Pmenu = { fg = "#64B5F6", bg = "NONE" },
   PmenuSel = { fg = "#61afef", bg = "NONE" },
-  PmenuTumb = { bg = "NONE" },
+  -- PmenuTumb = { bg = "NONE" },
+
+  RainbowDelimiterRed = { fg = "#f7768e" },
+  RainbowDelimiterYellow = { fg = "#e0af68" },
+  RainbowDelimiterBlue = { fg = "#7aa2f7" },
+  RainbowDelimiterOrange = { fg = "#ff9e64" },
+  RainbowDelimiterGreen = { fg = "#9ece6a" },
+  RainbowDelimiterViolet = { fg = "#bb9af7" },
+  RainbowDelimiterCyan = { fg = "#7dc4e4" },
 }
 
 local function set_highlight(hl)

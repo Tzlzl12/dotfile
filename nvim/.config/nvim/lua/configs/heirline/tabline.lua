@@ -69,8 +69,18 @@ local TablineFileFlags = {
 local FileIcon = {
   init = function(self)
     local filename = self.filename
-    local extension = vim.fn.fnamemodify(filename, ":e")
-    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+    -- local extension = vim.fn.fnamemodify(filename, ":e")
+    -- self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
+    local icons = require "mini.icons"
+    local icon, hl, _ = icons.get("file", filename)
+
+    -- 提取高亮组的渲染颜色 (对应之前的 icon_color)
+    local color = vim.api.nvim_get_hl(0, { name = hl, link = false }).fg
+    local icon_color = string.format("#%06x", color)
+
+    self.icon = icon
+    self.icon_color = icon_color
+    -- self.icon, self.icon_color,_ = MiniIcons.get()
   end,
   provider = function(self)
     return self.icon and (self.icon .. " ")
@@ -256,7 +266,8 @@ local TabLineOffset = {
     local win = vim.api.nvim_tabpage_list_wins(0)[1]
     local bufnr = vim.api.nvim_win_get_buf(win)
     self.winid = win
-
+    local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+    print("Current filetype: '" .. ft .. "'")
     if vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == "neo-tree" then
       self.title = "NeoTree"
       return true

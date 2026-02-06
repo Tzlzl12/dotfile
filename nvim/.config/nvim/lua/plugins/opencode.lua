@@ -42,9 +42,8 @@ return {
       history_picker = keymap.history_picker,
     },
     ui = {
-      input_height = 0.3,
       completion = { file_sources = { preferred_cli_tool = "fd" } },
-      input = { text = { wrap = true } },
+      input = { text = { wrap = true }, max_height = 0.3, min_height = 0.2 },
     },
   },
   config = function(_, opts)

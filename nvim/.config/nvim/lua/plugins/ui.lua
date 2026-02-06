@@ -46,6 +46,7 @@ return {
   {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
+    enabled = false,
     opts = function()
       return {
         override = {
@@ -56,6 +57,51 @@ return {
           ["robots.txt"] = { icon = "󰚩", name = "robots" },
         },
       }
+    end,
+  },
+  {
+    "echasnovski/mini.icons",
+    event = "vimEnter",
+    config = function()
+      require("mini.icons").setup {
+        lsp = {
+          array = { glyph = "", hl = "MiniIconsOrange" },
+          boolean = { glyph = "", hl = "MiniIconsOrange" },
+          class = { glyph = "", hl = "MiniIconsPurple" },
+          color = { glyph = "", hl = "MiniIconsRed" },
+          constant = { glyph = "", hl = "MiniIconsOrange" },
+          constructor = { glyph = "", hl = "MiniIconsAzure" },
+          enum = { glyph = "", hl = "MiniIconsPurple" },
+          enummember = { glyph = "", hl = "MiniIconsYellow" },
+          event = { glyph = "", hl = "MiniIconsRed" },
+          field = { glyph = "", hl = "MiniIconsYellow" },
+          file = { glyph = "", hl = "MiniIconsBlue" },
+          folder = { glyph = "", hl = "MiniIconsBlue" },
+          ["function"] = { glyph = "󰊕", hl = "MiniIconsAzure" },
+          interface = { glyph = "", hl = "MiniIconsPurple" },
+          key = { glyph = "", hl = "MiniIconsYellow" },
+          keyword = { glyph = "", hl = "MiniIconsCyan" },
+          method = { glyph = "", hl = "MiniIconsAzure" },
+          module = { glyph = "", hl = "MiniIconsPurple" },
+          namespace = { glyph = "", hl = "MiniIconsRed" },
+          null = { glyph = "", hl = "MiniIconsGrey" },
+          number = { glyph = "", hl = "MiniIconsOrange" },
+          object = { glyph = "", hl = "MiniIconsGrey" },
+          operator = { glyph = "", hl = "MiniIconsCyan" },
+          package = { glyph = "", hl = "MiniIconsPurple" },
+          property = { glyph = "", hl = "MiniIconsYellow" },
+          reference = { glyph = "", hl = "MiniIconsCyan" },
+          snippet = { glyph = "", hl = "MiniIconsGreen" },
+          string = { glyph = "", hl = "MiniIconsGreen" },
+          struct = { glyph = "", hl = "MiniIconsPurple" },
+          text = { glyph = "󰉿", hl = "MiniIconsGreen" },
+          typeparameter = { glyph = "", hl = "MiniIconsCyan" },
+          unit = { glyph = "", hl = "MiniIconsCyan" },
+          value = { glyph = "", hl = "MiniIconsBlue" },
+          variable = { glyph = "󰀫", hl = "MiniIconsCyan" },
+        },
+      }
+      MiniIcons.tweak_lsp_kind "prepend"
     end,
   },
 }

@@ -30,48 +30,48 @@ return {
   },
   {
     "folke/snacks.nvim",
-    init = function()
-      local fs = vim.api.nvim_create_augroup("FileSystem", { clear = true })
-      vim.api.nvim_create_autocmd("BufEnter", {
-        once = true,
-        group = fs,
-        callback = function()
-          local state = vim.uv.fs_stat(vim.fn.argv(0))
-          if state and state.type == "directory" then
-            local buf = vim.api.nvim_get_current_buf()
-            vim.api.nvim_buf_delete(buf, { force = true })
-            Snacks.picker.explorer {}
-          end
-        end,
-      })
-    end,
+    -- init = function()
+    --   local fs = vim.api.nvim_create_augroup("FileSystem", { clear = true })
+    --   vim.api.nvim_create_autocmd("BufEnter", {
+    --     once = true,
+    --     group = fs,
+    --     callback = function()
+    --       local state = vim.uv.fs_stat(vim.fn.argv(0))
+    --       if state and state.type == "directory" then
+    --         local buf = vim.api.nvim_get_current_buf()
+    --         vim.api.nvim_buf_delete(buf, { force = true })
+    --         Snacks.picker.explorer {}
+    --       end
+    --     end,
+    --   })
+    -- end,
     opts = function(_, opts)
       opts.picker = {
-        -- sources = {
-        --   explorer = {
-        --     -- replace_netrw = true,
-        --     layout = {
-        --       auto_hide = { "input" },
-        --       preset = "left",
-        --       layout = {
-        --         width = 0.3,
-        --         min_width = 30,
-        --       },
-        --     },
-        --     win = {
-        --       list = {
-        --         keys = {
-        --           ["."] = function(picker)
-        --             picker:action "tcd"
-        --             -- 然后关闭
-        --             picker:close()
-        --           end,
-        --           -- ["<C-n>"] = "close",
-        --         },
-        --       },
-        --     },
-        --   },
-        -- },
+        sources = {
+          explorer = {
+            -- replace_netrw = true,
+            layout = {
+              auto_hide = { "input" },
+              preset = "left",
+              layout = {
+                width = 0.3,
+                min_width = 30,
+              },
+            },
+            win = {
+              list = {
+                keys = {
+                  ["."] = function(picker)
+                    picker:action "tcd"
+                    -- 然后关闭
+                    picker:close()
+                  end,
+                  ["<C-n>"] = "close",
+                },
+              },
+            },
+          },
+        },
         prompt = " ",
         layout = {
           preset = "ivy",
@@ -142,7 +142,7 @@ return {
     -- Top Pickers & Explorer
     -- { "<leader><space>", function() Snacks.picker.smart() end, desc = "Snacks Smart Find Files" },
     -- {"<c-n>", function () Snacks.picker.explorer({cwd = require("utils").workspace()}, {desc = "General File Finder"}) end},
-    { "<leader>fn", function() Snacks.picker.notifications() end, desc = "Snacks Notification History" },
+  { "<leader>fn", function() Snacks.picker.notifications() end, desc = "Snacks Notification History" },
     -- find
     { "<leader>fa", function() Snacks.picker.files({ cwd = vim.fn.stdpath('config'), preset = "ivy" })end, desc = "Snacks Find Config" },
     { "<leader>fb", function() Snacks.picker.buffers({ preset = "ivy" }) end, desc = "Snacks Buffers" },
