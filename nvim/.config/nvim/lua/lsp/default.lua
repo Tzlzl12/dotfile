@@ -1,9 +1,6 @@
 local M = {}
 
-M.on_attach = function(client, bufnr)
-  -- require "keymaps.lsp"
-  -- require "keymaps.goto"
-end
+M.on_attach = function(client, bufnr) end
 
 -- disable semanticTokens
 M.on_init = function(client, _)

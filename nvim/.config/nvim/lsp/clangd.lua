@@ -20,7 +20,6 @@ local root_markers =
 local keys = {
   { "<leader>lh", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
 }
--- local root_dir = require("lspconfig").util.root_pattern("CMakeLists.txt", "build", ".clangd", ".git", ".nvim")
 local init_options = {
   usePlaceholders = true,
   completeUnimported = true,
@@ -28,11 +27,15 @@ local init_options = {
 }
 
 return {
-  -- capabilities = capabilities,
   filetypes = filetypes,
   cmd = cmd,
   keys = keys,
   support_single_file = true,
   init_options = init_options,
-  root_markers = root_markers,
+  root_dir = vim.fs.dirname(
+    vim.fs.find(root_markers, { upward = true, path = vim.api.nvim_buf_get_name(0) })[1]
+      or vim.fs.dirname(vim.api.nvim_buf_get_name(0)) -- support for single file
+  ),
+
+  -- root_markers = root_markers,
 }

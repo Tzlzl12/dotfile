@@ -15,7 +15,7 @@ vim.g.maplocalleader = " "
 
 -- set for project config
 vim.o.exrc = true
-vim.o.secure = true
+-- vim.o.secure = true
 -- local lazy_config = require "configs.lazy"
 
 -- load plugins
@@ -90,6 +90,7 @@ vim.schedule(function()
   end
 end)
 vim.schedule(function()
+  require "lsp"
   require "configs.autocmd"
   require "configs.commands"
   require "configs.folding"

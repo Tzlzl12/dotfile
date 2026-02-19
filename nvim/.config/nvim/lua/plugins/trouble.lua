@@ -1,7 +1,6 @@
 return {
   {
     "folke/trouble.nvim",
-    lazy = true,
     cmd = { "Trouble" },
     opts = {
       modes = {
@@ -20,8 +19,8 @@ return {
     keys = {
       { "<leader>qx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Trouble Diagnostics " },
       { "<leader>qX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Trouble Buffer Diagnostics" },
-      { "<leader>cs", "<cmd>Trouble symbols toggle focus=true<cr>", desc = "Trouble Symbols" },
-      { "<leader>cS", "<cmd>Trouble lsp toggle<cr>", desc = "Trouble LSP Tools" },
+      -- { "<leader>cs", "<cmd>Trouble symbols toggle focus=true<cr>", desc = "Trouble Symbols" },
+      -- { "<leader>cS", "<cmd>Trouble lsp toggle<cr>", desc = "Trouble LSP Tools" },
       { "<leader>qL", "<cmd>Trouble loclist toggle<cr>", desc = "Trouble Location List " },
       { "<leader>qQ", "<cmd>Trouble qflist toggle<cr>", desc = "Trouble Quickfix List " },
       {
@@ -54,9 +53,53 @@ return {
       },
     },
   },
+  {
+    "stevearc/aerial.nvim",
+    -- event = "LazyFile",
+    opts = function()
+      local kind_icon = {}
+      -- 只取 glyph/string，不带 hl/table
+      local function get_glyph(kind)
+        local ok, MiniIcons = pcall(require, "mini.icons")
+        if ok then
+          local glyph, _ = MiniIcons.get("lsp", kind) -- 返回 string, hl
+          return glyph or "?"
+        end
+        return "?" -- fallback
+      end
 
-  -- Finds and lists all of the TODO, HACK, BUG, etc comment
-  -- in your project and loads them into a browsable list.
+      -- 遍历所有 LSP SymbolKind
+      for _, kind in ipairs(vim.lsp.protocol.SymbolKind) do
+        kind_icon[kind] = get_glyph(kind)
+      end
+
+      local opts = {
+        attach_mode = "global",
+        backends = { "treesitter", "lsp", "markdown", "man" },
+        show_guides = true,
+        layout = {
+          resize_to_content = false,
+          win_opts = {
+            winhl = "Normal:NormalFloat,FloatBorder:NormalFloat,SignColumn:SignColumnSB",
+            signcolumn = "yes",
+            statuscolumn = " ",
+          },
+        },
+        icons = kind_icon,
+      -- stylua: ignore
+      guides = {
+        mid_item   = "├╴",
+        last_item  = "└╴",
+        nested_top = "│ ",
+        whitespace = "  ",
+      },
+      }
+      return opts
+    end,
+    keys = {
+      { "<leader>cs", "<cmd>AerialToggle<cr>", desc = "Lsp Aerial (Symbols)" },
+    },
+  },
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },

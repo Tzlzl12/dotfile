@@ -1,8 +1,16 @@
 local map = vim.keymap.set
+local lsp = vim.api.nvim_create_augroup("lsp", { clear = true })
 
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+  group = lsp,
   callback = function(event)
+    local default = require "lsp.default"
+    vim.lsp.config("*", {
+      capabilities = default.capabilities,
+      on_init = default.on_init,
+      on_attach = default.on_attach,
+    })
+
     -- dofile(vim.g.base46_cache .. "lsp")
     -- keymap
     local lsp_action = nil
@@ -27,6 +35,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
       -- 设置自动刷新 CodeLens
       vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
+        group = lsp,
         buffer = bufnr,
         callback = vim.lsp.codelens.refresh,
       })
@@ -34,6 +43,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     require "keymap.goto"
     map("n", "gh", function()
+      -- for clangd provide pretty hover
       if (client and client.name == "clangd") or (client and client.name == "ccls") then
         return require("pretty_hover").hover()
       else
@@ -100,6 +110,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.g.inlay_hints_visible = true
       vim.lsp.inlay_hint.enable(true)
     end
+    -- format
+    if client and client:supports_method "textDocument/formatting" then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = lsp,
+        buffer = event.buf,
+        callback = function()
+          vim.lsp.buf.format {
+            async = false,
+            filter = function(c)
+              return c.id == client.id
+            end,
+          }
+        end,
+      })
+    end
     -- folding
     if client and client:supports_method "textDocument/foldingRange" then
       local win = vim.api.nvim_get_current_win()
@@ -112,19 +137,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
     then
       local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        group = lsp,
         buffer = event.buf,
         group = highlight_augroup,
         callback = vim.lsp.buf.document_highlight,
       })
 
       vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        group = lsp,
         buffer = event.buf,
         group = highlight_augroup,
         callback = vim.lsp.buf.clear_references,
       })
 
       vim.api.nvim_create_autocmd("LspDetach", {
-        group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+        group = lsp,
         callback = function(event2)
           vim.lsp.buf.clear_references()
           vim.api.nvim_clear_autocmds { group = "kickstart-lsp-highlight", buffer = event2.buf }

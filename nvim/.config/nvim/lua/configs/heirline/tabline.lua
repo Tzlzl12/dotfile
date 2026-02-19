@@ -266,8 +266,7 @@ local TabLineOffset = {
     local win = vim.api.nvim_tabpage_list_wins(0)[1]
     local bufnr = vim.api.nvim_win_get_buf(win)
     self.winid = win
-    local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-    print("Current filetype: '" .. ft .. "'")
+    -- print("Current filetype: '" .. ft .. "'")
     if vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == "neo-tree" then
       self.title = "NeoTree"
       return true
