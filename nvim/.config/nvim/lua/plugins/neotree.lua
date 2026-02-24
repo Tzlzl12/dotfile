@@ -54,7 +54,7 @@ return {
 
       local git_available = vim.fn.executable "git" == 1
       local sources = {
-        { source = "filesystem", display_name = get_icon "FolderClosed" .. " File" },
+        { source = "filesystem", display_name = " File" },
         -- { source = "buffers", display_name = get_icon("DefaultFile", 1, true) .. "Bufs" },
         -- { source = "diagnostics", display_name = get_icon("Diagnostic", 1, true) .. "Diagnostic" },
       }

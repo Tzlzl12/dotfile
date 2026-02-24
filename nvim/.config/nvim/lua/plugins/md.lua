@@ -3,7 +3,7 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown", "quatro", "codecompanion" },
     opts = {
-      file_types = { "markdown", "quatro", "codecompanion" },
+      file_types = { "markdown", "quatro", "codecompanion", "opencode_output" },
       anti_conceal = { enabled = true },
       render_modes = { "n", "v", "c" },
       latex = {
