@@ -10,16 +10,6 @@
     "patch": "ask",
     "bash": "ask"
   },
-  "mcp": {
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp",
-      "headers": {
-        "CONTEXT7_API_KEY": "{env:CONTEXT7_API_KEY}"
-      },
-      "enabled": false
-    }
-  },
   "provider": {
     "cerebras": {
       "npm": "@ai-sdk/cerebras",
@@ -43,23 +33,20 @@
       },
       "models": {
         "qwen-coder": {
-          "name": "Qwen3-Coder-480B",
-          "id": "Qwen/Qwen3-Coder-480B-A35B-Instruct"
+          "name": "Kimi-2.5",
+          "id": "moonshotai/Kimi-K2.5"
         },
         "glm4.7": {
-          "name": "GLM-4.7",
-          "id": "ZhipuAI/GLM-4.7"
+          "name": "GLM-5",
+          "id": "ZhipuAI/GLM-5"
         },
         "glm4.7-flash": {
-          "name": "GLM-4.7-Flash",
-          "id": "ZhipuAI/GLM-4.7-Flash",
-          "options": {
-            "enable_thinking": false
-          }
+          "name": "MiniMax-M2.5",
+          "id": "MiniMax/MiniMax-M2.5"
         },
         "deepseek": {
-          "name": "DeepSeek",
-          "id": "deepseek-ai/DeepSeek-V3.2"
+          "name": "Qwen3.5",
+          "id": "Qwen/Qwen3.5-397B-A17B"
         }
       }
     }
