@@ -47,28 +47,15 @@ require("lazy").setup({
     },
   },
   -- 开启这个可以在 Lazy 界面看到更详细的加载信息
-  profiling = {
-    loader = true,
-    require = true,
-  },
+  -- profiling = {
+  --   loader = true,
+  --   require = true,
+  -- },
 })
 
 require "configs.options"
 --
 vim.schedule(function()
-  local rtp_plugin_path = vim.fs.joinpath(vim.opt.packpath:get()[1], "plugin")
-  local dir = vim.uv.fs_scandir(rtp_plugin_path)
-  if dir ~= nil then
-    while true do
-      local plugin, entry_type = vim.uv.fs_scandir_next(dir)
-      if plugin == nil or entry_type == "directory" then
-        break
-      else
-        vim.cmd(string.format("source %s/%s", rtp_plugin_path, plugin))
-        -- vim.notify(string.format("source %s/%s", rtp_plugin_path, plugin))
-      end
-    end
-  end
   -- local colorscheme_name = "" -- 默认主题
   local colorscheme_cache = vim.fs.joinpath(vim.fn.stdpath "data", "colorscheme")
 
@@ -85,8 +72,8 @@ vim.schedule(function()
     end
   end
 
-  if vim.g.nvim_colorscheme ~= "" then
-    require("utils.themes").colorscheme(vim.g.nvim_colorscheme, true)
+  if vim.g.nvim_colorscheme and vim.g.nvim_colorscheme ~= "" then
+    require("utils.themes").colorscheme(vim.g.nvim_colorscheme, vim.g.transparent_enable)
   end
 end)
 vim.schedule(function()

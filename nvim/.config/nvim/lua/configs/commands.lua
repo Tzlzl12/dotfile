@@ -13,3 +13,7 @@ end, {})
 vim.api.nvim_create_user_command("ProjectLspConfig", function()
   require("utils.lspconfig").apply_base_lsp_config()
 end, {})
+
+vim.api.nvim_create_user_command("TranspanetToggle", function()
+  require("utils.transparent").transparent_toggle()
+end, {})

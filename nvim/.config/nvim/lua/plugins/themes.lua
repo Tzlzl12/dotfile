@@ -10,9 +10,9 @@ return {
       },
       options = {
         -- cursorline = true, -- Use cursorline highlighting?
-        transparency = true, -- Use a transparent background?
+        -- transparency = vim.g.transparent_enable, -- Use a transparent background?
         terminal_colors = true, -- Use the theme's colors for Neovim's :terminal?
-        lualine_transparency = true, -- Center bar transparency?
+        -- lualine_transparency = true,             -- Center bar transparency?
         highlight_inactive_windows = true, -- When the window is out of focus, change the normal background?
       },
     },
@@ -23,7 +23,7 @@ return {
     name = "catppuccin",
     opts = {
       flavour = "macchiato",
-      transparent_background = true,
+      -- transparent_background = vim.g.transparent_enable,
       integrations = {
         flash = true,
         gitsigns = true,
@@ -46,7 +46,7 @@ return {
     "ellisonleao/gruvbox.nvim",
     lazy = true,
     opts = {
-      transparent_mode = true,
+      -- transparent_mode = vim.g.transparent_enable,
       italic = {
         strings = true,
         operators = false,
@@ -55,14 +55,20 @@ return {
       contrast = "hard",
     },
   },
-  { "EdenEast/nightfox.nvim", lazy = true, opts = {
-    optioms = { transparent = true },
-  } },
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = true,
+    opts = {
+      options = {
+        -- transparent = vim.g.transparent_enable
+      },
+    },
+  },
   {
     "folke/tokyonight.nvim",
     lazy = true,
     opts = {
-      transparent = true,
+      -- transparent = vim.g.transparent_enable,
       style = "moon",
       styles = {
         comments = { italic = true },
@@ -75,7 +81,7 @@ return {
     lazy = true,
     opts = {
       style = {
-        transparent = true, -- Bool value, toggles transparency.
+        -- transparent = vim.g.transparent_enable, -- Bool value, toggles transparency.
       },
       plugins = {
         ["blink.cmp"] = false,

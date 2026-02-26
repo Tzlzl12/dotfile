@@ -1,12 +1,13 @@
 vim.g.nvim_colorscheme = ""
 
+vim.g.transparent_enable = true
+
 vim.g.workspace = nil
 
 vim.g.use_copilot = false
 Ice.colorschemes = {
   ["onedarkpro"] = {
     -- color_helper = "onedarkpro.helpers",
-    transparent = true,
     items = {
       ["dark-onedark-wave"] = "vaporwave",
       ["dark-onedark"] = "onedark",
@@ -14,20 +15,17 @@ Ice.colorschemes = {
     },
   },
   ["catppuccin"] = {
-    transparent = true,
     items = {
       ["dark-catppuccin"] = "catppuccin",
     },
   },
   ["gruvbox"] = {
-    transparent = true,
     items = {
       ["dark-gruvbox"] = "gruvbox",
       ["light-gruvbox"] = "gruvbox",
     },
   },
   ["nightfox"] = {
-    transparent = true,
     items = {
       ["dark-nightfox-nord"] = "nordfox",
       ["dark-nightfox"] = "nightfox",
@@ -37,13 +35,11 @@ Ice.colorschemes = {
     },
   },
   ["tokyonight"] = {
-    transparent = true,
     items = {
       ["dark-tokyonight"] = "tokyonight",
     },
   },
   ["astrotheme"] = {
-    transparent = true,
     items = {
       ["dark-astro"] = "astrodark ",
       ["light--astro"] = "astrolight ",

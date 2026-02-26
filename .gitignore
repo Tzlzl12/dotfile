@@ -6,3 +6,5 @@
 
 # codex 生成文件（根据你列出的路径）
 **/.codex/
+
+**/lazy-lock.json
