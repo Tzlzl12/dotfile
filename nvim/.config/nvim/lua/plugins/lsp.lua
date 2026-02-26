@@ -5,16 +5,16 @@ return {
     -- config = function()
     opts = {
       formatters_by_ft = {
-        lua = { "stylua" },
+        -- lua = { "stylua" },
         -- python = { "ruff_format" },
-        cpp = { "clang-format" },
-        c = { "clang-format" },
-        cs = { "clang-format" },
+        -- cpp = { "clang-format" },
+        -- c = { "clang-format" },
+        -- cs = { "clang-format" },
         -- zig = { "zigfmt" },
-        sh = { "shfmt" },
+        -- sh = { "shfmt" },
         -- rust = { "rustfmt" },
-        toml = { "taplo" },
-        json = { "jq" },
+        -- toml = { "taplo" },
+        -- json = { "jq" },
         -- javescript = { "deno_fmt" },
         -- typescript = { "deno_fmt" },
       },

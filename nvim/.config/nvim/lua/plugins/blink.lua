@@ -19,7 +19,7 @@ return {
     event = "InsertEnter",
     -- enabled = false,
     -- version = "*",
-    build = "cargo build --release",
+    -- build = "cargo build --release",
     opts_extend = {
       "sources.completion.enabled_providers",
       "sources.compat",
@@ -175,7 +175,7 @@ return {
           "buffer",
         },
         providers = {
-          -- stylua: ignore 
+          -- stylua: ignore
           lsp = { score_offset = 10 },
           path = { min_keyword_length = 0, score_offset = 3 },
           -- snippets = { score_offset = 3 },

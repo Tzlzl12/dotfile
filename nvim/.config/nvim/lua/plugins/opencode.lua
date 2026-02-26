@@ -42,6 +42,7 @@ return {
       history_picker = keymap.history_picker,
     },
     ui = {
+      window_width = 0.3,
       completion = { file_sources = { preferred_cli_tool = "fd" } },
       input = { text = { wrap = true }, max_height = 0.3, min_height = 0.2 },
     },
@@ -49,13 +50,13 @@ return {
   config = function(_, opts)
     require("opencode").setup(opts)
   end,
-    -- stylua: ignore
+  -- stylua: ignore
   keys = {
-    -- toggle chat 
-    { prefix .. "t",  function() require("opencode").toggle()             end, desc = "AI Toggle" },
-    { prefix .. "s",  function() require("opencode").select_session()     end, desc = "AI Select Session" },
-    { prefix .. "d",  function() require("opencode").diff_open()          end, desc = "AI Open Diff" },
-    { prefix .. "x",  function() require("opencode").toggle_tool_output() end, desc = "AI Toggle Tool Output" },
+    -- toggle chat
+    { prefix .. "t", function() require("opencode").toggle() end,             desc = "AI Toggle" },
+    { prefix .. "s", function() require("opencode").select_session() end,     desc = "AI Select Session" },
+    { prefix .. "d", function() require("opencode").diff_open() end,          desc = "AI Open Diff" },
+    { prefix .. "x", function() require("opencode").toggle_tool_output() end, desc = "AI Toggle Tool Output" },
   },
   --
 }
