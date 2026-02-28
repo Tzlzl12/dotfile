@@ -1,4 +1,4 @@
-vim.g.nvim_colorscheme = ""
+vim.g.nvim_colorscheme = nil
 
 vim.g.transparent_enable = true
 
@@ -27,8 +27,8 @@ Ice.colorschemes = {
   },
   ["nightfox"] = {
     items = {
-      ["dark-nightfox-nord"] = "nordfox",
       ["dark-nightfox"] = "nightfox",
+      ["dark-nightfox-nord"] = "nordfox",
       ["dark-nightfox-carbon"] = "carbonfox",
       ["light-nightfox-day"] = "dayfox",
       ["light-nightfox-dawn"] = "dawnfox",
@@ -37,6 +37,10 @@ Ice.colorschemes = {
   ["tokyonight"] = {
     items = {
       ["dark-tokyonight"] = "tokyonight",
+      ["dark-tokyonight-storm"] = "tokyonight-storm",
+      -- ["dark-tokyonight-night"] = "tokyonight-night",
+      ["light-tokyonight-day"] = "tokyonight-day",
+      ["light-tokyonight-moon"] = "tokyonight-moon",
     },
   },
   ["astrotheme"] = {

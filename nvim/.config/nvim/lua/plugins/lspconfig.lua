@@ -35,13 +35,13 @@ return {
       return ret
     end,
     config = function()
-    --   local default = require "lsp.default"
-    --   vim.lsp.config("*", {
-    --     capabilities = default.capabilities,
-    --     on_init = default.on_init,
-    --     on_attach = default.on_attach,
-    --   })
-    --   require "lsp"
+      --   local default = require "lsp.default"
+      --   vim.lsp.config("*", {
+      --     capabilities = default.capabilities,
+      --     on_init = default.on_init,
+      --     on_attach = default.on_attach,
+      --   })
+      --   require "lsp"
     end,
   },
 }

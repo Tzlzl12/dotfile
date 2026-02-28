@@ -12,7 +12,8 @@ vim.opt.rtp:prepend(lazypath)
 vim.opt.termguicolors = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
+-- for base46
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
 -- set for project config
 vim.o.exrc = true
 -- vim.o.secure = true
@@ -56,26 +57,31 @@ require("lazy").setup({
 require "configs.options"
 --
 vim.schedule(function()
-  -- local colorscheme_name = "" -- 默认主题
-  local colorscheme_cache = vim.fs.joinpath(vim.fn.stdpath "data", "colorscheme")
-
-  -- 尝试从缓存文件读取主题设置
-  if vim.uv.fs_stat(colorscheme_cache) then
-    local f = io.open(colorscheme_cache, "r")
-    if f then
-      local cached = vim.trim(f:read "*a")
-      f:close()
-      -- 验证缓存的主题是否仍然有效
-      if require("utils.themes").get_colorscheme_config(cached) then
-        vim.g.nvim_colorscheme = cached
-      end
-    end
-  end
-
-  if vim.g.nvim_colorscheme and vim.g.nvim_colorscheme ~= "" then
-    require("utils.themes").colorscheme(vim.g.nvim_colorscheme, vim.g.transparent_enable)
-  end
+  vim.g.nvim_colorscheme = require("base46.utils").get_cached_theme()
+  require("base46").load_all_highlights(vim.g.nvim_colorscheme)
+  require("utils.themes").load_highlights()
 end)
+-- vim.schedule(function()
+--   -- local colorscheme_name = "" -- 默认主题
+--   local colorscheme_cache = vim.fs.joinpath(vim.fn.stdpath "data", "colorscheme")
+--
+--   -- 尝试从缓存文件读取主题设置
+--   if vim.uv.fs_stat(colorscheme_cache) then
+--     local f = io.open(colorscheme_cache, "r")
+--     if f then
+--       local cached = vim.trim(f:read "*a")
+--       f:close()
+--       -- 验证缓存的主题是否仍然有效
+--       if require("utils.themes").get_colorscheme_config(cached) then
+--         vim.g.nvim_colorscheme = cached
+--       end
+--     end
+--   end
+--
+--   if vim.g.nvim_colorscheme and vim.g.nvim_colorscheme ~= "" then
+--     require("utils.themes").colorscheme(vim.g.nvim_colorscheme, vim.g.transparent_enable)
+--   end
+-- end)
 vim.schedule(function()
   require "lsp"
   require "configs.autocmd"

@@ -3,8 +3,7 @@ local conditions = require "heirline.conditions"
 local utils = require "heirline.utils"
 
 local function setup_colors()
-  local color = require "onedarkpro..helpers"
-  local colors = color.get_preloaded_colors()
+  local colors = require("base46.utils").get_theme_tb "base_30"
   return {
     red = colors.red,
     orange = colors.orange,
@@ -16,8 +15,8 @@ local function setup_colors()
     white = colors.white,
     black = colors.black,
     gray = colors.gray,
-    bright_bg = colors.bg,
-    bright_fg = colors.fg,
+    bright_bg = colors.lightbg,
+    bright_fg = colors.light_grey,
     dark_red = utils.get_highlight("DiffDelete").bg,
 
     diag_error = utils.get_highlight("DiagnosticError").fg,

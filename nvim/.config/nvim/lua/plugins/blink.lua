@@ -100,7 +100,7 @@ return {
       },
       completion = {
         accept = {
-          auto_brackets = { enabled = false },
+          auto_brackets = { enabled = true },
         },
         list = {
           selection = {

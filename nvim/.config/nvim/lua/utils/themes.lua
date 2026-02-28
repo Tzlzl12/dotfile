@@ -1,31 +1,36 @@
 local M = {}
 
-local custom_highlight = {
-  BlinkCmpMenuSelection = { bg = "#a6e3a1", fg = "#fb4934" },
-  RainbowDelimiterRed = { fg = "#f7768e" },
-  RainbowDelimiterYellow = { fg = "#e0af68" },
-  RainbowDelimiterBlue = { fg = "#7aa2f7" },
-  RainbowDelimiterOrange = { fg = "#ff9e64" },
-  RainbowDelimiterGreen = { fg = "#9ece6a" },
-  RainbowDelimiterViolet = { fg = "#bb9af7" },
-  RainbowDelimiterCyan = { fg = "#7dc4e4" },
-}
+local function get_custom_highlight()
+  local colors = pcall(require, "base46.utils") and require("base46.utils").get_theme_tb "base_30" or {}
+  return {
+    BlinkCmpMenuSelection = { bg = "#a6e3a1", fg = "#fb4934" },
+    RainbowDelimiterRed = { fg = colors.red or "#f7768e" },
+    RainbowDelimiterYellow = { fg = colors.yellow or "#e0af68" },
+    RainbowDelimiterBlue = { fg = colors.blue or "#7aa2f7" },
+    RainbowDelimiterOrange = { fg = colors.orange or "#ff9e64" },
+    RainbowDelimiterGreen = { fg = colors.green or "#9ece6a" },
+    RainbowDelimiterViolet = { fg = colors.purple or "#bb9af7" },
+    RainbowDelimiterCyan = { fg = colors.cyan or "#7dc4e4" },
+    Pmenu = { fg = colors.blue or "#64B5F6", bg = "NONE" },
+    PmenuSel = { fg = colors.blue or "#61afef", bg = "NONE" },
+  }
+end
 
 local transperent_highlight = {
   Comment = { fg = "#8694a3" },
   NonText = { fg = "#7f8c98", bg = "NONE" },
   SignColumn = { bg = "NONE" },
   FoldColumn = { bg = "NONE" },
-  LineNr = { bg = "NONE" },
-  CursorLineNr = { bg = "NONE" },
+  -- LineNr = { bg = "NONE" },
+  -- CursorLineNr = { bg = "NONE" },
   WinSeparator = { bg = "NONE" },
 
   Normal = { bg = "NONE" },
   NormalFloat = { bg = "NONE" },
   NormalNC = { bg = "NONE" },
   WinBarNC = { bg = "NONE" },
-  Search = { bg = "NONE" },
-  IncSearch = { bg = "NONE" },
+  -- Search = { bg = "NONE" },
+  -- IncSearch = { bg = "NONE" },
 
   StatusLine = { bg = "NONE" },
   StatusLineNC = { bg = "NONE" },
@@ -47,9 +52,6 @@ local transperent_highlight = {
   RenderMarkdownCodeInline = { bg = "NONE" },
 
   SnacksPickerPickWin = { bg = "NONE" },
-
-  Pmenu = { fg = "#64B5F6", bg = "NONE" },
-  PmenuSel = { fg = "#61afef", bg = "NONE" },
 }
 
 local function set_highlight(hl)
@@ -57,6 +59,14 @@ local function set_highlight(hl)
     vim.api.nvim_set_hl(0, group, colors)
   end
 end
+
+M.load_highlights = function()
+  set_highlight(get_custom_highlight())
+  if vim.g.transparent_enable then
+    set_highlight(transperent_highlight)
+  end
+end
+
 function M.get_colorscheme_config(name)
   for family, scheme in pairs(Ice.colorschemes) do
     if scheme.items[name] then
@@ -69,21 +79,20 @@ end
 -- 主题切换核心函数
 M.colorscheme = function(colorscheme_name, transparent)
   local config = M.get_colorscheme_config(colorscheme_name)
-  if not config then
-    vim.notify(colorscheme_name .. " is not a valid color scheme!", vim.log.levels.ERROR)
-    return
+  local actual_name
+  if config then
+    actual_name = config.items[colorscheme_name]
+    -- vim.notify(colorscheme_name .. " is not a valid color scheme!", vim.log.levels.ERROR)
+    -- return
+  else
+    actual_name = colorscheme_name
   end
 
   -- vim.g.nvim_colorhelper = config.color_helper or ""
-  local actual_name = config.items[colorscheme_name]
   -- vim.g.nvim_colorscheme = actual_name
   vim.cmd("colorscheme " .. actual_name)
-  vim.o.background = colorscheme_name:match "^light-" and "light" or "dark"
+  -- vim.o.background = colorscheme_name:match "^light-" and "light" or "dark"
 
-  set_highlight(custom_highlight)
-  if vim.g.transparent_enable then
-    set_highlight(transperent_highlight)
-  end
   -- 触发自动命令
   vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter colorscheme" })
 end

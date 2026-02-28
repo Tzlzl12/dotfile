@@ -1,10 +1,10 @@
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
-    -- enabled = false,
+    enabled = false,
     specs = {
       { "nvim-lua/plenary.nvim", lazy = true },
-      { "MunifTanjim/nui.nvim", lazy = true },
+      { "MunifTanjim/nui.nvim",  lazy = true },
     },
     -- event = "VeryLazy",
     keys = {
@@ -83,7 +83,7 @@ return {
             provider = function(icon, node) -- setup a custom icon provider
               local text, hl
               local mini_icons = require "mini.icons"
-              if node.type == "file" then -- if it's a file, set the text/hl
+              if node.type == "file" then          -- if it's a file, set the text/hl
                 text, hl = mini_icons.get("file", node.name)
               elseif node.type == "directory" then -- get directory icons
                 text, hl = mini_icons.get("directory", node.name)
@@ -143,7 +143,7 @@ return {
             if node:has_children() then
               if not node:is_expanded() then -- if unexpanded, expand
                 state.commands.toggle_node(state)
-              else -- if expanded and has children, seleect the next child
+              else                           -- if expanded and has children, seleect the next child
                 if node.type == "file" then
                   state.commands.open(state)
                 else

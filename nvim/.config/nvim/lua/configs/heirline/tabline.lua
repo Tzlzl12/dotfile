@@ -74,10 +74,16 @@ local FileIcon = {
     local icons = require "mini.icons"
     local icon, hl, _ = icons.get("file", filename)
 
+    -- print(filename, icon, hl)
     -- 提取高亮组的渲染颜色 (对应之前的 icon_color)
     local color = vim.api.nvim_get_hl(0, { name = hl, link = false }).fg
-    local icon_color = string.format("#%06x", color)
 
+    local icon_color
+    if not color then
+      icon_color = require("base46.utils").get_theme_tb("base_16").base08
+    else
+      icon_color = string.format("#%06x", color)
+    end
     self.icon = icon
     self.icon_color = icon_color
     -- self.icon, self.icon_color,_ = MiniIcons.get()
