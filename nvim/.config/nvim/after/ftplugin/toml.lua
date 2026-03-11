@@ -1,1 +1,2 @@
-vim.lsp.enable "tombi"
+vim.lsp.enable "taplo"
+-- vim.lsp.enable "tombi"
