@@ -1,0 +1,12 @@
+[Unit]
+Description=Clean up stale GPG lock files
+DefaultDependencies=no
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'rm -f %h/.gnupg/public-keys.d/.#lk* %h/.gnupg/public-keys.d/pubring.db.lock'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
