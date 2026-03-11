@@ -75,7 +75,7 @@ map("n", "<leader>ti", function()
   require("utils.fanyi").fanyi_ch_to_en()
 end, { desc = "General Translate(ch to en)" })
 map("n", "rw", function()
-  require "utils.replace"()
+  require "utils.replace" ()
 end, { desc = "General Replace Word" })
 
 vim.schedule(function()

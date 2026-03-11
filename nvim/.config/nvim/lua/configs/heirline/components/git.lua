@@ -3,6 +3,7 @@ local utils = require "heirline.utils"
 
 local icons = require("configs.icons").icons
 local separators = require("configs.heirline.common").separators
+local has_first = false
 
 local git_color = "green"
 
@@ -64,7 +65,7 @@ M.gitInfo = {
     condition = function(self)
       return self.has_changes
     end,
-    provider = "(",
+    provider = " ",
   },
   {
     provider = function(self)
@@ -118,12 +119,6 @@ M.gitInfo = {
       local count = self.status_dict.changed or 0
       return count > 0 and "×" .. count
     end,
-  },
-  {
-    condition = function(self)
-      return self.has_changes
-    end,
-    provider = ")",
   },
 }
 return M

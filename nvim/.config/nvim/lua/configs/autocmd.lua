@@ -16,8 +16,8 @@ vim.api.nvim_create_autocmd("InsertEnter", {
     if vim.g.use_copilot == true then
       print "disable codeium"
       require("neocodeium.commands").disable()
-    else
-      require("copilot.command").disable()
+      -- else
+      --   require("copilot.command").disable()
     end
   end,
 })

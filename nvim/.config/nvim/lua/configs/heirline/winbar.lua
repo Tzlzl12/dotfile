@@ -31,15 +31,13 @@ local WinBar = {
   condition = function()
     return not conditions.buffer_matches { buftype = { "terminal" } }
   end,
+  Space,
+  components.Breadcrumb,
   Align,
-  -- require "configs.heirline.components.winbar_dap",
   components.BuildSystem,
-  -- components.Dap,
   components.AI,
   components.Overseer,
   components.CodeCompanion,
-  Space,
-  Space,
   Space,
 }
 

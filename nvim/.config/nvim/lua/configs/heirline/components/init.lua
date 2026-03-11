@@ -11,6 +11,8 @@ return {
   HelpFilename = require "configs.heirline.components.helpfile",
   TerminalName = require "configs.heirline.components.term",
   Spell = require "configs.heirline.components.spell",
+  -- winbar
+  Breadcrumb = require "configs.heirline.components.breadcrumb",
   Overseer = require "configs.heirline.components.overseer",
   BuildSystem = require "configs.heirline.components.winbar_buildsystem",
   Dap = require "configs.heirline.components.winbar_dap",

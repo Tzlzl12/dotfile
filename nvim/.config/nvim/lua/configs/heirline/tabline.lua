@@ -273,8 +273,8 @@ local TabLineOffset = {
     local bufnr = vim.api.nvim_win_get_buf(win)
     self.winid = win
     -- print("Current filetype: '" .. ft .. "'")
-    if vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == "neo-tree" then
-      self.title = "NeoTree"
+    if vim.api.nvim_get_option_value("filetype", { buf = bufnr }) == "snacks_layout_box" then
+      self.title = "Snacks_Lists"
       return true
     end
   end,

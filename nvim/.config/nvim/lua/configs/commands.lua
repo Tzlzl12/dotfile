@@ -17,3 +17,9 @@ end, {})
 vim.api.nvim_create_user_command("TranspanetToggle", function()
   require("utils.transparent").transparent_toggle()
 end, {})
+
+vim.api.nvim_create_user_command("LspConfig", function()
+  Snacks.picker.lsp_config {
+    sort = { fields = { "attached_buf", "attached" } },
+  }
+end, {})
