@@ -9,21 +9,20 @@ return {
     end,
   },
   {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    lazy = true,
+    opts = {
+      package_installed = "✓",
+      package_uninstalled = "✗",
+      package_pending = "⟳",
+    },
+  },
+
+  {
     "neovim/nvim-lspconfig",
     event = "BufReadPost",
-    dependencies = {
-      "mason.nvim",
-      {
-        "williamboman/mason.nvim",
-        cmd = "Mason",
-        lazy = true,
-        opts = {
-          package_installed = "✓",
-          package_uninstalled = "✗",
-          package_pending = "⟳",
-        },
-      },
-    },
+    enabled = false,
     opts = function()
       ---@class PluginLspOpts
       local ret = {
