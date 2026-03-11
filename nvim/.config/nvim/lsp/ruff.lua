@@ -9,5 +9,5 @@ return {
   -- -- or vim.fs.dirname(vim.api.nvim_buf_get_name(0)) -- support for single file
   -- ),
 
-  root_markers = { "pyproject.toml", "ruff.toml", ".ruff.toml", ".git" },
+  root_markers = root_markers,
 }

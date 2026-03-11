@@ -1,28 +1,8 @@
+local root_markers = { ".stylua.toml", "init.lua", ".git" }
+
 return {
   cmd = { "lua-language-server" },
   filetypes = { "lua" },
-  settings = {
-    -- Lua = {
-    --   workspace = {
-    --     checkThirdParty = false,
-    --   },
-    --   codeLens = {
-    --     enable = true,
-    --   },
-    --   completion = {
-    --     callSnippet = "Replace",
-    --   },
-    --   doc = {
-    --     privateName = { "^_" },
-    --   },
-    --   hint = {
-    --     enable = true,
-    --     setType = false,
-    --     paramType = true,
-    --     paramName = "Disable",
-    --     semicolon = "Disable",
-    --     arrayIndex = "Disable",
-    --   },
-    -- },
-  },
+  root_markers = root_markers,
+  settings = {},
 }

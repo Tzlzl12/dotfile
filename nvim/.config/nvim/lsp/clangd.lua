@@ -15,8 +15,16 @@ local cmd = {
   "--compile-commands-dir=./build",
 }
 local filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" }
-local root_markers =
-  { ".clangd", ".clang-tidy", ".clang-format", "compile_commands.json", "compile_flags.txt", "configure.ac", ".git" }
+local root_markers = {
+  ".clangd",
+  ".clang-tidy",
+  ".clang-format",
+  "compile_commands.json",
+  "compile_flags.txt",
+  "configure.ac",
+  ".git",
+  "CMakeLists.txt",
+}
 local keys = {
   { "<leader>lh", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch Source/Header (C/C++)" },
 }
