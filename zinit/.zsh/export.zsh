@@ -52,11 +52,12 @@ pkg_config_path=(
 # --- 4. 显卡与显示配置 (WSL2 专用) ---
 export GALLIUM_DRIVER=d3d12
 export LIBVA_DRIVER_NAME=d3d12
-export ZED_ALLOW_EMULATED_GPU=1
-export DISPLAY=:0
+# export ZED_ALLOW_EMULATED_GPU=1
+# export DISPLAY=:0
 
 # --- 5. 其他静态变量 ---
 export UV_DEFAULT_INDEX="https://pypi.tuna.tsinghua.edu.cn/simple"
+export RUST_LOG=info
 # export TRANS_DEFAULT_TARGET_LANGUAGE="zh"
 
 # 解决一些工具在 WSL 里的显示问题
