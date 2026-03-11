@@ -26,15 +26,16 @@ opt.fillchars = {
 }
 
 if vim.fn.has "wsl" == 1 then
+  local win32yank = "/usr/local/bin/win32yank.exe"
   vim.g.clipboard = {
     name = "win32yank-wsl",
     copy = {
-      ["+"] = { "win32yank.exe", "-i", "--crlf" },
-      ["*"] = { "win32yank.exe", "-i", "--crlf" },
+      ["+"] = { win32yank, "-i", "--crlf" },
+      ["*"] = { win32yank, "-i", "--crlf" },
     },
     paste = {
-      ["+"] = { "win32yank.exe", "-o", "--lf" },
-      ["*"] = { "win32yank.exe", "-o", "--lf" },
+      ["+"] = { win32yank, "-o", "--lf" },
+      ["*"] = { win32yank, "-o", "--lf" },
     },
     cache_enabled = 0,
   }
