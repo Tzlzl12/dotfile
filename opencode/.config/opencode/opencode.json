@@ -1,54 +1,72 @@
 {
-  "$schema": "https://opencode.ai/config.json",
-  "permission": {
-    "*": "ask",
-    "read": "allow",
-    "grep": "allow",
-    "glob": "allow",
-    "write": "ask",
-    "edit": "ask",
-    "patch": "ask",
-    "bash": "ask"
-  },
-  "provider": {
-    "cerebras": {
-      "npm": "@ai-sdk/cerebras",
-      "name": "Cerebras",
-      "options": {
-        "apiKey": "{env:CEREBRAS_API_KEY}"
-      },
-      "models": {
-        "gpt-oss-120b": {
-          "name": "gpt-oss-120b",
-          "id": "gpt-oss-120b"
-        }
-      }
-    },
-    "modelscope": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "ModelScope",
-      "options": {
-        "baseURL": "https://api-inference.modelscope.cn/v1",
-        "apiKey": "{env:MODELSCOPE_API_KEY}"
-      },
-      "models": {
-        "kimi-2.5": {
-          "name": "Kimi-2.5",
-          "id": "moonshotai/Kimi-K2.5"
-        },
-        "glm5": {
-          "name": "GLM-5",
-          "id": "ZhipuAI/GLM-5"
-        },
-        "minimax2.5": {
-          "name": "MiniMax-M2.5",
-          "id": "MiniMax/MiniMax-M2.5"
-        },
-        "qwen3.5": {
-          "name": "Qwen3.5",
-          "id": "Qwen/Qwen3.5-397B-A17B"
-        }
-      }
-    }
-  }
+	"$schema": "https://opencode.ai/config.json",
+	"permission": {
+		"*": "ask",
+		"read": "allow",
+		"grep": "allow",
+		"glob": "allow",
+		"write": "ask",
+		"edit": "ask",
+		"patch": "ask",
+		"bash": "ask"
+	},
+	"provider": {
+		"cerebras": {
+			"npm": "@ai-sdk/cerebras",
+			"name": "Cerebras",
+			"options": {
+				"apiKey": "{env:CEREBRAS_API_KEY}"
+			},
+			"models": {
+				"gpt-oss-120b": {
+					"name": "gpt-oss-120b",
+					"id": "gpt-oss-120b"
+				}
+			}
+		},
+		"modelscope": {
+			"npm": "@ai-sdk/openai-compatible",
+			"name": "ModelScope",
+			"options": {
+				"baseURL": "https://api-inference.modelscope.cn/v1",
+				"apiKey": "{env:MODELSCOPE_API_KEY}"
+			},
+			"models": {
+				"kimi-2.5": {
+					"name": "Kimi-2.5",
+					"id": "moonshotai/Kimi-K2.5",
+					"options": {
+						"thinking": {
+							"type": "enabled",
+							"budgetTokens": 1024
+						}
+					}
+				},
+				"glm5": {
+					"name": "GLM-5",
+					"id": "ZhipuAI/GLM-5",
+					"options": {
+						"thinking": {
+							"type": "enabled",
+							"budgetTokens": 1024
+						}
+					}
+				},
+				"minimax2.5": {
+					"name": "MiniMax-M2.5",
+					"id": "MiniMax/MiniMax-M2.5"
+				},
+				"qwen3.5": {
+					"name": "Qwen3.5",
+					"id": "Qwen/Qwen3.5-397B-A17B",
+					"options": {
+						"thinking": {
+							"type": "enabled",
+							"budgetTokens": 1024
+						}
+					}
+				}
+			}
+		}
+	}
 }
