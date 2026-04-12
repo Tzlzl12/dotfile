@@ -95,6 +95,7 @@ return {
 
         prompt = " ",
         layout = {
+          cycle = false,
           preset = "ivy",
         },
         layouts = {
@@ -111,7 +112,7 @@ return {
               { win = "input", height = 1, border = "bottom" },
               {
                 box = "horizontal",
-                { win = "list",    border = "none",     rich = true },
+                { win = "list", border = "none", rich = true },
                 { win = "preview", title = "{preview}", width = 0.5, border = "left" },
               },
             },

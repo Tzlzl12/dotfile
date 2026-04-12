@@ -32,7 +32,7 @@ local WinBar = {
     return not conditions.buffer_matches { buftype = { "terminal" } }
   end,
   Space,
-  components.Breadcrumb,
+  -- components.Breadcrumb,
   Align,
   components.BuildSystem,
   components.AI,

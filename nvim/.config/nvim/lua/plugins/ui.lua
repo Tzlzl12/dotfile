@@ -1,3 +1,4 @@
+-- stylua: ignore
 return {
   {
     "rebelot/heirline.nvim",
@@ -11,34 +12,28 @@ return {
     opts = {
       dashboard = {
         preset = {
-
           header = [[
 
-	           ▄▄         ▄ ▄▄▄▄▄▄▄   
-	         ▄▀███▄     ▄██ █████▀    
-	         ██▄▀███▄   ███           
-	         ███  ▀███▄ ███           
-	         ███    ▀██ ███           
-	         ███      ▀ ███           
-	         ▀██ █████▄▀█▀▄██████▄    
-	           ▀ ▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀   
+	           ▄▄         ▄ ▄▄▄▄▄▄▄
+	         ▄▀███▄     ▄██ █████▀
+	         ██▄▀███▄   ███
+	         ███  ▀███▄ ███
+	         ███    ▀██ ███
+	         ███      ▀ ███
+	         ▀██ █████▄▀█▀▄██████▄
+	           ▀ ▀▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀
 
-	            Powered By eovim     
-	                   ]],
-	         -- stylua: ignore
-	         ---@type snacks.dashboard.Item[]
-	         keys = {
-	           -- { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-	           -- { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-	           -- { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-	           -- { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-	           { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects(require('utils.projects'))",},
-	           { icon = " ", key = "d", desc = "Dirs", action = ":lua require('utils.dir').open_dir()",},
-	           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})"},
-	           { icon = " ", key = "s", desc = "Session", action = ":lua require('persistence').load({ last = true })" },
-	           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-	           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-	         },
+            Powered By eovim
+                   ]],
+          ---@type snacks.dashboard.Item[]
+          keys = {
+            { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects(require('utils.projects'))", },
+            { icon = " ", key = "d", desc = "Dirs", action = ":lua require('utils.dir').open_dir()", },
+            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+            { icon = " ", key = "s", desc = "Session", action = ":lua require('persistence').load({ last = true })" },
+            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+          },
         },
       },
     },
@@ -64,6 +59,18 @@ return {
     event = "vimEnter",
     config = function()
       require("mini.icons").setup {
+        extension = {
+          lua = { hl = "MiniIconsBlue" },
+          c = { glyph = '' },
+          ["c++"] = { glyph = '' },
+          cc = { glyph = '' },
+          cpp = { glyph = '' },
+          cppm = { glyph = "" },
+          h = { glyph = "" },
+          hpp = { glyph = "" },
+          -- cmake = { glyph = "" }
+
+        },
         lsp = {
           array = { glyph = "", hl = "MiniIconsOrange" },
           boolean = { glyph = "", hl = "MiniIconsOrange" },

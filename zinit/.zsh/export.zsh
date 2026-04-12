@@ -52,6 +52,7 @@ pkg_config_path=(
 # --- 4. 显卡与显示配置 (WSL2 专用) ---
 export GALLIUM_DRIVER=d3d12
 export LIBVA_DRIVER_NAME=d3d12
+# export WGPU_BACKEND=vulkan
 # export ZED_ALLOW_EMULATED_GPU=1
 # export DISPLAY=:0
 

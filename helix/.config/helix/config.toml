@@ -1,10 +1,9 @@
 theme = "tokyonight"
 
 [editor]
+cursorline = true
+continue-comments = false
 line-number = "relative"
-mouse = true
-auto-pairs = true
-true-color = true
 
 [editor.file-picker]
 hidden = false  # 显示隐藏文件

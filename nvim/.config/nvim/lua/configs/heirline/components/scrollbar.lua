@@ -5,7 +5,7 @@ M.Ruler = {
   -- %c = column number
   -- %P = percentage through file of displayed window
   { provider = "", hl = { fg = "gray", bg = "None" } },
-  { provider = "%7(%l/%3L%):%2c %P", hl = { bg = "gray" } },
+  { provider = "%l:%2c %P", hl = { bg = "gray" } },
 }
 
 M.ScrollBar = {

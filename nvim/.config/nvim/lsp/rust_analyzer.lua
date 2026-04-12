@@ -13,6 +13,7 @@ return {
       },
       procMacro = {
         enable = true,
+        attributes = { enable = true },
       },
       diagnostics = {
         enable = true,
